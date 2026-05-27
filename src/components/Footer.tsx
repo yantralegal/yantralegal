@@ -1,16 +1,9 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 export default function Footer() {
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const target = document.getElementById(id);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <footer className="footer-section">
       {/* Decorative Watermark Backgrounds */}
@@ -30,13 +23,13 @@ export default function Footer() {
             <p className="footer-cta-desc">
               We help individuals and businesses navigate complex Australian visa pathways and family law matters with confidence and strategic guidance.
             </p>
-            <a href="#contact" className="footer-cta-link" onClick={(e) => handleSmoothScroll(e, 'contact')}>
+            <Link href="/contact" className="footer-cta-link">
               <span>Let&apos;s work together</span>
               <svg className="footer-cta-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
-            </a>
+            </Link>
           </div>
 
           {/* Column 2: Quick Links */}
@@ -44,19 +37,19 @@ export default function Footer() {
             <h4 className="footer-col-title">Quick Links</h4>
             <ul className="footer-links-list">
               <li>
-                <a href="#about" onClick={(e) => handleSmoothScroll(e, 'about')}>About Us</a>
+                <Link href="/about">About Us</Link>
               </li>
               <li>
-                <a href="#services" onClick={(e) => handleSmoothScroll(e, 'services')}>Services</a>
+                <Link href="/immigration-law">Services</Link>
               </li>
               <li>
-                <a href="#testimonials" onClick={(e) => handleSmoothScroll(e, 'testimonials')}>Testimonials</a>
+                <Link href="/#testimonials">Testimonials</Link>
               </li>
               <li>
-                <a href="#faqs" onClick={(e) => handleSmoothScroll(e, 'faqs')}>FAQs</a>
+                <Link href="/faqs">FAQs</Link>
               </li>
               <li>
-                <a href="#contact" onClick={(e) => handleSmoothScroll(e, 'contact')}>Contact</a>
+                <Link href="/contact">Contact</Link>
               </li>
             </ul>
           </div>
@@ -66,16 +59,17 @@ export default function Footer() {
             <h4 className="footer-col-title">Navigation</h4>
             <ul className="footer-links-list">
               <li>
-                <a href="/privacy-policy" onClick={(e) => e.preventDefault()}>Privacy Policy</a>
+                <Link href="/privacy-policy" onClick={(e) => e.preventDefault()}>Privacy Policy</Link>
               </li>
               <li>
-                <a href="/terms" onClick={(e) => e.preventDefault()}>Terms & Conditions</a>
+                <Link href="/terms" onClick={(e) => e.preventDefault()}>Terms & Conditions</Link>
               </li>
               <li>
-                <a href="/disclaimer" onClick={(e) => e.preventDefault()}>Support & Disclaimer</a>
+                <Link href="/disclaimer" onClick={(e) => e.preventDefault()}>Support & Disclaimer</Link>
               </li>
             </ul>
           </div>
+
 
           {/* Column 4: Connect Me */}
           <div className="footer-col footer-col-connect">

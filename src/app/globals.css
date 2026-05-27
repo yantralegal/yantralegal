@@ -46,7 +46,7 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
   font-family: var(--font-sans);
   background: var(--clr-bg-primary);
   background-image: var(--clr-bg-gradient);
@@ -2644,4 +2644,719 @@ a {
 
 .delay-700 {
   transition-delay: 700ms !important;
+}
+
+/* ============================================================
+   Yantra Legal — Client Feedback CSS Additions
+   ============================================================ */
+
+/* Navbar dropdown & layout enhancements */
+.mega-menu-width {
+  width: 760px !important;
+}
+
+.services-mega-grid {
+  grid-template-columns: 1.8fr 1fr !important;
+}
+
+.dropdown-link-item-simple {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+  padding: 6px 12px;
+  border-left: 1px solid rgba(223, 173, 62, 0.15);
+  margin-bottom: 2px;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.dropdown-link-item-simple:hover {
+  color: var(--clr-yellow) !important;
+  border-left-color: var(--clr-yellow);
+  background: rgba(223, 173, 62, 0.05);
+  padding-left: 16px;
+}
+
+@media (max-width: 1024px) {
+  .desktop-nav, .desktop-cta {
+    display: none !important;
+  }
+  .mobile-toggle {
+    display: flex !important;
+  }
+}
+
+/* Client About Section Badges */
+.inline-img-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin: 0 8px;
+  position: relative;
+  top: -3px;
+  flex-shrink: 0;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.img-badge-portrait {
+  background: #1a3328;
+  font-size: 14px;
+  color: #c8aa5a;
+  font-style: italic;
+  font-family: Georgia, serif;
+  border: 1px solid rgba(200, 170, 90, 0.2);
+}
+
+.img-badge-office {
+  background: #2d4a3e;
+  font-size: 16px;
+  color: #f5f0e8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.img-badge-scale {
+  background: #c8aa5a;
+  font-size: 15px;
+  color: #1a3328;
+  border: 1px solid rgba(26, 51, 40, 0.15);
+}
+
+/* Section Pills */
+.sec-pill {
+  display: inline-block;
+  border: 1px solid rgba(223, 173, 62, 0.4);
+  color: var(--clr-yellow);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.sec-pill.dark {
+  border-color: rgba(26, 51, 40, 0.25);
+  color: #4a5c54;
+}
+
+/* ============================================================
+   Yantra Legal — Why Choose Us & Core Values (Clean Refined Layout)
+   ============================================================ */
+.wcu-section {
+  background: #092118;
+  padding: 100px 24px;
+  position: relative;
+}
+
+.wcu-split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 64px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  align-items: start;
+}
+
+@media (max-width: 991px) {
+  .wcu-split-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .wcu-left {
+    position: static !important;
+  }
+}
+
+.wcu-left {
+  position: sticky;
+  top: 120px;
+}
+
+.wcu-sticky-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 400;
+  color: #f5f0e8;
+  margin-bottom: 18px;
+  line-height: 1.25;
+}
+
+.wcu-sticky-heading span {
+  color: var(--clr-yellow);
+  font-style: italic;
+}
+
+.wcu-sticky-sub {
+  font-size: 0.95rem;
+  color: rgba(245, 240, 232, 0.65);
+  line-height: 1.7;
+}
+
+.wcu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.wcu-item {
+  display: flex;
+  gap: 28px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.wcu-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.wcu-item-num {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  color: var(--clr-yellow);
+  font-style: italic;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.wcu-item-content {
+  flex: 1;
+  text-align: left;
+}
+
+.wcu-item-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: #f5f0e8;
+  margin-bottom: 10px;
+}
+
+.wcu-item-body {
+  font-size: 0.9rem;
+  color: rgba(245, 240, 232, 0.65);
+  line-height: 1.75;
+}
+
+/* Core Values (Minimal Typography Layout) */
+.cv-section {
+  background: #FAF7F2;
+  padding: 110px 24px;
+  text-align: center;
+  color: #061912;
+}
+
+.cv-header {
+  max-width: 640px;
+  margin: 0 auto 72px auto;
+}
+
+.cv-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 400;
+  color: #061912;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.cv-heading span {
+  color: var(--clr-yellow);
+  font-style: italic;
+}
+
+.cv-sub {
+  font-size: 0.98rem;
+  color: #4a5c54;
+  line-height: 1.7;
+}
+
+.cv-row-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  text-align: left;
+}
+
+.cv-minimal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid rgba(6, 25, 18, 0.12);
+  padding-top: 24px;
+  transition: all 0.3s ease;
+}
+
+.cv-minimal-card:hover {
+  border-top-color: var(--clr-yellow);
+  transform: translateY(-2px);
+}
+
+.cv-num-accent {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--clr-yellow);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.cv-minimal-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: #061912;
+  margin: 0;
+}
+
+.cv-minimal-body {
+  font-size: 0.88rem;
+  color: #4a5c54;
+  line-height: 1.75;
+}
+
+/* ============================================================
+   Yantra Legal — Principal's Message CSS
+   ============================================================ */
+.yl-section {
+  background: var(--clr-bg-secondary);
+  padding: 80px 24px;
+  color: #f5f0e8;
+  border-radius: 24px;
+  margin: 40px auto;
+  max-width: var(--max-width);
+  border: 1px solid rgba(223, 173, 62, 0.15);
+}
+
+.yl-pill {
+  display: inline-block;
+  border: 1px solid rgba(223, 173, 62, 0.5);
+  color: var(--clr-yellow);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin-bottom: 36px;
+  font-weight: 600;
+}
+
+.yl-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+@media (max-width: 991px) {
+  .yl-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .yl-left {
+    position: static !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.yl-left {
+  position: sticky;
+  top: 110px;
+}
+
+.yl-portrait-wrap {
+  width: 260px;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #061912;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(223, 173, 62, 0.2);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.yl-portrait-initials {
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--clr-yellow);
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.yl-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f5f0e8;
+  margin: 0 0 4px;
+  font-family: var(--font-sans);
+}
+
+.yl-title {
+  font-size: 13px;
+  color: var(--clr-yellow);
+  margin: 0 0 16px;
+  font-family: var(--font-sans);
+  letter-spacing: 0.5px;
+}
+
+.yl-langs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.yl-lang-tag {
+  font-size: 11px;
+  font-family: var(--font-sans);
+  color: rgba(245, 240, 232, 0.7);
+  border: 1px solid rgba(245, 240, 232, 0.2);
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.yl-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--clr-yellow);
+  margin: 20px 0;
+  opacity: 0.5;
+}
+
+@media (max-width: 991px) {
+  .yl-divider {
+    margin: 20px auto;
+  }
+  .yl-langs {
+    justify-content: center;
+  }
+}
+
+.yl-right {
+  text-align: left;
+}
+
+.yl-heading {
+  font-size: 36px;
+  font-style: italic;
+  font-family: var(--font-serif);
+  color: var(--clr-yellow);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.yl-subheading {
+  font-size: 16px;
+  color: rgba(245, 240, 232, 0.5);
+  font-family: var(--font-sans);
+  margin: 0 0 32px;
+  letter-spacing: 0.3px;
+}
+
+.yl-greeting {
+  font-size: 18px;
+  color: #f5f0e8;
+  margin: 0 0 20px;
+  font-style: italic;
+  font-family: var(--font-serif);
+}
+
+.yl-body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: rgba(245, 240, 232, 0.8);
+  font-family: var(--font-sans);
+  margin: 0 0 20px;
+}
+
+.yl-highlight {
+  border-left: 2px solid var(--clr-yellow);
+  padding: 14px 20px;
+  margin: 28px 0;
+  background: rgba(223, 173, 62, 0.06);
+  border-radius: 0 8px 8px 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(245, 240, 232, 0.9);
+  font-family: var(--font-sans);
+  font-style: italic;
+}
+
+.yl-signature {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(223, 173, 62, 0.2);
+}
+
+.yl-sig-regards {
+  font-size: 14px;
+  color: rgba(245, 240, 232, 0.5);
+  font-family: var(--font-sans);
+  margin: 0 0 8px;
+}
+
+.yl-sig-name {
+  font-size: 22px;
+  font-style: italic;
+  font-family: var(--font-serif);
+  color: var(--clr-yellow);
+  margin: 0 0 4px;
+}
+
+.yl-sig-role {
+  font-size: 13px;
+  color: rgba(245, 240, 232, 0.5);
+  font-family: var(--font-sans);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.yl-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  background: var(--clr-yellow);
+  color: #1a3328;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+.yl-cta:hover {
+  background: var(--clr-yellow-hover);
+  transform: translateY(-2px);
+}
+
+.yl-cta-arrow {
+  width: 28px;
+  height: 28px;
+  background: #1a3328;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--clr-yellow);
+  transition: all 0.3s ease;
+}
+
+.yl-cta:hover .yl-cta-arrow {
+  transform: rotate(45deg);
+}
+
+/* ============================================================
+   Yantra Legal — Legal Detail Page Layout
+   ============================================================ */
+.legal-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 48px;
+  padding: 160px 24px 100px 24px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  align-items: start;
+}
+
+@media (max-width: 991px) {
+  .legal-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-top: 130px;
+  }
+}
+
+.legal-sidebar {
+  position: sticky;
+  top: 110px;
+  background: rgba(11, 43, 32, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.legal-sidebar-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--clr-yellow);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+
+.legal-sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.legal-sidebar-link {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  padding: 8px 12px;
+  border-left: 2px solid transparent;
+  transition: all 0.25s ease;
+  text-decoration: none !important;
+}
+
+.legal-sidebar-link:hover {
+  color: var(--clr-yellow) !important;
+  border-left-color: rgba(223, 173, 62, 0.3);
+  background: rgba(223, 173, 62, 0.03);
+  padding-left: 16px;
+}
+
+.legal-sidebar-link.active {
+  color: var(--clr-yellow) !important;
+  border-left-color: var(--clr-yellow);
+  background: rgba(223, 173, 62, 0.06);
+  font-weight: 600;
+  padding-left: 16px;
+}
+
+.legal-main {
+  text-align: left;
+}
+
+.legal-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.legal-breadcrumbs a {
+  transition: color 0.2s ease;
+}
+
+.legal-breadcrumbs a:hover {
+  color: var(--clr-yellow) !important;
+}
+
+.legal-breadcrumbs-separator {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.legal-content-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 32px;
+  line-height: 1.2;
+}
+
+.legal-section-card {
+  background: rgba(11, 43, 32, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 28px;
+}
+
+.legal-section-title {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 500;
+  color: var(--clr-yellow);
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 10px;
+}
+
+.legal-paragraph {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 16px;
+}
+
+.legal-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Bullet list overrides within legal text */
+.legal-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legal-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+}
+
+.legal-bullet-icon {
+  color: var(--clr-yellow);
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+/* Legal CTA Card */
+.legal-cta-card {
+  background: linear-gradient(135deg, rgba(11, 43, 32, 0.8) 0%, rgba(6, 25, 18, 0.9) 100%);
+  border: 1px solid rgba(223, 173, 62, 0.25);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  margin-top: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.legal-cta-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.legal-cta-desc {
+  font-size: 0.95rem;
+  color: var(--clr-text-muted);
+  max-width: 540px;
+  margin: 0;
+  line-height: 1.6;
 }
