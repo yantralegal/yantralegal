@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { blogPosts } from '../../data/blogContents';
 
 export default function BlogPage() {
   return (
@@ -23,19 +25,29 @@ export default function BlogPage() {
         </section>
 
         <section style={contentSectionStyle}>
-          <div className="container" style={{ maxWidth: '640px', textAlign: 'center' }}>
-            <div className="glass" style={cardStyle}>
-              <div style={iconStyle}>💡</div>
-              <h2 style={cardTitleStyle}>Articles Coming Soon</h2>
-              <p style={bodyStyle}>
-                We are currently preparing detailed legal articles, updates on visa policy changes, and guides to navigating divorce. Check back shortly for insights from Principal Solicitor Krishna Giri.
-              </p>
-              <div style={{ marginTop: '24px' }}>
-                <a href="/contact" className="btn btn-yellow" style={{ display: 'inline-flex' }}>
-                  <span>Subscribe for Updates</span>
-                  <span className="btn-arrow-circle">↗</span>
-                </a>
-              </div>
+          <div className="container">
+            <div style={blogGridStyle}>
+              {blogPosts.map((post) => (
+                <div key={post.slug} className="glass" style={blogCardStyle}>
+                  <div style={cardMetaStyle}>
+                    <span style={cardCategoryStyle}>{post.category}</span>
+                    <span style={cardDateStyle}>{post.date}</span>
+                  </div>
+                  <h2 style={postTitleStyle}>
+                    <Link href={`/blog/${post.slug}`} style={postTitleLinkStyle}>
+                      {post.title}
+                    </Link>
+                  </h2>
+                  <p style={postExcerptStyle}>{post.excerpt}</p>
+                  <div style={{ marginTop: 'auto', paddingTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                    <span style={readTimeStyle}>{post.readTime}</span>
+                    <Link href={`/blog/${post.slug}`} style={readMoreBtnStyle} className="btn-hover-gold">
+                      <span style={{ fontSize: '0.88rem', fontWeight: 600, color: '#ffffff' }}>Read Article</span>
+                      <span className="btn-arrow-circle" style={{ width: '28px', height: '28px', fontSize: '0.9rem', marginLeft: '8px' }}>↗</span>
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -45,6 +57,79 @@ export default function BlogPage() {
     </div>
   );
 }
+
+const blogGridStyle: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+  gap: '32px',
+};
+
+const blogCardStyle: React.CSSProperties = {
+  padding: '36px 30px',
+  borderRadius: '16px',
+  background: 'rgba(11, 43, 32, 0.25)',
+  border: '1px solid rgba(255, 255, 255, 0.06)',
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+  transition: 'transform 0.3s ease',
+};
+
+const cardMetaStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '20px',
+};
+
+const cardCategoryStyle: React.CSSProperties = {
+  fontSize: '0.75rem',
+  fontWeight: '700',
+  textTransform: 'uppercase',
+  letterSpacing: '0.5px',
+  color: 'var(--clr-yellow)',
+  backgroundColor: 'rgba(223, 173, 62, 0.1)',
+  padding: '4px 10px',
+  borderRadius: '4px',
+};
+
+const cardDateStyle: React.CSSProperties = {
+  fontSize: '0.8rem',
+  color: 'var(--clr-text-muted)',
+};
+
+const postTitleStyle: React.CSSProperties = {
+  fontFamily: 'var(--font-serif)',
+  fontSize: '1.45rem',
+  color: '#ffffff',
+  margin: '0 0 12px 0',
+  lineHeight: 1.3,
+};
+
+const postTitleLinkStyle: React.CSSProperties = {
+  color: '#ffffff',
+  textDecoration: 'none',
+  transition: 'color 0.2s ease',
+};
+
+const postExcerptStyle: React.CSSProperties = {
+  fontSize: '0.92rem',
+  lineHeight: 1.6,
+  color: 'var(--clr-text-muted)',
+  margin: '0 0 24px 0',
+};
+
+const readTimeStyle: React.CSSProperties = {
+  fontSize: '0.8rem',
+  color: 'var(--clr-text-muted)',
+};
+
+const readMoreBtnStyle: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  textDecoration: 'none',
+};
+
 
 const layoutStyle: React.CSSProperties = {
   minHeight: '100vh',

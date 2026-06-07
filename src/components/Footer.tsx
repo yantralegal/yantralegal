@@ -17,11 +17,11 @@ export default function Footer() {
           {/* Column 1: CTA */}
           <div className="footer-col footer-col-cta">
             <h3 className="footer-cta-title">
-              Do You Need<br />
-              <span className="text-gradient-gold">Legal Support?</span>
+              Legal Expertise Backed by<br />
+              <span className="text-gradient-gold">Lived Experience</span>
             </h3>
             <p className="footer-cta-desc">
-              We help individuals and businesses navigate complex Australian visa pathways and family law matters with confidence and strategic guidance.
+              At Yantra Legal, we are committed to providing practical legal solutions, personalised representation, and clear advice that empowers our clients to make informed decisions. We believe every client deserves to be heard, understood, and supported throughout their legal journey.
             </p>
             <Link href="/contact" className="footer-cta-link">
               <span>Let&apos;s work together</span>
@@ -59,13 +59,10 @@ export default function Footer() {
             <h4 className="footer-col-title">Navigation</h4>
             <ul className="footer-links-list">
               <li>
-                <Link href="/privacy-policy" onClick={(e) => e.preventDefault()}>Privacy Policy</Link>
+                <Link href="/privacy-policy">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="/terms" onClick={(e) => e.preventDefault()}>Terms & Conditions</Link>
-              </li>
-              <li>
-                <Link href="/disclaimer" onClick={(e) => e.preventDefault()}>Support & Disclaimer</Link>
+                <Link href="/terms-of-use">Terms of Use</Link>
               </li>
             </ul>
           </div>

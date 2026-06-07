@@ -12,23 +12,23 @@ interface FAQItem {
 const homeFaqData: FAQItem[] = [
   {
     id: 1,
-    question: 'Do I need a lawyer to apply for a visa?',
-    answer: 'You are not legally required to use a lawyer or registered migration agent to lodge a visa application. However, migration law is complex and the consequences of errors can be serious — including refusal, cancellation, or bars on future applications. Professional advice at the outset is nearly always more cost-effective than remedial assistance later.'
+    question: 'How much does an initial consultation cost?',
+    answer: 'Please contact us to confirm the current consultation fee. We offer fixed-fee initial consultations so you know the cost upfront, and we provide a clear written estimate before commencing any substantive work.'
   },
   {
     id: 2,
-    question: 'What is the difference between a registered migration agent and a solicitor?',
-    answer: 'A registered migration agent (RMA) is registered with the Migration Agents Registration Authority (MARA) and is authorised to give migration advice. A solicitor is admitted to the legal profession and may also hold MARA registration. Krishna Giri is both — admitted as a solicitor in NSW and registered with MARA. This dual qualification means he can provide both migration advice and broader legal advice (including about review and court proceedings) in a single engagement.'
+    question: 'Do I need a lawyer for a visa application?',
+    answer: 'Not every visa application requires legal representation. However, obtaining legal advice can help you understand eligibility requirements, avoid common mistakes, and address complex issues that may affect your application. Many clients who come to us have already lodged an application on their own and received a refusal — professional advice at the outset is nearly always more cost-effective than remedial assistance later.'
   },
   {
     id: 3,
-    question: 'How long does it take to get a divorce in Australia?',
-    answer: 'Once a divorce application has been filed, the court generally takes around four months to process the matter and make the divorce order. The divorce takes effect one month and one day after the order is made, at which point both parties are free to remarry.'
+    question: 'Can you help if my visa has been refused?',
+    answer: 'Yes. We can assess the reasons for the refusal, explain available review options, and advise whether you may be eligible to seek review before the Administrative Review Tribunal (ART) or pursue alternative pathways. Time limits apply — contact us as soon as you receive the decision.'
   },
   {
     id: 4,
-    question: 'What does an initial consultation cost?',
-    answer: 'We offer fixed-fee initial consultations. Contact us to confirm the current fee. There are no hidden charges — we will provide a clear written estimate of costs before commencing any substantive work.'
+    question: 'How long do I have to appeal a visa refusal?',
+    answer: 'Time limits vary depending on the type of decision and your individual circumstances. Some review applications must be lodged within as little as 21 days. It is important to seek legal advice as soon as possible after receiving a decision.'
   }
 ];
 

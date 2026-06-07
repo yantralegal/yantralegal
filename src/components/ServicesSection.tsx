@@ -16,32 +16,48 @@ interface ServiceItem {
   description: string;
   image: string;
   isActive: boolean;
+  url: string;
   subtypes: SubtypeItem[];
 }
 
 const services: ServiceItem[] = [
   {
     id: 'immigration',
-    badge: 'IMMIGRATION',
-    title: 'Immigration Law',
-    description: 'Comprehensive advice and representation for diverse visa pathways, residency applications, sponsor obligations, and AAT or federal court appeals.',
+    badge: 'MIGRATION LAW',
+    title: 'Migration Law',
+    description: "Australia's migration system can be complex and constantly changing. Whether you are applying for a visa, seeking Australian citizenship, responding to a visa refusal, or pursuing a review application, we provide practical legal advice and strategic representation.",
     image: '/visa_appeals.png',
     isActive: true, // Dark card with emerald and gold theme
+    url: '/immigration-law',
     subtypes: [
-      { title: 'Visa Pathways', desc: 'Work, skilled, partner & family visas' },
-      { title: 'AAT & Appeal Reviews', desc: 'Visa cancellations & tribunal reviews' }
+      { title: 'Visa Pathways', desc: 'Partner, Skilled, Employer Sponsored, Parent & Family, Visitor, Bridging Visas' },
+      { title: 'Citizenship', desc: 'Eligibility, documentation & applications' }
+    ]
+  },
+  {
+    id: 'appeals',
+    badge: 'APPEALS & REVIEWS',
+    title: 'Appeals and Reviews',
+    description: 'A visa refusal or cancellation does not always mean the end of your migration pathway. We assess your options and advise on the most appropriate legal response.',
+    image: '/lawyer_portrait_clean.png', // Fallback or standard image path
+    isActive: false, // Light card
+    url: '/appeals-and-reviews',
+    subtypes: [
+      { title: 'ART Appeals', desc: 'Merits review of visa decisions' },
+      { title: 'Judicial Review', desc: 'Court appeals for jurisdictional error' }
     ]
   },
   {
     id: 'family-law',
     badge: 'FAMILY LAW',
-    title: 'Family Law & Divorce',
-    description: 'Compassionate guidance and resolution for divorce proceedings, property division, parenting and custody arrangements, and family disputes.',
+    title: 'Family Law - DIVORCE',
+    description: 'The breakdown of a marriage can be one of the most challenging experiences a person faces. We provide clear legal guidance and practical support to help clients navigate the divorce process with confidence.',
     image: '/family_migration.png',
-    isActive: false, // Light card with white theme
+    isActive: false, // Light card
+    url: '/divorce',
     subtypes: [
-      { title: 'Divorce Matters', desc: 'Dissolution & legal filings representation' },
-      { title: 'Property & Custody', desc: 'Asset division & parenting arrangements' }
+      { title: 'Divorce in Australia', desc: 'Sole and joint applications under no-fault system' },
+      { title: 'Divorce in Nepal', desc: 'Cross-border Nepali family law & dual qualification' }
     ]
   },
 ];
@@ -55,23 +71,23 @@ export default function ServicesSection() {
       <div className="container">
         {/* Section Header */}
         <div className="services-header-stacked reveal-on-scroll reveal-fade-up">
-          <span className="services-badge">My Services</span>
+          <span className="services-badge">Our Services</span>
           <h2 className="services-title">
-            Trusted <span className="text-gradient-gold">Expertise</span>
+            Legal Services <span className="text-gradient-gold">Tailored to Your Situation</span>
           </h2>
           <p className="services-desc">
-            I deliver dedicated legal services with a results-driven focus on strategic Australian immigration pathways and family law or divorce matters.
+            We deliver dedicated legal representation with a results-driven focus on migration law, family law, and complex appeal reviews.
           </p>
         </div>
 
-        {/* Two-Column Grid of Services */}
+        {/* Three-Column Grid of Services */}
         <div className="services-grid-container">
-          <div className="services-grid-2col">
+          <div className="services-grid-3col">
             {services.map((service, index) => (
               <FollowerPointerCard
                 key={service.id}
                 title={service.title}
-                className={`service-card ${service.isActive ? 'active' : ''} reveal-on-scroll reveal-fade-up ${index === 0 ? 'delay-100' : 'delay-300'}`}
+                className={`service-card ${service.isActive ? 'active' : ''} reveal-on-scroll reveal-fade-up ${index === 0 ? 'delay-100' : index === 1 ? 'delay-200' : 'delay-300'}`}
               >
                 {/* Card Top Category Badge */}
                 <div className="card-badge-container">
@@ -114,7 +130,7 @@ export default function ServicesSection() {
                 {/* Card Bottom Meta (Description & Action Button) */}
                 <div className="card-footer">
                   <p className="card-desc">{service.description}</p>
-                  <a href="#contact" className="card-arrow-btn" aria-label={`Read more about ${service.title}`}>
+                  <a href={service.url} className="card-arrow-btn" aria-label={`Read more about ${service.title}`}>
                     <span>↗</span>
                   </a>
                 </div>
@@ -126,5 +142,6 @@ export default function ServicesSection() {
     </section>
   );
 }
+
 
 

@@ -22,17 +22,24 @@ export default function HeroSection() {
           <div style={leftColStyle}>
             <HeroHeading />
 
+            <div style={subheadingStyle} className="reveal-on-scroll reveal-fade-up delay-50">
+              Migration Law &nbsp;•&nbsp; Family Law &nbsp;•&nbsp; ART &nbsp;•&nbsp; Judicial Review
+            </div>
+
             <p style={descStyle} className="reveal-on-scroll reveal-fade-up delay-100">
-              Yantra Legal is a premier Australian law firm delivering strategic visa pathways, corporate migration, and immigration appeal representation. We combine deep migration expertise with a relentless defense of your residency rights.
+              Whether you are planning your future in Australia, seeking to reunite with your family, responding to a visa refusal, or navigating a family law dispute, Yantra Legal provides practical legal advice and personalised representation tailored to your circumstances.
+            </p>
+            <p style={descStyle} className="reveal-on-scroll reveal-fade-up delay-150">
+              We understand that legal matters often involve important life decisions. Our role is to guide you through the process with clarity, confidence, and genuine care.
             </p>
 
             <div style={btnGroupStyle} className="reveal-on-scroll reveal-fade-up delay-200">
-              <a href="#contact" className="btn btn-yellow">
-                <span>Book A Consultation</span>
+              <a href="/contact" className="btn btn-yellow">
+                <span>Book a Confidential Consultation</span>
                 <span className="btn-arrow-circle">↗</span>
               </a>
               <a href="#services" className="btn btn-outline">
-                <span>Explore Pathways</span>
+                <span>View Services</span>
               </a>
             </div>
 
@@ -43,7 +50,7 @@ export default function HeroSection() {
                 ))}
               </div>
               <span style={ratingTextStyle}>
-                <strong>4.9/5 Rating</strong> on Google & Facebook (2k+ Reviews)
+                <strong>Highly Trusted Legal Representation</strong> in Sydney & Across Australia
               </span>
             </div>
           </div>
@@ -53,11 +60,26 @@ export default function HeroSection() {
             <div className="glass reveal-on-scroll reveal-scale-up delay-100" style={portraitFrameStyle}>
               <LawyerPortrait />
               <div style={portraitBadgeStyle}>
-                <span style={portraitBadgeTitleStyle}>Principal Solicitor</span>
-                <span style={portraitBadgeSubtitleStyle}>Sydney, Australia</span>
+                <span style={portraitBadgeTitleStyle}>Krishna Giri</span>
+                <span style={portraitBadgeSubtitleStyle}>Australian Solicitor & Overseas Lawyer (Nepal)</span>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Homepage Trust Banner */}
+      <div style={trustBannerContainerStyle} className="reveal-on-scroll reveal-fade-up delay-350">
+        <div className="container" style={trustBannerInnerStyle}>
+          <span style={trustBannerItemStyle}>Australian Solicitor</span>
+          <span style={trustBannerSeparatorStyle}>|</span>
+          <span style={trustBannerItemStyle}>Overseas Qualified Lawyer - Nepal</span>
+          <span style={trustBannerSeparatorStyle}>|</span>
+          <span style={trustBannerItemStyle}>Multilingual Support</span>
+          <span style={trustBannerSeparatorStyle}>|</span>
+          <span style={trustBannerItemStyle}>Migration & Family Law Focus</span>
+          <span style={trustBannerSeparatorStyle}>|</span>
+          <span style={trustBannerItemStyle}>Serving Clients Across Australia</span>
         </div>
       </div>
     </section>
@@ -182,3 +204,45 @@ const portraitBadgeSubtitleStyle: React.CSSProperties = {
   color: 'var(--clr-yellow)',
   fontWeight: 500,
 };
+
+const subheadingStyle: React.CSSProperties = {
+  fontSize: 'clamp(0.85rem, 1.2vw, 1.1rem)',
+  fontWeight: 600,
+  letterSpacing: '1px',
+  textTransform: 'uppercase',
+  color: 'var(--clr-yellow)',
+  opacity: 0.9,
+  margin: '8px 0',
+};
+
+const trustBannerContainerStyle: React.CSSProperties = {
+  width: '100%',
+  background: 'rgba(4, 18, 13, 0.7)',
+  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+  padding: '16px 0',
+  marginTop: '40px',
+  zIndex: 10,
+};
+
+const trustBannerInnerStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  gap: '12px 24px',
+  textAlign: 'center',
+};
+
+const trustBannerItemStyle: React.CSSProperties = {
+  fontSize: '0.85rem',
+  fontWeight: 500,
+  color: '#cbdad3',
+  letterSpacing: '0.5px',
+};
+
+const trustBannerSeparatorStyle: React.CSSProperties = {
+  color: 'rgba(223, 173, 62, 0.4)',
+  fontWeight: 'bold',
+};
+

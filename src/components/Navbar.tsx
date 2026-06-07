@@ -3,10 +3,93 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { legalPages } from '../data/legalContents';
+import { blogPosts } from '../data/blogContents';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<{ title: string; url: string; category: string; snippet: string }[]>([]);
+
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    const query = searchQuery.toLowerCase();
+    const results: typeof searchResults = [];
+
+    // Search legal pages
+    legalPages.forEach((page) => {
+      const titleMatch = page.title.toLowerCase().includes(query);
+      let snippet = '';
+      let textMatch = false;
+
+      for (const sec of page.sections) {
+        if (sec.heading.toLowerCase().includes(query)) {
+          textMatch = true;
+          snippet = `${sec.heading} - ${sec.paragraphs[0]?.substring(0, 100) || ''}...`;
+          break;
+        }
+        for (const p of sec.paragraphs) {
+          if (p.toLowerCase().includes(query)) {
+            textMatch = true;
+            const idx = p.toLowerCase().indexOf(query);
+            const start = Math.max(0, idx - 40);
+            const end = Math.min(p.length, idx + query.length + 60);
+            snippet = `...${p.substring(start, end)}...`;
+            break;
+          }
+        }
+        if (textMatch) break;
+      }
+
+      if (titleMatch || textMatch) {
+        if (!snippet && page.sections.length > 0) {
+          snippet = page.sections[0].paragraphs[0]?.substring(0, 100) + '...';
+        }
+        results.push({
+          title: page.title,
+          url: page.url,
+          category: page.url.startsWith('/immigration-law') ? 'Immigration Law' : page.url.startsWith('/divorce') ? 'Family Law' : 'Appeals & Reviews',
+          snippet: snippet || 'Legal Service Page',
+        });
+      }
+    });
+
+    // Search blog posts
+    blogPosts.forEach((post) => {
+      const titleMatch = post.title.toLowerCase().includes(query);
+      const excerptMatch = post.excerpt.toLowerCase().includes(query);
+      let contentMatch = false;
+      let snippet = '';
+
+      for (const p of post.content) {
+        if (p.toLowerCase().includes(query)) {
+          contentMatch = true;
+          const idx = p.toLowerCase().indexOf(query);
+          const start = Math.max(0, idx - 40);
+          const end = Math.min(p.length, idx + query.length + 60);
+          snippet = `...${p.substring(start, end)}...`;
+          break;
+        }
+      }
+
+      if (titleMatch || excerptMatch || contentMatch) {
+        results.push({
+          title: post.title,
+          url: `/blog/${post.slug}`,
+          category: 'Blog Post',
+          snippet: snippet || post.excerpt,
+        });
+      }
+    });
+
+    setSearchResults(results.slice(0, 8));
+  }, [searchQuery]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -218,25 +301,47 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        {/* CTA Button */}
-        <div className="desktop-cta" style={desktopCtaStyle}>
+        {/* CTA Button & Search */}
+        <div className="desktop-cta" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button 
+            onClick={() => setSearchOpen(true)}
+            style={searchButtonStyle}
+            aria-label="Search website"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
           <Link href="/contact" className="btn btn-yellow">
-            <span>Book A Consultation</span>
+            <span>Book a Confidential Consultation</span>
             <span className="btn-arrow-circle">↗</span>
           </Link>
         </div>
 
-        {/* Mobile Hamburger Icon */}
-        <button
-          className="mobile-toggle"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          style={mobileToggleStyle}
-          aria-label="Toggle menu"
-        >
-          <div style={hamburgerLine(mobileMenuOpen)} />
-          <div style={hamburgerLineMiddle(mobileMenuOpen)} />
-          <div style={hamburgerLine(mobileMenuOpen, true)} />
-        </button>
+        {/* Mobile Search Button & Toggle */}
+        <div className="mobile-only-flex" style={{ display: 'none', alignItems: 'center', gap: '12px' }}>
+          <button 
+            onClick={() => setSearchOpen(true)}
+            style={mobileSearchButtonStyle}
+            aria-label="Search website"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          <button
+            className="mobile-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={mobileToggleStyle}
+            aria-label="Toggle menu"
+          >
+            <div style={hamburgerLine(mobileMenuOpen)} />
+            <div style={hamburgerLineMiddle(mobileMenuOpen)} />
+            <div style={hamburgerLine(mobileMenuOpen, true)} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation Drawer */}
@@ -285,11 +390,78 @@ export default function Navbar() {
             </li>
             <li style={{ marginTop: '20px' }}>
               <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="btn btn-yellow" style={{ display: 'flex', justifyContent: 'center' }}>
-                <span>Book A Consultation</span>
+                <span>Book a Confidential Consultation</span>
                 <span className="btn-arrow-circle">↗</span>
               </Link>
             </li>
           </ul>
+        </div>
+      )}
+      {/* Search Modal */}
+      {searchOpen && (
+        <div style={searchOverlayStyle} onClick={() => setSearchOpen(false)}>
+          <div style={searchContentStyle} onClick={(e) => e.stopPropagation()}>
+            <div style={searchHeaderStyle}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ color: 'var(--clr-yellow)', marginRight: '12px' }}>
+                <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <input
+                type="text"
+                placeholder="Search subclass (e.g. 491), service, keyword..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={searchInputStyle}
+                autoFocus
+              />
+              <button onClick={() => setSearchOpen(false)} style={closeSearchButtonStyle}>
+                ✕
+              </button>
+            </div>
+            
+            <div style={searchResultsContainerStyle}>
+              {searchResults.length > 0 ? (
+                <div style={resultsListStyle}>
+                  {searchResults.map((result, idx) => (
+                    <Link
+                      key={idx}
+                      href={result.url}
+                      onClick={() => {
+                        setSearchOpen(false);
+                        setMobileMenuOpen(false);
+                        setSearchQuery('');
+                      }}
+                      style={resultItemStyle}
+                      className="search-result-item"
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={resultTitleStyle}>{result.title}</span>
+                        <span style={resultCategoryStyle}>{result.category}</span>
+                      </div>
+                      <p style={resultSnippetStyle}>{result.snippet}</p>
+                    </Link>
+                  ))}
+                </div>
+              ) : searchQuery.trim() ? (
+                <div style={noResultsStyle}>No results found for "{searchQuery}"</div>
+              ) : (
+                <div style={searchHelpStyle}>
+                  <h4 style={{ margin: '0 0 12px 0', fontSize: '0.9rem', color: '#cbdad3', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Popular Searches</h4>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    {['Partner Visa', '491', 'Divorce', 'ART Appeals', 'Sponsorship'].map((term) => (
+                      <button
+                        key={term}
+                        onClick={() => setSearchQuery(term)}
+                        style={tagButtonStyle}
+                      >
+                        {term}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </header>
@@ -422,4 +594,148 @@ const mobileNavLinkStyle: React.CSSProperties = {
   display: 'block',
   padding: '8px 0',
   borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+};
+
+const searchButtonStyle: React.CSSProperties = {
+  background: 'transparent',
+  border: '1px solid rgba(255, 255, 255, 0.15)',
+  borderRadius: '50%',
+  width: '40px',
+  height: '40px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: '#ffffff',
+  cursor: 'pointer',
+  transition: 'all 0.3s ease',
+};
+
+const mobileSearchButtonStyle: React.CSSProperties = {
+  background: 'transparent',
+  border: 'none',
+  color: '#ffffff',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '6px',
+};
+
+const searchOverlayStyle: React.CSSProperties = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(4, 18, 13, 0.9)',
+  backdropFilter: 'blur(10px)',
+  zIndex: 2000,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'start',
+  padding: '120px 24px 24px 24px',
+};
+
+const searchContentStyle: React.CSSProperties = {
+  width: '100%',
+  maxWidth: '720px',
+  backgroundColor: '#0a291e',
+  border: '1px solid rgba(223, 173, 62, 0.25)',
+  borderRadius: '16px',
+  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
+  overflow: 'hidden',
+};
+
+const searchHeaderStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  padding: '20px 24px',
+  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+};
+
+const searchInputStyle: React.CSSProperties = {
+  flex: 1,
+  background: 'transparent',
+  border: 'none',
+  color: '#ffffff',
+  fontSize: '1.1rem',
+  outline: 'none',
+};
+
+const closeSearchButtonStyle: React.CSSProperties = {
+  background: 'transparent',
+  border: 'none',
+  color: 'rgba(255, 255, 255, 0.5)',
+  fontSize: '1.2rem',
+  cursor: 'pointer',
+  padding: '4px',
+  marginLeft: '12px',
+};
+
+const searchResultsContainerStyle: React.CSSProperties = {
+  maxHeight: '400px',
+  overflowY: 'auto',
+  padding: '16px 24px 24px 24px',
+};
+
+const resultsListStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+};
+
+const resultItemStyle: React.CSSProperties = {
+  display: 'block',
+  padding: '16px',
+  borderRadius: '10px',
+  backgroundColor: 'rgba(255, 255, 255, 0.02)',
+  border: '1px solid transparent',
+  textDecoration: 'none',
+  transition: 'all 0.2s ease',
+};
+
+const resultTitleStyle: React.CSSProperties = {
+  fontWeight: '600',
+  color: '#ffffff',
+  fontSize: '1rem',
+};
+
+const resultCategoryStyle: React.CSSProperties = {
+  fontSize: '0.75rem',
+  fontWeight: '600',
+  textTransform: 'uppercase',
+  letterSpacing: '0.5px',
+  color: 'var(--clr-yellow)',
+  backgroundColor: 'rgba(223, 173, 62, 0.1)',
+  padding: '4px 8px',
+  borderRadius: '4px',
+};
+
+const resultSnippetStyle: React.CSSProperties = {
+  fontSize: '0.85rem',
+  color: 'rgba(255, 255, 255, 0.6)',
+  margin: '8px 0 0 0',
+  lineHeight: '1.5',
+};
+
+const noResultsStyle: React.CSSProperties = {
+  padding: '24px 0',
+  textAlign: 'center',
+  color: 'rgba(255, 255, 255, 0.5)',
+  fontSize: '0.95rem',
+};
+
+const searchHelpStyle: React.CSSProperties = {
+  padding: '12px 0',
+};
+
+const tagButtonStyle: React.CSSProperties = {
+  background: 'rgba(255, 255, 255, 0.04)',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  borderRadius: '20px',
+  padding: '6px 16px',
+  color: '#cbdad3',
+  fontSize: '0.85rem',
+  cursor: 'pointer',
+  transition: 'all 0.2s ease',
 };

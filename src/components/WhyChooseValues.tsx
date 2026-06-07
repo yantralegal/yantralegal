@@ -6,33 +6,38 @@ export default function WhyChooseValues() {
   const reasons = [
     {
       num: '01',
-      title: 'Dual Qualification : Australia & Nepal',
-      desc: 'Krishna is a qualified lawyer in both Australia and Nepal — one of very few practitioners in Sydney who can advise across both jurisdictions, particularly for clients with cross-border legal matters.',
+      title: 'Direct Access to Your Solicitor',
+      desc: 'When you engage Yantra Legal, you work directly with the solicitor responsible for your matter. We believe effective communication and accessibility are essential to achieving positive outcomes.',
     },
     {
       num: '02',
-      title: 'Multilingual Practice',
-      desc: 'We communicate in English, Nepali, Hindi, German, and Spanish. Legal advice is only useful when fully understood — and we make sure it is, in the language you are most comfortable in.',
+      title: 'Legal Expertise Backed by Lived Experience',
+      desc: 'Our practice is built on both professional legal knowledge and personal experience navigating different countries, cultures, and legal systems. This allows us to better understand the challenges many of our clients face.',
     },
     {
       num: '03',
-      title: 'Lived Cross-Cultural Experience',
-      desc: 'Krishna has personally navigated building a life in a new country. That experience shapes how we approach every migration matter — with genuine understanding, not just technical knowledge.',
+      title: 'Personalised Legal Service',
+      desc: 'No two matters are the same. We take the time to understand your circumstances and provide advice tailored to your individual situation and objectives.',
     },
     {
       num: '04',
-      title: 'Personal Attention, Every Time',
-      desc: 'Yantra Legal is not a large firm where your matter is passed between staff. Krishna handles every case personally — consistent advice, clear communication, and full accountability.',
+      title: 'Experience in Complex Matters',
+      desc: 'We act in visa refusals, cancellations, tribunal matters and complex legal issues requiring careful analysis, strong legal representation, and effective advocacy.',
     },
     {
       num: '05',
-      title: 'Fixed-Fee Transparency',
-      desc: 'We operate on a fixed-fee basis for most matters. You know the full cost before we begin — no hidden charges, no billing surprises at the end of your matter.',
+      title: 'Focused Areas of Practice',
+      desc: 'By concentrating on migration law and family law, we provide informed, practical, and strategic legal advice in these complex areas.',
     },
     {
       num: '06',
-      title: 'Specialist Scope',
-      desc: 'We focus on migration law and divorce. A focused practice means deeper expertise — your matter is handled by someone who works in this area every single day.',
+      title: 'Transparent and Honest Communication',
+      desc: 'We believe clients should understand their options, risks, and costs before making important legal decisions. Our advice is practical, realistic, and easy to understand.',
+    },
+    {
+      num: '07',
+      title: 'Supporting Diverse Communities',
+      desc: 'We proudly assist clients from a wide range of cultural and linguistic backgrounds and understand the unique challenges that can arise when legal issues intersect with migration, family, and cultural considerations.',
     },
   ];
 
@@ -68,11 +73,11 @@ export default function WhyChooseValues() {
           <div className="wcu-left">
             <span className="sec-pill">Why Yantra Legal</span>
             <h2 className="wcu-sticky-heading">
-              Six Reasons to <br />
+              Seven Reasons to <br />
               <span>Choose Us</span>
             </h2>
             <p className="wcu-sticky-sub">
-              Yantra Legal brings a combination of qualifications, lived experience, and personal commitment that few practices in Sydney can match.
+              Yantra Legal brings a unique combination of dual qualifications, lived cross-cultural experience, and personal commitment to every matter.
             </p>
           </div>
 

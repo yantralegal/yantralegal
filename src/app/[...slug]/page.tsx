@@ -179,10 +179,10 @@ export default async function LegalDetailPage({ params }: { params: Params }) {
             <div className="legal-cta-card">
               <h3 className="legal-cta-title">Ready to Take the Next Step?</h3>
               <p className="legal-cta-desc">
-                Book a consultation with Krishna Giri today. We offer fixed-fee initial consultations so you can discuss your {page.title.toLowerCase()} matter without any financial uncertainty.
+                Book a confidential consultation with Krishna Giri today. We offer fixed-fee initial consultations so you can discuss your {page.title.toLowerCase()} matter with complete privacy and certainty.
               </p>
               <Link href="/contact" className="btn btn-yellow">
-                <span>Book A Consultation</span>
+                <span>Book a Confidential Consultation</span>
                 <span className="btn-arrow-circle">↗</span>
               </Link>
             </div>
