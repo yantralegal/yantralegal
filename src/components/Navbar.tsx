@@ -303,32 +303,32 @@ export default function Navbar() {
 
         {/* CTA Button & Search */}
         <div className="desktop-cta" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <button 
+          <button
             onClick={() => setSearchOpen(true)}
             style={searchButtonStyle}
             aria-label="Search website"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
           <Link href="/contact" className="btn btn-yellow">
-            <span>Book a Confidential Consultation</span>
+            <span>Book a Consultation</span>
             <span className="btn-arrow-circle">↗</span>
           </Link>
         </div>
 
         {/* Mobile Search Button & Toggle */}
         <div className="mobile-only-flex" style={{ display: 'none', alignItems: 'center', gap: '12px' }}>
-          <button 
+          <button
             onClick={() => setSearchOpen(true)}
             style={mobileSearchButtonStyle}
             aria-label="Search website"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
           <button
@@ -403,8 +403,8 @@ export default function Navbar() {
           <div style={searchContentStyle} onClick={(e) => e.stopPropagation()}>
             <div style={searchHeaderStyle}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ color: 'var(--clr-yellow)', marginRight: '12px' }}>
-                <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <input
                 type="text"
@@ -418,7 +418,7 @@ export default function Navbar() {
                 ✕
               </button>
             </div>
-            
+
             <div style={searchResultsContainerStyle}>
               {searchResults.length > 0 ? (
                 <div style={resultsListStyle}>
@@ -551,8 +551,8 @@ const hamburgerLine = (open: boolean, bottom = false): React.CSSProperties => ({
   height: '2px',
   backgroundColor: '#ffffff',
   transition: 'all 0.3s ease',
-  transform: open 
-    ? (bottom ? 'rotate(-45deg) translate(5px, -5px)' : 'rotate(45deg) translate(5px, 5px)') 
+  transform: open
+    ? (bottom ? 'rotate(-45deg) translate(5px, -5px)' : 'rotate(45deg) translate(5px, 5px)')
     : 'none',
 });
 
