@@ -71,33 +71,35 @@ export default function FAQSection() {
               {homeFaqData.map((item, index) => {
                 const isOpen = openId === item.id;
                 return (
-                  <div 
-                    key={item.id} 
-                    className={`faq-card ${isOpen ? 'active' : ''} reveal-on-scroll reveal-fade-up delay-${index * 100}`}
-                    onClick={() => toggleFAQ(item.id)}
-                  >
-                    <div className="faq-card-header">
-                      <h3 className="faq-card-question">{item.question}</h3>
-                      <button 
-                        className="faq-chevron-btn" 
-                        aria-expanded={isOpen}
-                        aria-label={isOpen ? "Collapse question" : "Expand question"}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleFAQ(item.id);
-                        }}
-                      >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" className="faq-chevron-svg">
-                          <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="faq-answer-wrapper" style={{ maxHeight: isOpen ? '240px' : '0px' }}>
-                      <p className="faq-card-answer">{item.answer}</p>
+                  <div key={item.id} className={`reveal-on-scroll reveal-fade-up delay-${index * 100}`}>
+                    <div 
+                      className={`faq-card ${isOpen ? 'active' : ''}`}
+                      onClick={() => toggleFAQ(item.id)}
+                    >
+                      <div className="faq-card-header">
+                        <h3 className="faq-card-question">{item.question}</h3>
+                        <button 
+                          className="faq-chevron-btn" 
+                          aria-expanded={isOpen}
+                          aria-label={isOpen ? "Collapse question" : "Expand question"}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleFAQ(item.id);
+                          }}
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" className="faq-chevron-svg">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                          </svg>
+                        </button>
+                      </div>
+                      <div className="faq-answer-wrapper" style={{ maxHeight: isOpen ? '500px' : '0px' }}>
+                        <p className="faq-card-answer">{item.answer}</p>
+                      </div>
                     </div>
                   </div>
                 );
               })}
+
             </div>
           </div>
         </div>

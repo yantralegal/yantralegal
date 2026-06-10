@@ -20,10 +20,14 @@ export default function HeroSection() {
         <div className="hero-grid-2col">
           {/* Left Column: Heading, Description, Buttons, Social Proof */}
           <div style={leftColStyle}>
+            <div style={topTagStyle} className="reveal-on-scroll reveal-fade-up">
+              AUSTRALIAN SOLICITOR | MIGRATION & FAMILY LAW
+            </div>
+            
             <HeroHeading />
 
             <div style={subheadingStyle} className="reveal-on-scroll reveal-fade-up delay-50">
-              Migration Law &nbsp;•&nbsp; Family Law &nbsp;•&nbsp; ART &nbsp;•&nbsp; Judicial Review
+              Migration Law &nbsp;|&nbsp; Family Law &nbsp;|&nbsp; ART &nbsp;|&nbsp; Judicial Review
             </div>
 
             <p style={descStyle} className="reveal-on-scroll reveal-fade-up delay-100">
@@ -35,7 +39,7 @@ export default function HeroSection() {
 
             <div style={btnGroupStyle} className="reveal-on-scroll reveal-fade-up delay-200">
               <a href="/contact" className="btn btn-yellow">
-                <span>Book a Confidential Consultation</span>
+                <span>Book a Legal Consultation</span>
                 <span className="btn-arrow-circle">↗</span>
               </a>
               <a href="#services" className="btn btn-outline">
@@ -68,18 +72,21 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Homepage Trust Banner */}
-      <div style={trustBannerContainerStyle} className="reveal-on-scroll reveal-fade-up delay-350">
-        <div className="container" style={trustBannerInnerStyle}>
-          <span style={trustBannerItemStyle}>Australian Solicitor</span>
-          <span style={trustBannerSeparatorStyle}>|</span>
-          <span style={trustBannerItemStyle}>Overseas Qualified Lawyer - Nepal</span>
-          <span style={trustBannerSeparatorStyle}>|</span>
-          <span style={trustBannerItemStyle}>Multilingual Support</span>
-          <span style={trustBannerSeparatorStyle}>|</span>
-          <span style={trustBannerItemStyle}>Migration & Family Law Focus</span>
-          <span style={trustBannerSeparatorStyle}>|</span>
-          <span style={trustBannerItemStyle}>Serving Clients Across Australia</span>
+      {/* Homepage Trust Banner - Sliding Right to Left Marquee */}
+      <div className="hero-marquee-container reveal-on-scroll reveal-fade-up delay-350">
+        <div className="hero-marquee-track">
+          {Array(3).fill([
+            "Australian Solicitor",
+            "Migration & Family Law Focus",
+            "Lived Experience",
+            "Serving Clients Across Australia",
+            "Multilingual Support (English, Nepali, Hindi)"
+          ]).flat().map((item, idx) => (
+            <div key={idx} className="hero-marquee-item">
+              <span>{item}</span>
+              <span style={{ color: 'rgba(223, 173, 62, 0.5)', fontWeight: 'bold' }}>•</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -215,34 +222,14 @@ const subheadingStyle: React.CSSProperties = {
   margin: '8px 0',
 };
 
-const trustBannerContainerStyle: React.CSSProperties = {
-  width: '100%',
-  background: 'rgba(4, 18, 13, 0.7)',
-  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-  padding: '16px 0',
-  marginTop: '40px',
-  zIndex: 10,
-};
-
-const trustBannerInnerStyle: React.CSSProperties = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  gap: '12px 24px',
-  textAlign: 'center',
-};
-
-const trustBannerItemStyle: React.CSSProperties = {
+const topTagStyle: React.CSSProperties = {
   fontSize: '0.85rem',
-  fontWeight: 500,
-  color: '#cbdad3',
-  letterSpacing: '0.5px',
+  fontWeight: 600,
+  letterSpacing: '1.5px',
+  textTransform: 'uppercase',
+  color: 'var(--clr-yellow)',
+  opacity: 0.95,
+  marginBottom: '-8px',
 };
 
-const trustBannerSeparatorStyle: React.CSSProperties = {
-  color: 'rgba(223, 173, 62, 0.4)',
-  fontWeight: 'bold',
-};
 

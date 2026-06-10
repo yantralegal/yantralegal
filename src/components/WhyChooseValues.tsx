@@ -7,39 +7,30 @@ export default function WhyChooseValues() {
     {
       num: '01',
       title: 'Direct Access to Your Solicitor',
-      desc: 'When you engage Yantra Legal, you work directly with the solicitor responsible for your matter. We believe effective communication and accessibility are essential to achieving positive outcomes.',
+      desc: 'You communicate directly with the lawyer handling your matter.',
     },
     {
       num: '02',
       title: 'Legal Expertise Backed by Lived Experience',
-      desc: 'Our practice is built on both professional legal knowledge and personal experience navigating different countries, cultures, and legal systems. This allows us to better understand the challenges many of our clients face.',
+      desc: 'We understand migration journeys because we have experienced them personally.',
     },
     {
       num: '03',
-      title: 'Personalised Legal Service',
-      desc: 'No two matters are the same. We take the time to understand your circumstances and provide advice tailored to your individual situation and objectives.',
+      title: 'Clear and Practical Advice',
+      desc: 'No unnecessary legal jargon. Just clear explanations and realistic options.',
     },
     {
       num: '04',
-      title: 'Experience in Complex Matters',
-      desc: 'We act in visa refusals, cancellations, tribunal matters and complex legal issues requiring careful analysis, strong legal representation, and effective advocacy.',
+      title: 'Focused Legal Practice',
+      desc: 'We specialise in migration law and divorce matters – not general legal services.',
     },
     {
       num: '05',
-      title: 'Focused Areas of Practice',
-      desc: 'By concentrating on migration law and family law, we provide informed, practical, and strategic legal advice in these complex areas.',
-    },
-    {
-      num: '06',
-      title: 'Transparent and Honest Communication',
-      desc: 'We believe clients should understand their options, risks, and costs before making important legal decisions. Our advice is practical, realistic, and easy to understand.',
-    },
-    {
-      num: '07',
-      title: 'Supporting Diverse Communities',
-      desc: 'We proudly assist clients from a wide range of cultural and linguistic backgrounds and understand the unique challenges that can arise when legal issues intersect with migration, family, and cultural considerations.',
+      title: 'Transparent Communication',
+      desc: 'We keep you informed at every stage of your matter.',
     },
   ];
+
 
   const values = [
     {
@@ -73,8 +64,8 @@ export default function WhyChooseValues() {
           <div className="wcu-left">
             <span className="sec-pill">Why Yantra Legal</span>
             <h2 className="wcu-sticky-heading">
-              Seven Reasons to <br />
-              <span>Choose Us</span>
+              Why Clients <br />
+              <span>Choose Yantra Legal</span>
             </h2>
             <p className="wcu-sticky-sub">
               Yantra Legal brings a unique combination of dual qualifications, lived cross-cultural experience, and personal commitment to every matter.
@@ -105,9 +96,10 @@ export default function WhyChooseValues() {
               Our Core <span>Values</span>
             </h2>
             <p className="cv-sub">
-              Everything we do at Yantra Legal is guided by four principles — drawn from the firm&apos;s name and the way we believe legal practice should work.
+              Everything we do at Yantra Legal is guided by four core principles – drawn from our name and a belief that legal practice should be built on clarity, integrity, and balance.
             </p>
           </div>
+
 
           <div className="cv-row-grid">
             {values.map((val) => (

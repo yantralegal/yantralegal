@@ -67,18 +67,15 @@ export default function ContactSection() {
             <span className="contact-badge">CONTACT</span>
             <h2 className="contact-title">
               Let&apos;s Discuss Your <br />
-              <span className="text-gradient-gold">Legal Matter</span>
+              <span className="text-gradient-gold">Matter</span>
             </h2>
           </div>
-          <div className="contact-header-right reveal-on-scroll reveal-fade-up delay-100">
-            <a href="#contact-form-anchor" className="contact-quote-btn" onClick={handleScrollToForm}>
-              <span>Get a free quote</span>
-              <span className="contact-quote-icon-wrapper">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" className="contact-arrow-svg">
-                  <line x1="7" y1="7" x2="17" y2="17"></line>
-                  <polyline points="17 7 17 17 7 17"></polyline>
-                </svg>
-              </span>
+          <div className="contact-header-right reveal-on-scroll reveal-fade-up delay-100" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <a href="#contact-form-anchor" className="btn btn-yellow" onClick={handleScrollToForm}>
+              <span>Book a Consultation</span>
+            </a>
+            <a href="https://wa.me/61292345678" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+              <span>Speak with a Solicitor</span>
             </a>
           </div>
         </div>
@@ -91,16 +88,20 @@ export default function ContactSection() {
           {/* Details (Left) */}
           <div className="contact-info-col reveal-on-scroll reveal-fade-up">
             <h3 className="contact-info-title">Contact</h3>
-            <p className="contact-info-desc">
-              Have a legal question or need professional guidance? Contact me to schedule a consultation and receive clear, confidential legal advice tailored to your needs.
+            <p className="contact-info-desc" style={{ marginBottom: '16px' }}>
+              Whether you need assistance with a migration application, visa refusal, family law dispute, or legal advice regarding your rights and options, we are here to help.
             </p>
-            <div className="contact-whatsapp-box">
+            <p className="contact-info-desc">
+              Contact Yantra Legal today to arrange a confidential consultation and discuss how we can assist you.
+            </p>
+            <div className="contact-whatsapp-box" style={{ marginTop: '24px' }}>
               <span className="whatsapp-label">Chat On Whatsapp</span>
               <a href="https://wa.me/61292345678" target="_blank" rel="noopener noreferrer" className="whatsapp-link">
                 +61 2 0000 0000
               </a>
             </div>
           </div>
+
 
           {/* Form Card (Right) */}
           <div className="contact-form-container reveal-on-scroll reveal-fade-up delay-200">

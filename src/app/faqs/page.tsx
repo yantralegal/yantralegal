@@ -172,11 +172,12 @@ export default function FAQsPage() {
                         </div>
                         <div
                           style={{
-                            maxHeight: isOpen ? '300px' : '0px',
+                            maxHeight: isOpen ? '500px' : '0px',
                             overflow: 'hidden',
                             transition: 'max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
                           }}
                         >
+
                           <p className="faq-card-answer" style={answerStyle}>{item.a}</p>
                         </div>
                       </div>
@@ -254,14 +255,16 @@ const faqCardOverrideStyle: React.CSSProperties = {
 const questionStyle: React.CSSProperties = {
   fontSize: '1rem',
   fontWeight: 600,
+  color: '#111b15',
 };
 
 const answerStyle: React.CSSProperties = {
   fontSize: '0.88rem',
   lineHeight: '1.7',
   paddingTop: '8px',
-  color: 'rgba(255, 255, 255, 0.75)',
+  color: 'rgba(17, 27, 21, 0.75)',
 };
+
 
 const btnOverrideStyle: React.CSSProperties = {
   background: 'transparent',

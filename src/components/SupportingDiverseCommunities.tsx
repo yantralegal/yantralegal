@@ -5,12 +5,13 @@ import Link from 'next/link';
 
 export default function SupportingDiverseCommunities() {
   const listItems = [
-    'Facing visa refusals',
-    'Dealing with visa cancellations',
-    'Reuniting with family in Australia',
-    'Navigating separation or divorce',
-    'Unsure about your visa options',
+    'Facing visa refusals?',
+    'Dealing with visa cancellations?',
+    'Reuniting with family in Australia?',
+    'Navigating separation or divorce?',
+    'Unsure about your visa options?',
   ];
+
 
   return (
     <section style={sectionStyle} className="section-padding">

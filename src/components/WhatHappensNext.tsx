@@ -6,23 +6,23 @@ export default function WhatHappensNext() {
   const steps = [
     {
       num: '01',
-      title: 'We Review Your Enquiry',
-      desc: 'We carefully assess the details you share to understand your situation before we connect.'
+      title: 'Initial Consultation',
+      desc: 'We listen. We understand your situation and legal needs.'
     },
     {
       num: '02',
-      title: 'Initial Advice & Options',
-      desc: 'We outline the most viable pathways, explaining the strengths and potential challenges of each.'
+      title: 'Case Assessment',
+      desc: 'We review documents and identify your options.'
     },
     {
       num: '03',
-      title: 'Process, Costs & Steps',
-      desc: 'You receive a clear breakdown of timelines, fixed fees, and what to expect at every milestone.'
+      title: 'Strategy and Advice',
+      desc: 'We provide practical legal advice and next steps in clear language so you can make informed decisions.'
     },
     {
       num: '04',
-      title: 'You Decide How to Proceed',
-      desc: 'With all options and costs laid out, you make an informed decision on how you wish to move forward.'
+      title: 'Representation and Support',
+      desc: 'We guide and represent you throughout the process, keeping you informed and supported every step of the way.'
     }
   ];
 
@@ -30,12 +30,12 @@ export default function WhatHappensNext() {
     <section style={sectionStyle} className="section-padding">
       <div className="container">
         <div style={headerStyle}>
-          <span className="sec-pill">Onboarding Flow</span>
+          <span className="sec-pill">Our Approach</span>
           <h2 style={titleStyle}>
-            What Happens After <span className="text-gradient-gold">You Contact Us</span>
+            Our <span className="text-gradient-gold">Approach</span>
           </h2>
           <p style={subtitleStyle}>
-            We believe in complete transparency and clarity. Here is how we help you transition from uncertainty to a defined legal strategy.
+            At Yantra Legal, we understand that legal matters are not simply legal problems—they are often significant life events. That is why our approach is centred on three principles:
           </p>
         </div>
 

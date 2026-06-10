@@ -3395,3 +3395,53 @@ a {
   margin: 0;
   line-height: 1.6;
 }
+
+/* Right-to-Left Marquee Banner styles */
+.hero-marquee-container {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  overflow: hidden;
+  padding: 16px 0;
+  background: rgba(4, 18, 13, 0.7);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 40px;
+  z-index: 10;
+  mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+.hero-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 48px;
+  animation: marquee-rtl 35s linear infinite;
+}
+
+.hero-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.hero-marquee-item {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #cbdad3;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  white-space: nowrap;
+}
+
+@keyframes marquee-rtl {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}

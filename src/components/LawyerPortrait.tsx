@@ -5,13 +5,14 @@ export default function LawyerPortrait() {
   return (
     <div style={containerStyle}>
       <Image
-        src="/lawyer_portrait_clean.png"
+        src="/finallawyerportrait.jpeg"
         alt="Principal Solicitor Portrait"
         fill
         priority
         sizes="(max-width: 1024px) 100vw, 440px"
         style={{ objectFit: 'cover' }}
       />
+
       
       {/* Soft bottom vignette masking */}
       <div style={vignetteStyle} />

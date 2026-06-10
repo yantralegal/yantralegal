@@ -134,6 +134,13 @@ export default function Footer() {
           {/* Giant Watermark Text */}
           <div className="footer-giant-text">Yantra Legal</div>
 
+          {/* Disclaimer text */}
+          <div style={disclaimerStyle}>
+            <p style={{ margin: 0, lineHeight: 1.6 }}>
+              <strong>Disclaimer:</strong> The content on this website is provided for general informational purposes only and does not constitute formal legal or migration advice. Accessing this site or contacting us via web forms does not establish a lawyer-client relationship. Immigration law changes rapidly; you should not act, or refrain from acting, based on any material on this website without first seeking professional legal advice tailored to your specific circumstances. View our <Link href="/terms-of-use" style={disclaimerLinkStyle}>Terms of Use</Link> and <Link href="/privacy-policy" style={disclaimerLinkStyle}>Privacy Policy</Link>.
+            </p>
+          </div>
+
           {/* Bottom Bar */}
           <div className="footer-bottom-bar">
             <div className="footer-copyright">
@@ -148,3 +155,20 @@ export default function Footer() {
     </footer>
   );
 }
+
+const disclaimerStyle: React.CSSProperties = {
+  fontSize: '0.76rem',
+  color: 'rgba(255, 255, 255, 0.4)',
+  textAlign: 'center',
+  maxWidth: '960px',
+  margin: '0 auto 28px auto',
+  borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+  paddingTop: '20px',
+};
+
+const disclaimerLinkStyle: React.CSSProperties = {
+  color: 'var(--clr-yellow)',
+  textDecoration: 'underline',
+  textUnderlineOffset: '3px',
+};
+

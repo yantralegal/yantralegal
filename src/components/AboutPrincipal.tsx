@@ -23,11 +23,11 @@ export default function AboutPrincipal() {
             His approach is grounded in professionalism, accessibility, and genuine care for the people he represents. He is committed to providing clear legal advice, practical solutions, and dedicated representation for individuals, families, and businesses navigating migration and family law matters.
           </p>
           <div style={{ marginTop: '16px' }}>
-            <Link href="/about" className="btn btn-yellow" style={{ display: 'inline-flex' }}>
-              <span>About Yantra Legal</span>
-              <span className="btn-arrow-circle">↗</span>
+            <Link href="/about" style={aboutLinkStyle} className="btn-hover-gold">
+              About Yantra Legal &rarr;
             </Link>
           </div>
+
         </div>
 
         {/* Right Column: Pull Quote Card */}
@@ -108,4 +108,17 @@ const citeStyle: React.CSSProperties = {
   textTransform: 'uppercase',
   letterSpacing: '1px',
 };
+
+const aboutLinkStyle: React.CSSProperties = {
+  fontSize: '1rem',
+  fontWeight: 700,
+  color: '#061912',
+  textDecoration: 'none',
+  display: 'inline-flex',
+  alignItems: 'center',
+  borderBottom: '2px solid var(--clr-yellow)',
+  paddingBottom: '4px',
+  transition: 'all 0.3s ease',
+};
+
 

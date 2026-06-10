@@ -4,11 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import { FollowerPointerCard } from './FollowingPointer';
 
-interface SubtypeItem {
-  title: string;
-  desc: string;
-}
-
 interface ServiceItem {
   id: string;
   badge: string;
@@ -17,7 +12,8 @@ interface ServiceItem {
   image: string;
   isActive: boolean;
   url: string;
-  subtypes: SubtypeItem[];
+  tagLine: string;
+  buttonText: string;
 }
 
 const services: ServiceItem[] = [
@@ -25,27 +21,23 @@ const services: ServiceItem[] = [
     id: 'immigration',
     badge: 'MIGRATION LAW',
     title: 'Migration Law',
-    description: "Australia's migration system can be complex and constantly changing. Whether you are applying for a visa, seeking Australian citizenship, responding to a visa refusal, or pursuing a review application, we provide practical legal advice and strategic representation.",
+    description: "Australia's migration system can be complex and constantly changing. Whether you are applying for a visa, seeking Australian citizenship, responding to a visa refusal, or pursuing a review application, we provide practical legal advice and strategic representation throughout the process.",
     image: '/visa_appeals.png',
     isActive: true, // Dark card with emerald and gold theme
     url: '/immigration-law',
-    subtypes: [
-      { title: 'Visa Pathways', desc: 'Partner, Skilled, Employer Sponsored, Parent & Family, Visitor, Bridging Visas' },
-      { title: 'Citizenship', desc: 'Eligibility, documentation & applications' }
-    ]
+    tagLine: "Partner Visas · Skilled Visas · Employer Sponsored Visas · Parent & Family Visas · Visitor Visas · Bridging Visas",
+    buttonText: "Explore Migration Law →"
   },
   {
     id: 'appeals',
     badge: 'APPEALS & REVIEWS',
     title: 'Appeals and Reviews',
     description: 'A visa refusal or cancellation does not always mean the end of your migration pathway. We assess your options and advise on the most appropriate legal response.',
-    image: '/lawyer_portrait_clean.png', // Fallback or standard image path
-    isActive: false, // Light card
+    image: '/lawyer_portrait_clean.png',
+    isActive: false,
     url: '/appeals-and-reviews',
-    subtypes: [
-      { title: 'ART Appeals', desc: 'Merits review of visa decisions' },
-      { title: 'Judicial Review', desc: 'Court appeals for jurisdictional error' }
-    ]
+    tagLine: "Visa Refusals · Visa Cancellations · Sponsorship & Nominations · ART Appeals · Judicial Review",
+    buttonText: "View Appeals Services →"
   },
   {
     id: 'family-law',
@@ -53,14 +45,13 @@ const services: ServiceItem[] = [
     title: 'Family Law - DIVORCE',
     description: 'The breakdown of a marriage can be one of the most challenging experiences a person faces. We provide clear legal guidance and practical support to help clients navigate the divorce process with confidence.',
     image: '/family_migration.png',
-    isActive: false, // Light card
+    isActive: false,
     url: '/divorce',
-    subtypes: [
-      { title: 'Divorce in Australia', desc: 'Sole and joint applications under no-fault system' },
-      { title: 'Divorce in Nepal', desc: 'Cross-border Nepali family law & dual qualification' }
-    ]
+    tagLine: "Divorce in Australia · Divorce in Nepal",
+    buttonText: "Family Law Services →"
   },
 ];
+
 
 export default function ServicesSection() {
   return (
@@ -76,7 +67,7 @@ export default function ServicesSection() {
             Legal Services <span className="text-gradient-gold">Tailored to Your Situation</span>
           </h2>
           <p className="services-desc">
-            We deliver dedicated legal representation with a results-driven focus on migration law, family law, and complex appeal reviews.
+            We assist 1. individuals and families, 2. skilled workers and professionals, 3. visa refusal and appeal clients 4. business owners and employers and 5. Family law matters across Australia.
           </p>
         </div>
 
@@ -109,30 +100,30 @@ export default function ServicesSection() {
                   />
                 </div>
 
-                {/* Card Subtypes List */}
-                <div className="card-subtypes-container">
-                  <div className="card-subtypes-inner">
-                    <h4 className="card-subtypes-header">Key Focus Areas</h4>
-                    <div className="card-subtypes-list">
-                      {service.subtypes.map((sub, idx) => (
-                        <div key={idx} className="card-subtype-item">
-                          <span className="card-subtype-bullet"></span>
-                          <div className="card-subtype-content">
-                            <span className="card-subtype-title">{sub.title}</span>
-                            <span className="card-subtype-desc">{sub.desc}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                {/* Card Content: Description, TagLine, Text Link */}
+                <div className="card-footer" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '16px', marginTop: '16px' }}>
+                  <p className="card-desc" style={{ fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                    {service.description}
+                  </p>
+                  
+                  <div style={getTagListStyle(service.isActive)}>
+                    {service.tagLine}
                   </div>
-                </div>
-
-                {/* Card Bottom Meta (Description & Action Button) */}
-                <div className="card-footer">
-                  <p className="card-desc">{service.description}</p>
-                  <a href={service.url} className="card-arrow-btn" aria-label={`Read more about ${service.title}`}>
-                    <span>↗</span>
-                  </a>
+                  
+                  <div style={actionLinkStyle}>
+                    <a href={service.url} style={{
+                      color: service.isActive ? 'var(--clr-yellow)' : 'var(--clr-bg-primary)',
+                      fontWeight: '700',
+                      fontSize: '0.95rem',
+                      textDecoration: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      transition: 'all 0.3s ease'
+                    }} className="service-text-link">
+                      <span>{service.buttonText}</span>
+                    </a>
+                  </div>
                 </div>
               </FollowerPointerCard>
             ))}
@@ -142,6 +133,24 @@ export default function ServicesSection() {
     </section>
   );
 }
+
+const getTagListStyle = (isActive: boolean): React.CSSProperties => ({
+  fontSize: '0.85rem',
+  lineHeight: '1.6',
+  color: isActive ? 'rgba(255, 255, 255, 0.7)' : 'rgba(6, 25, 18, 0.65)',
+  borderTop: isActive ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(6, 25, 18, 0.08)',
+  paddingTop: '16px',
+  marginTop: '4px',
+  fontWeight: 500,
+  letterSpacing: '0.2px',
+});
+
+const actionLinkStyle: React.CSSProperties = {
+  marginTop: '8px',
+  display: 'flex',
+  alignItems: 'center',
+};
+
 
 
 
