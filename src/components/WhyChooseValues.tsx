@@ -3,6 +3,27 @@
 import React from 'react';
 
 export default function WhyChooseValues() {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+
+  const handleScroll = (direction: 'next' | 'prev') => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const cards = container.getElementsByClassName('cv-minimal-card');
+      if (cards.length > 0) {
+        const cardWidth = cards[0].getBoundingClientRect().width + 20; // card width + gap
+        const currentScroll = container.scrollLeft;
+        const targetScroll = direction === 'next' 
+          ? currentScroll + cardWidth 
+          : currentScroll - cardWidth;
+        
+        container.scrollTo({
+          left: targetScroll,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
+
   const reasons = [
     {
       num: '01',
@@ -101,11 +122,22 @@ export default function WhyChooseValues() {
           </div>
 
 
-          <div className="cv-row-grid">
-            {values.map((val) => (
+          <div className="cv-row-grid" ref={scrollRef}>
+            {values.map((val, idx) => (
               <div key={val.num} className="cv-minimal-card reveal-on-scroll reveal-fade-up">
                 <span className="cv-num-accent">{val.num}</span>
                 <h3 className="cv-minimal-title">{val.title}</h3>
+                
+                {/* Visual Swipe Indicator Icon inside the card (Mobile Only) */}
+                <div 
+                  className="cv-card-swipe-icon"
+                  onClick={() => handleScroll(idx === values.length - 1 ? 'prev' : 'next')}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </div>
+                
                 <p className="cv-minimal-body">{val.desc}</p>
               </div>
             ))}

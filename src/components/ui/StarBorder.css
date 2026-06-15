@@ -1,0 +1,102 @@
+.star-border-container {
+  display: inline-block;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.border-gradient-bottom {
+  position: absolute;
+  width: 300%;
+  height: 50%;
+  opacity: 0; /* Hidden by default on desktop */
+  bottom: -12px;
+  right: -250%;
+  border-radius: 50%;
+  animation: star-movement-bottom linear infinite alternate;
+  animation-play-state: paused; /* Paused by default on desktop */
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.border-gradient-top {
+  position: absolute;
+  opacity: 0; /* Hidden by default on desktop */
+  width: 300%;
+  height: 50%;
+  top: -12px;
+  left: -250%;
+  border-radius: 50%;
+  animation: star-movement-top linear infinite alternate;
+  animation-play-state: paused; /* Paused by default on desktop */
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Hover effects for desktop */
+@media (hover: hover) {
+  .star-border-container:hover .border-gradient-bottom {
+    opacity: 0.7;
+    animation-play-state: running;
+  }
+  .star-border-container:hover .border-gradient-top {
+    opacity: 0.7;
+    animation-play-state: running;
+  }
+}
+
+/* Always animate on mobile viewports or non-hover/touch-only devices */
+@media (max-width: 1024px), (hover: none) {
+  .border-gradient-bottom {
+    opacity: 0.7;
+    animation-play-state: running;
+  }
+  .border-gradient-top {
+    opacity: 0.7;
+    animation-play-state: running;
+  }
+}
+
+.inner-content {
+  position: relative;
+  border: 1px solid rgba(223, 173, 62, 0.15);
+  background: var(--clr-bg-secondary);
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  padding: 16px 26px;
+  border-radius: 20px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.star-border-container:hover .inner-content {
+  border-color: rgba(223, 173, 62, 0.4);
+}
+
+@keyframes star-movement-bottom {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100%, 0%);
+    opacity: 0.2;
+  }
+}
+
+@keyframes star-movement-top {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100%, 0%);
+    opacity: 0.2;
+  }
+}

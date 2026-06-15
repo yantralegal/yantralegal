@@ -30,7 +30,6 @@ export default function WhatHappensNext() {
     <section style={sectionStyle} className="section-padding">
       <div className="container">
         <div style={headerStyle}>
-          <span className="sec-pill">Our Approach</span>
           <h2 style={titleStyle}>
             Our <span className="text-gradient-gold">Approach</span>
           </h2>
@@ -39,12 +38,12 @@ export default function WhatHappensNext() {
           </p>
         </div>
 
-        <div style={gridStyle}>
+        <div className="approach-grid">
           {steps.map((step, idx) => (
-            <div key={idx} className="glass reveal-on-scroll reveal-fade-up" style={cardStyle}>
-              <div style={numStyle}>{step.num}</div>
-              <h3 style={cardTitleStyle}>{step.title}</h3>
-              <p style={cardDescStyle}>{step.desc}</p>
+            <div key={idx} className="glass approach-card reveal-on-scroll reveal-fade-up">
+              <div className="approach-card-num">{step.num}</div>
+              <h3 className="approach-card-title">{step.title}</h3>
+              <p className="approach-card-desc">{step.desc}</p>
             </div>
           ))}
         </div>
@@ -81,45 +80,4 @@ const subtitleStyle: React.CSSProperties = {
   lineHeight: 1.6,
 };
 
-const gridStyle: React.CSSProperties = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-  gap: '24px',
-  position: 'relative',
-  zIndex: 2,
-};
 
-const cardStyle: React.CSSProperties = {
-  padding: '40px 30px',
-  borderRadius: '16px',
-  background: 'rgba(11, 43, 32, 0.25)',
-  border: '1px solid rgba(255, 255, 255, 0.05)',
-  position: 'relative',
-  transition: 'all 0.3s ease',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '16px',
-};
-
-const numStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-serif)',
-  fontSize: '2.5rem',
-  fontWeight: '700',
-  color: 'var(--clr-yellow)',
-  opacity: 0.8,
-  lineHeight: 1,
-};
-
-const cardTitleStyle: React.CSSProperties = {
-  fontSize: '1.2rem',
-  fontWeight: '600',
-  color: '#ffffff',
-  margin: 0,
-};
-
-const cardDescStyle: React.CSSProperties = {
-  fontSize: '0.9rem',
-  lineHeight: 1.6,
-  color: 'var(--clr-text-muted)',
-  margin: 0,
-};

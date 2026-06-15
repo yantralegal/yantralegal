@@ -42,11 +42,11 @@ const services: ServiceItem[] = [
   {
     id: 'family-law',
     badge: 'FAMILY LAW',
-    title: 'Family Law - DIVORCE',
+    title: 'Family Law — Divorce',
     description: 'The breakdown of a marriage can be one of the most challenging experiences a person faces. We provide clear legal guidance and practical support to help clients navigate the divorce process with confidence.',
     image: '/family_migration.png',
     isActive: false,
-    url: '/divorce',
+    url: '/family-law',
     tagLine: "Divorce in Australia · Divorce in Nepal",
     buttonText: "Family Law Services →"
   },
@@ -66,9 +66,31 @@ export default function ServicesSection() {
           <h2 className="services-title">
             Legal Services <span className="text-gradient-gold">Tailored to Your Situation</span>
           </h2>
-          <p className="services-desc">
-            We assist 1. individuals and families, 2. skilled workers and professionals, 3. visa refusal and appeal clients 4. business owners and employers and 5. Family law matters across Australia.
+          <p className="services-desc" style={{ marginBottom: '8px' }}>
+            We assist individuals and families, skilled workers and professionals, clients responding to visa refusals and cancellations, business owners and employers, and people navigating family law matters across Australia.
           </p>
+          <div className="services-tags-container">
+            {[
+              "Individuals & Families",
+              "Skilled Workers & Professionals",
+              "Visa Refusals & Appeals",
+              "Business Owners & Employers",
+              "Family Law Matters"
+            ].map((text, i) => (
+              <span key={i} className="services-tag-badge">
+                {text}
+              </span>
+            ))}
+          </div>
+          <div className="services-swipe-indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="swipe-arrow-left">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <span className="swipe-indicator-text">Swipe to explore categories</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="swipe-arrow-right">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </div>
         </div>
 
         {/* Three-Column Grid of Services */}
@@ -100,14 +122,20 @@ export default function ServicesSection() {
                   />
                 </div>
 
-                {/* Card Content: Description, TagLine, Text Link */}
-                <div className="card-footer" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '16px', marginTop: '16px' }}>
-                  <p className="card-desc" style={{ fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
-                    {service.description}
-                  </p>
-                  
-                  <div style={getTagListStyle(service.isActive)}>
-                    {service.tagLine}
+                {/* Card Description */}
+                <p className="card-desc" style={{ fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                  {service.description}
+                </p>
+
+                {/* Card Content: TagLine, Text Link */}
+                <div className="card-footer" style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: '16px', marginTop: 'auto' }}>
+                  <div style={getTagListStyle(service.isActive)} className="card-tagline">
+                    {service.tagLine.split(' · ').map((tag, idx, arr) => (
+                      <React.Fragment key={idx}>
+                        <span className="card-tagline-item">{tag}</span>
+                        {idx < arr.length - 1 && <span className="card-tagline-divider"> · </span>}
+                      </React.Fragment>
+                    ))}
                   </div>
                   
                   <div style={actionLinkStyle}>
@@ -121,7 +149,7 @@ export default function ServicesSection() {
                       gap: '4px',
                       transition: 'all 0.3s ease'
                     }} className="service-text-link">
-                      <span>{service.buttonText}</span>
+                      <span>{service.buttonText.replace(' →', '\u00A0→')}</span>
                     </a>
                   </div>
                 </div>

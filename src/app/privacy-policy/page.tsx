@@ -19,144 +19,179 @@ export default function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p style={{ color: 'var(--clr-text-muted)', fontSize: '0.95rem', marginBottom: '40px' }}>
-            Yantra Legal &nbsp;•&nbsp; www.yantralegal.com.au &nbsp;•&nbsp; Last updated: 31 May 2026
+            Yantra Legal Pty Ltd trading as Yantra Legal &nbsp;•&nbsp; www.yantralegal.com.au &nbsp;•&nbsp; Last updated: 12 June 2026
+          </p>
+
+          <p style={{ marginBottom: '24px' }}>
+            This is the Privacy Policy of Yantra Legal Pty Ltd (ABN 33 698 723 858) trading as Yantra Legal (&ldquo;we&rdquo;, &ldquo;us&rdquo; and when relating to us, &ldquo;our&rdquo;). We are committed to protecting the privacy of our contacts, customers, suppliers and employees (&ldquo;you&rdquo; and when relating to you, &ldquo;your&rdquo;) and complying with the Australian Privacy Principles set out in the Privacy Act 1988 (Cth) (Privacy Act). In this policy we describe how we manage your personal information.
           </p>
 
           <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>1. Our Commitment to Your Privacy</h2>
-            <p>Yantra Legal (ABN 36 810 705 966) (Yantra Legal, we, us, our) is committed to handling personal information responsibly and in accordance with the Australian Privacy Principles (APPs) set out in the Privacy Act 1988 (Cth) (Privacy Act).</p>
-            <p>This Privacy Policy explains what personal information we collect, why we collect it, how we use and disclose it, how we protect it, and what rights you have in relation to it. It applies to personal information we collect through our website at www.yantralegal.com.au (Website), through our contact form and enquiry processes, and in the course of providing legal services.</p>
-            <p>By using our Website or providing your personal information to us, you acknowledge that you have read and understood this Privacy Policy.</p>
-          </div>
-
-          <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>2. What Personal Information We Collect</h2>
-            <p>The types of personal information we may collect include:</p>
-            <p><strong>Identity and Contact Information:</strong></p>
+            <h2 style={sectionHeadingStyle}>1. The kinds of personal information we collect</h2>
+            <p style={{ marginBottom: '12px' }}>The kinds of personal information that we collect include:</p>
             <ul style={listStyle}>
-              <li>Your full name, title, date of birth, and gender;</li>
-              <li>Your postal address, email address, and telephone number;</li>
-              <li>Details of your relationship to other parties in a matter (e.g. spouse, sponsor, employer).</li>
+              <li>contact details such as name, role or position, address, email address, mobile number, landline number and fax number;</li>
+              <li>information relating to your circumstances and affairs relevant to the matter/s in which we are instructed;</li>
+              <li>information about your legal interests and requirements and the legal services that you may wish to purchase;</li>
+              <li>information regarding our communications with you and your attendance at seminars and promotional events held by us;</li>
+              <li>if you are an employee or prospective employee, information about your qualifications, skills and work experience;</li>
+              <li>if you are a supplier or prospective supplier, information about your business skills, services, products and prices;</li>
+              <li>technical and usage information collected when you visit our website, including your IP address, browser type and pages viewed, and information collected through cookies and analytics services (such as Google Analytics).</li>
             </ul>
-            <p><strong>Matter-Related Information:</strong></p>
+            <p>
+              In the course of providing legal services — particularly in migration and family law matters — we may also collect sensitive information as defined in the Privacy Act. This may include information about your racial or ethnic origin, religion, health, family circumstances, immigration history and criminal history. We collect sensitive information only where it is reasonably necessary for the provision of our legal services and, where required by law, with your consent.
+            </p>
+          </div>
+
+          <div style={sectionStyle}>
+            <h2 style={sectionHeadingStyle}>2. How we collect personal information</h2>
+            <p style={{ marginBottom: '12px' }}>We collect personal information by various means including when:</p>
             <ul style={listStyle}>
-              <li>Information about your visa history, migration status, or migration intentions;</li>
-              <li>Information about your marital status and family circumstances, where relevant to a family law matter;</li>
-              <li>Documents you provide to us in connection with a legal matter, including passports, statutory declarations, financial records, and correspondence;</li>
-              <li>Country of origin, nationality, and immigration history (where relevant to your matter).</li>
+              <li>you contact us with a question or inquiry;</li>
+              <li>you subscribe to our newsletter or legal updates service;</li>
+              <li>you attend a seminar or event where we are hosting or presenting;</li>
+              <li>you instruct us to act for you and we open a file and conduct a conflict check;</li>
+              <li>our clients provide information relating to related and adverse parties relevant to the advice or services we are providing;</li>
+              <li>we undertake a search or investigation;</li>
+              <li>you visit our website.</li>
             </ul>
-            <p><strong>Financial Information:</strong></p>
+            <p style={{ marginBottom: '12px' }}>
+              Where practicable we collect personal information about you directly from you. However, we may have collected information about you from a third party such as a client, a third party information provider, the courts or a person responding to our questions or inquiries.
+            </p>
+            <p style={{ marginBottom: '12px' }}>
+              We are required to collect the full name and address of our clients by the Solicitors&rsquo; Conduct Rules made under the Legal Profession Uniform Law (NSW). Accurate name and address information must also be collected in order to comply with the trust account record keeping requirements in the Legal Profession Uniform General Rules 2015 (NSW) and to comply with our duty to the courts.
+            </p>
+            <p style={{ marginBottom: '12px' }}>
+              If you are a client and do not provide us with name and address information we cannot act for you.
+            </p>
+            <p>
+              If you do not provide us with accurate personal information we may not be able to carry out our instructions or achieve the purpose for which the information has been sought.
+            </p>
+          </div>
+
+          <div style={sectionStyle}>
+            <h2 style={sectionHeadingStyle}>3. The purposes for which we collect, hold, use and disclose personal information</h2>
+            <p style={{ marginBottom: '12px' }}>We collect, hold, use and disclose personal information in order to:</p>
             <ul style={listStyle}>
-              <li>Payment details, including billing information and transaction records, processed through our secure third-party payment providers. We do not store your payment card details on our systems.</li>
+              <li>respond to your enquiries;</li>
+              <li>provide legal services;</li>
+              <li>employ competent and diligent personnel;</li>
+              <li>monitor or improve the use of and satisfaction with our legal services; and</li>
+              <li>let you know about legal developments, our expertise and legal services that may be of interest to you.</li>
             </ul>
-            <p><strong>Technical and Usage Information:</strong></p>
+            <p style={{ marginBottom: '12px' }}>We disclose personal information:</p>
             <ul style={listStyle}>
-              <li>Your IP address, browser type and version, device type, and operating system;</li>
-              <li>Pages you visit on our Website, time spent on those pages, and referring URLs;</li>
-              <li>Information collected through cookies and similar technologies (see section 9).</li>
+              <li>in order to carry out the instructions of our clients; and</li>
+              <li>subject to our confidentiality obligations, when using services in support of our legal practice.</li>
             </ul>
-            <p><strong>Sensitive Information:</strong></p>
-            <p>In the course of providing legal services — particularly in migration and family law matters — we may collect sensitive information about you as defined in the Privacy Act. This includes information about your racial or ethnic origin, religion, health, family circumstances, and criminal history. We collect sensitive information only where it is necessary for the provision of our legal services and, where required by law, with your consent.</p>
           </div>
 
           <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>3. How We Collect Personal Information</h2>
-            <p>We collect personal information in the following ways:</p>
+            <h2 style={sectionHeadingStyle}>4. The parties to whom your personal information is disclosed</h2>
+            <p style={{ marginBottom: '12px' }}>Subject to our confidentiality obligations, we may share some relevant personal information with:</p>
             <ul style={listStyle}>
-              <li>Directly from you — when you contact us through our Website enquiry form, email, telephone, or in person; when you engage our legal services; when you attend a consultation; or when you provide documents or information in connection with your matter;</li>
-              <li>Through your use of our Website — when you browse our Website, we may collect technical and usage data automatically through cookies and analytics tools;</li>
-              <li>From third parties — where relevant to your matter, we may receive information about you from third parties such as the Department of Home Affairs, courts and tribunals, other legal practitioners, interpreters, or other professionals involved in your matter. We may also receive information from referral sources;</li>
-              <li>From publicly available sources — we may collect information that is publicly available, such as court records, tribunal decisions, or professional registers, where relevant to your matter or to conduct required conflict checks.</li>
+              <li>government bodies, courts and tribunals — including the Department of Home Affairs and the Administrative Review Tribunal (ART) — where disclosure is required in connection with your matter or compelled by law;</li>
+              <li>barristers, interpreters and other professionals we engage to assist with your matter;</li>
+              <li>parties related to a matter you have with us, government authorities and service providers as reasonably required to carry out your instructions;</li>
+              <li>our e-mail marketing provider for the purposes of providing you our newsletter, invitations and legal updates; and</li>
+              <li>third party service providers who assist us with archival, auditing, accounting, legal, business consulting, website or technology services.</li>
             </ul>
-            <p>Where you provide us with personal information about another person (for example, a spouse, child, or employer), we ask that you inform that person that you are sharing their information with us and direct them to this Privacy Policy.</p>
+            <p style={{ marginBottom: '12px' }}>
+              We also will disclose your information if required by law to do so or in circumstances permitted by the Privacy Act — for example, where we have reasonable grounds to suspect that unlawful activity, or misconduct of a serious nature, that relates to our functions or activities has been, is being or may be engaged in, or in response to a subpoena, discovery request or a court order.
+            </p>
+            <p>We do not sell, rent or trade your personal information to third parties for marketing purposes.</p>
           </div>
 
           <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>4. Why We Collect, Hold, Use, and Disclose Personal Information</h2>
-            <p>We collect and use personal information for the following purposes:</p>
+            <h2 style={sectionHeadingStyle}>5. Disclosure of information outside the jurisdiction of collection</h2>
+            <p>
+              Some of the third parties described above, including our IT, cloud, email and analytics service providers, may store or process personal information in countries outside Australia, including the United States. Where we disclose personal information to overseas recipients, we take reasonable steps to ensure it is handled in a manner consistent with the Australian Privacy Principles.
+            </p>
+          </div>
+
+          <div style={sectionStyle}>
+            <h2 style={sectionHeadingStyle}>6. Opting out of marketing communications</h2>
+            <p>
+              We may, from time to time, send you newsletters, invitations and legal updates about our services. You can opt out of receiving further such communications by notifying us using our contact details below or by clicking the &ldquo;unsubscribe&rdquo; option at the bottom of any marketing e-mail received from us.
+            </p>
+          </div>
+
+          <div style={sectionStyle}>
+            <h2 style={sectionHeadingStyle}>7. Security, retention and data breaches</h2>
+            <p style={{ marginBottom: '12px' }}>
+              We take reasonable physical, technical and administrative safeguards to protect your personal information from misuse, interference, loss, and unauthorised access, modification and disclosure. For example, we maintain our files in secure, access-controlled systems and limit access to personal information to individuals with a need to know.
+            </p>
+            <p style={{ marginBottom: '12px' }}>
+              We retain personal information only for as long as it is necessary for the purposes for which it was collected, or as required by law and our professional obligations. In accordance with our obligations as a law practice, client files are generally retained for a minimum of seven years after the conclusion of a matter.
+            </p>
+            <p>
+              In the event of a data breach involving personal information, we will assess the breach and, where required by the Notifiable Data Breaches scheme in Part IIIC of the Privacy Act, notify affected individuals and the Office of the Australian Information Commissioner.
+            </p>
+          </div>
+
+          <div style={sectionStyle}>
+            <h2 style={sectionHeadingStyle}>8. Access, correction and updating of personal information</h2>
+            <p style={{ marginBottom: '12px' }}>
+              You can contact us to access, correct or update your personal information. Unless we are subject to a confidentiality obligation or some other restriction on giving access to the information and we are permitted to refuse you access under the Privacy Act, we will endeavour to make your information available to you within 30 days. Examples of circumstances where we may refuse to give you access to your personal information include where:
+            </p>
             <ul style={listStyle}>
-              <li>To respond to your enquiries and assess your legal needs;</li>
-              <li>To provide legal services to you, including advice, representation, and document preparation;</li>
-              <li>To comply with our professional obligations as a law practice, including conflict checks and identity verification;</li>
-              <li>To manage our client relationship with you, including maintaining accurate records and communicating with you about your matter;</li>
-              <li>To process payments and manage our billing and invoicing obligations;</li>
-              <li>To comply with our legal and regulatory obligations, including obligations under the Legal Profession Uniform Law, migration legislation, family law legislation, and anti-money laundering laws;</li>
-              <li>To operate and improve our Website, including analysing usage patterns and resolving technical issues;</li>
-              <li>To send you information about our services, legal updates, or other communications that may be of interest to you — where you have consented to receive such communications or where we are otherwise permitted to do so;</li>
-              <li>To refer you to other professionals or services where appropriate to your matter.</li>
+              <li>giving access would be unlawful;</li>
+              <li>we reasonably believe that giving you access would pose a serious threat to the life, health or safety of any individual or to public health or public safety;</li>
+              <li>giving access would have an unreasonable impact on the privacy of others;</li>
+              <li>the information could reveal the intentions of a party in negotiations;</li>
+              <li>giving access could prejudice the taking of appropriate action in relation to unlawful activity;</li>
+              <li>giving access could reveal evaluative information in a commercially sensitive decision making process.</li>
             </ul>
-            <p>We will not use your personal information for a purpose that is materially different from the purposes listed above without your consent, unless we are required or permitted to do so by law.</p>
+            <p style={{ marginBottom: '12px' }}>
+              If you request to correct your personal information, we will correct, or, if we consider more appropriate, note your request for amendment of the information on your record.
+            </p>
+            <p style={{ marginBottom: '12px' }}>
+              We will not charge you to make a request to access your record but we may charge you to actually provide access depending on the costs associated with obtaining and providing the material.
+            </p>
+            <p>
+              These actions can usually be taken by contacting us using the contact information in the &ldquo;Complaints / Contact us&rdquo; section below.
+            </p>
           </div>
 
           <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>5. Disclosure of Personal Information to Third Parties</h2>
-            <p>In the course of providing legal services and operating our business, we may disclose your personal information to the following categories of third parties:</p>
-            <ul style={listStyle}>
-              <li>Government bodies and regulators — including the Department of Home Affairs, the Administrative Review Tribunal (ART), courts and tribunals, and other government agencies — where disclosure is required in connection with your legal matter or compelled by law;</li>
-              <li>Other legal professionals — including barristers, interpreters, migration agents, and other solicitors — where we engage them to assist with your matter or as part of our professional obligations;</li>
-              <li>IT and cloud service providers — including providers of practice management software, document storage, email hosting, and website platforms — who process data on our behalf under confidentiality obligations;</li>
-              <li>Payment processors — who handle payment transactions securely on our behalf;</li>
-              <li>Analytics providers — including services such as Google Analytics — that help us understand how our Website is used;</li>
-              <li>Professional advisors — including our accountants, insurers, and legal advisors — in the ordinary course of managing our practice.</li>
-            </ul>
-            <p>We do not sell, rent, or trade your personal information to third parties for marketing purposes. As a law practice, we are bound by strict duties of confidentiality. Any disclosure of your confidential information is made only in accordance with our professional obligations and the purposes described in this Privacy Policy.</p>
+            <h2 style={sectionHeadingStyle}>9. Cookies, website analytics and links to other websites</h2>
+            <p style={{ marginBottom: '12px' }}>
+              Our website uses cookies and similar technologies, including analytics services such as Google Analytics, to recognise your device, remember your preferences and help us understand how the website is used. You can control or disable cookies through your browser settings; please note that disabling some cookies may affect the functionality of the website.
+            </p>
+            <p>
+              Our website may contain links to websites operated by third parties. We are not responsible for the privacy practices, content or security of those websites. This policy applies only to our website and our practices.
+            </p>
           </div>
 
           <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>6. Overseas Disclosure</h2>
-            <p>Where we engage overseas-based service providers — for example, cloud storage or software platforms with servers located outside Australia — your personal information may be stored or processed in a country other than Australia.</p>
-            <p>We take reasonable steps to ensure that any overseas recipients of your personal information handle it in a manner consistent with the Australian Privacy Principles. Where we disclose your personal information overseas, we do so in compliance with Australian Privacy Principle 8 (cross-border disclosure of personal information).</p>
+            <h2 style={sectionHeadingStyle}>10. Children&rsquo;s information</h2>
+            <p>
+              Our website is not directed at children. However, in the course of providing legal services — for example, child visa applications or family law matters — we may collect personal information about children where it is relevant to a matter. We handle such information with particular care, in accordance with this policy and our professional obligations.
+            </p>
           </div>
 
           <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>7. How We Store and Protect Your Personal Information</h2>
-            <p>We implement a range of physical, technical, and administrative safeguards to protect your personal information from unauthorised access, disclosure, modification, loss, or destruction. These measures include:</p>
-            <ul style={listStyle}>
-              <li>Password-protected and access-controlled systems for storing client files and records;</li>
-              <li>Encrypted storage and secure transmission protocols (SSL/TLS) for sensitive information;</li>
-              <li>Limiting access to personal information to staff and contractors who need it to perform their duties;</li>
-              <li>Maintaining confidentiality obligations with all staff and third-party service providers.</li>
-            </ul>
-            <p>Despite our efforts, no method of transmission over the internet or method of electronic storage is completely secure. We cannot guarantee the absolute security of information transmitted to us electronically. Any transmission is at your own risk.</p>
-            <p>We retain personal information only for as long as it is necessary for the purposes for which it was collected, or as required by law or our professional obligations. In accordance with the Legal Profession Uniform Law and relevant regulatory requirements, client files are generally retained for a minimum of seven years after the conclusion of a matter.</p>
+            <h2 style={sectionHeadingStyle}>11. Notification of changes</h2>
+            <p>
+              If we decide to change our Privacy Policy, we will post a copy of the revised policy on our website with a revised &ldquo;last updated&rdquo; date.
+            </p>
           </div>
 
           <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>8. Your Rights in Relation to Your Personal Information</h2>
-            <p><strong>Access:</strong> You have the right to request access to the personal information we hold about you. To make an access request, please contact us. We will respond to your request within a reasonable period. We may charge a reasonable administrative fee for providing access in some circumstances.</p>
-            <p>In some situations, we may not be able to provide access — for example, where access would reveal confidential communications protected by legal professional privilege, or where disclosure is restricted by law. If we are unable to provide access, we will explain why.</p>
-            <p><strong>Correction:</strong> If you believe that the personal information we hold about you is inaccurate, incomplete, out of date, or misleading, you may request that we correct it. We will take reasonable steps to correct the information promptly. Where we are unable to make a correction, we will explain our reasons.</p>
-            <p><strong>Complaints:</strong> If you have a concern about the way we have handled your personal information, please contact us in the first instance. We will acknowledge your complaint promptly and aim to investigate and respond within 30 days. If you are not satisfied with our response, you may make a complaint to the Office of the Australian Information Commissioner (OAIC).</p>
-          </div>
-
-          <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>9. Cookies and Website Analytics</h2>
-            <p>We use cookies and similar technologies on our Website. Cookies allow the Website to recognise your device on subsequent visits, remember your preferences, and collect information about how you use the Website.</p>
-            <p>You can control or disable cookies through your browser settings. Please note that disabling some cookies may affect the functionality of the Website.</p>
-          </div>
-
-          <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>10. Links to Other Websites</h2>
-            <p>Our Website may contain links to websites operated by third parties. We are not responsible for the privacy practices, content, or security of those websites. This Privacy Policy applies only to our Website and our practices.</p>
-          </div>
-
-          <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>11. Children's Privacy</h2>
-            <p>Our Website is not directed at children under the age of 18. We do not knowingly collect personal information from children.</p>
-          </div>
-
-          <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>12. Changes to This Privacy Policy</h2>
-            <p>We may update this Privacy Policy from time to time to reflect changes in our practices, changes in the law, or for other operational or regulatory reasons. The updated policy will be published on this Website with a revised 'last updated' date.</p>
-          </div>
-
-          <div style={sectionStyle}>
-            <h2 style={sectionHeadingStyle}>13. How to Contact Us</h2>
-            <p>If you have any questions about this Privacy Policy, wish to access or correct your personal information, or want to make a privacy complaint, please contact us at:</p>
-            <p style={{ fontWeight: 600, color: '#ffffff', margin: '8px 0 0 0' }}>Yantra Legal</p>
-            <p style={{ margin: '4px 0' }}>ABN: 36 810 705 966</p>
-            <p style={{ margin: '4px 0' }}>Address: Sydney NSW 2000</p>
-            <p style={{ margin: '4px 0' }}>Email: info@yantralegal.com.au</p>
+            <h2 style={sectionHeadingStyle}>12. Complaints / Contact us</h2>
+            <p style={{ marginBottom: '12px' }}>
+              If a breach of this Privacy Policy occurs, or if you wish to access or correct your personal information, a complaint or request may be made to us by sending it to:
+            </p>
+            <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+              <p style={{ fontWeight: 600, color: '#ffffff', margin: '0 0 8px 0' }}>Yantra Legal Pty Ltd trading as Yantra Legal</p>
+              <p style={{ margin: '4px 0' }}>GPO Box 1230, Sydney NSW 2001</p>
+              <p style={{ margin: '4px 0' }}>Email: <a href="mailto:info@yantralegal.com.au" style={{ color: 'var(--clr-yellow)' }}>info@yantralegal.com.au</a></p>
+              <p style={{ margin: '4px 0' }}>Attention: Krishna Giri, Principal Solicitor</p>
+              <p style={{ margin: '4px 0 0 0' }}>Phone: <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-yellow)' }}>0402 402 120 (WhatsApp)</a></p>
+            </div>
+            <p style={{ marginTop: '16px' }}>
+              We will endeavour to respond to any complaint within 30 days. If you are not satisfied with our response to your complaint you may seek a review by contacting the Office of the Australian Information Commissioner using the information available at <a href="https://www.oaic.gov.au" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>www.oaic.gov.au/privacy/privacy-complaints</a>.
+            </p>
           </div>
         </article>
       </main>
@@ -191,4 +226,7 @@ const sectionHeadingStyle: React.CSSProperties = {
 const listStyle: React.CSSProperties = {
   paddingLeft: '20px',
   marginBottom: '20px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
 };

@@ -66,6 +66,7 @@ const descStyle: React.CSSProperties = {
   lineHeight: '1.65',
   color: 'rgba(6, 25, 18, 0.82)',
   margin: 0,
+  textAlign: 'justify',
 };
 
 const quoteCardStyle: React.CSSProperties = {

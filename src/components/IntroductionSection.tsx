@@ -4,20 +4,20 @@ import React from 'react';
 
 export default function IntroductionSection() {
   return (
-    <section style={sectionStyle} className="section-padding">
+    <section style={sectionStyle} className="section-padding introduction-section">
       <div className="container" style={containerStyle}>
         <span className="sec-pill">Introduction</span>
         <h2 style={titleStyle}>
           Personalised Legal Support for <span className="text-gradient-gold">Individuals, Families and Businesses</span>
         </h2>
         <div style={contentGridStyle}>
-          <p style={paragraphStyle}>
+          <p style={paragraphStyle} className="introduction-paragraph">
             At Yantra Legal, we believe legal advice should be clear, accessible, and focused on achieving practical outcomes.
           </p>
-          <p style={paragraphStyle}>
+          <p style={paragraphStyle} className="introduction-paragraph">
             As a boutique Sydney-based law practice, we work closely with our clients to understand their circumstances, explain their options in plain language, and provide legal solutions tailored to their goals.
           </p>
-          <p style={paragraphStyle}>
+          <p style={paragraphStyle} className="introduction-paragraph">
             Whether you are applying for a visa, facing a visa refusal, managing a family law matter, or seeking advice on your legal rights, we are committed to providing responsive, professional, and personalised service at every stage of the process.
           </p>
         </div>

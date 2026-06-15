@@ -37,19 +37,16 @@ export default function SupportingDiverseCommunities() {
             </div>
           </div>
 
-          {/* Right Column: Interactive Checklist */}
+          {/* Right Column: Interactive Assistance Tiles */}
           <div style={rightColStyle}>
-            <div className="glass" style={listCardStyle}>
-              <h3 style={listHeaderStyle}>How We Can Assist You</h3>
-              <div style={itemsContainerStyle}>
+            <div className="assist-wrapper">
+              <h3 className="assist-header">How We Can Assist You</h3>
+              <div className="assist-grid">
                 {listItems.map((item, idx) => (
-                  <div key={idx} style={itemStyle}>
-                    <span style={checkCircleStyle}>
-                      <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 4L4.5 7.5L11 1" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                    <span style={itemTextStyle}>{item}</span>
+                  <div key={idx} className="glass assist-tile reveal-on-scroll reveal-fade-up">
+                    <span className="assist-tile-index">0{idx + 1}</span>
+                    <span className="assist-tile-text">{item}</span>
+                    <span className="assist-tile-arrow">↗</span>
                   </div>
                 ))}
               </div>
@@ -111,55 +108,6 @@ const btnWrapStyle: React.CSSProperties = {
 const rightColStyle: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'center',
-};
-
-const listCardStyle: React.CSSProperties = {
   width: '100%',
-  maxWidth: '480px',
-  padding: '40px',
-  background: 'rgba(6, 25, 18, 0.65)',
-  border: '1px solid rgba(223, 173, 62, 0.2)',
-  borderRadius: '24px',
-  boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
 };
 
-const listHeaderStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-serif)',
-  fontSize: '1.5rem',
-  color: '#ffffff',
-  marginBottom: '28px',
-  fontWeight: 500,
-  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-  paddingBottom: '12px',
-};
-
-const itemsContainerStyle: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '20px',
-};
-
-const itemStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '16px',
-};
-
-const checkCircleStyle: React.CSSProperties = {
-  width: '24px',
-  height: '24px',
-  borderRadius: '50%',
-  backgroundColor: 'rgba(223, 173, 62, 0.15)',
-  border: '1px solid var(--clr-yellow)',
-  color: 'var(--clr-yellow)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexShrink: 0,
-};
-
-const itemTextStyle: React.CSSProperties = {
-  fontSize: '1.05rem',
-  fontWeight: 500,
-  color: '#ffffff',
-};

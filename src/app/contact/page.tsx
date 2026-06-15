@@ -80,7 +80,7 @@ export default function ContactPage() {
                 <div style={infoListStyle}>
                   <div style={infoItemStyle}>
                     <span style={labelStyle}>Phone:</span>
-                    <a href="tel:+61292351234" style={valueStyle}>+61 2 9235 1234</a>
+                    <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" style={valueStyle}>0402 402 120 (WhatsApp)</a>
                   </div>
                   <div style={infoItemStyle}>
                     <span style={labelStyle}>Email:</span>
@@ -89,8 +89,8 @@ export default function ContactPage() {
                   <div style={infoItemStyle}>
                     <span style={labelStyle}>Office Address:</span>
                     <span style={{ ...valueStyle, lineHeight: 1.5 }}>
-                      Level 35, 1 Martin Place,<br />
-                      Sydney NSW 2000
+                      Sydney NSW 2000<br />
+                      Postal: GPO Box 1230, Sydney NSW 2001
                     </span>
                   </div>
                   <div style={infoItemStyle}>

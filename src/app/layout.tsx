@@ -18,15 +18,15 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Yantra Legal | Elite Australian Visa & Immigration Lawyers',
-  description: 'Yantra Legal is a premier Australian law firm delivering strategic immigration solutions, visa approvals, and appeal representation across corporate and family migration.',
+  title: 'Yantra Legal | Sydney Migration & Family Lawyer',
+  description: 'Boutique Sydney law practice providing clear, practical advice on Australian visas, visa refusals and appeals, and family law. Fixed-fee initial consultations.',
   metadataBase: new URL('https://www.yantralegal.com.au'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Yantra Legal | Elite Australian Visa & Immigration Lawyers',
-    description: 'Premier Australian law firm delivering strategic, results-driven legal counsel for visas, citizenship, and migration appeals.',
+    title: 'Yantra Legal | Sydney Migration & Family Lawyer',
+    description: 'Boutique Sydney law practice providing clear, practical advice on Australian visas, visa refusals and appeals, and family law. Fixed-fee initial consultations.',
     url: 'https://www.yantralegal.com.au',
     siteName: 'Yantra Legal',
     locale: 'en_AU',
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Yantra Legal | Elite Australian Visa & Immigration Lawyers',
-    description: 'Premier Australian law firm delivering strategic, results-driven legal counsel for visas, citizenship, and migration appeals.',
+    title: 'Yantra Legal | Sydney Migration & Family Lawyer',
+    description: 'Boutique Sydney law practice providing clear, practical advice on Australian visas, visa refusals and appeals, and family law. Fixed-fee initial consultations.',
   },
   robots: {
     index: true,

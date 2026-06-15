@@ -1,26 +1,25 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { legalPages } from '../data/legalContents';
 import { blogPosts } from '../data/blogContents';
 
 export default function Navbar() {
+  const pathname = usePathname() || '';
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<{ title: string; url: string; category: string; snippet: string }[]>([]);
-
-  useEffect(() => {
+  const searchResults = useMemo(() => {
     if (!searchQuery.trim()) {
-      setSearchResults([]);
-      return;
+      return [];
     }
 
     const query = searchQuery.toLowerCase();
-    const results: typeof searchResults = [];
+    const results: { title: string; url: string; category: string; snippet: string }[] = [];
 
     // Search legal pages
     legalPages.forEach((page) => {
@@ -54,7 +53,7 @@ export default function Navbar() {
         results.push({
           title: page.title,
           url: page.url,
-          category: page.url.startsWith('/immigration-law') ? 'Immigration Law' : page.url.startsWith('/divorce') ? 'Family Law' : 'Appeals & Reviews',
+          category: page.url.startsWith('/immigration-law') ? 'Immigration Law' : page.url.startsWith('/family-law') ? 'Family Law' : 'Appeals & Reviews',
           snippet: snippet || 'Legal Service Page',
         });
       }
@@ -88,7 +87,7 @@ export default function Navbar() {
       }
     });
 
-    setSearchResults(results.slice(0, 8));
+    return results.slice(0, 8);
   }, [searchQuery]);
 
   useEffect(() => {
@@ -101,36 +100,48 @@ export default function Navbar() {
 
   return (
     <header style={headerStyle(scrolled)}>
-      <div className="container" style={innerStyle}>
-        {/* Logo */}
-        <Link href="/" className="logo-hover">
-          <Image
-            src="/yantralegallogoweb.png"
-            alt="Yantra Legal Logo"
-            width={240}
-            height={62}
-            priority
-            style={{ objectFit: 'contain' }}
-          />
+      <div className="container" style={innerStyle(scrolled)}>
+        <Link href="/" className="logo-hover" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ width: '66px', height: '62px', overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <Image
+              src="/yantralegallogoweb.png"
+              alt="Yantra Legal Logo"
+              width={240}
+              height={62}
+              priority
+              style={{ objectFit: 'cover', objectPosition: 'left center', maxWidth: 'none' }}
+            />
+          </div>
+          <span style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: '1.8rem',
+            letterSpacing: '0.8px',
+            whiteSpace: 'nowrap',
+            display: 'inline-flex',
+            alignItems: 'center',
+          }}>
+            <span style={{ fontWeight: 600, color: 'var(--clr-white)' }}>Yantra</span>
+            <span className="text-gradient-gold" style={{ fontWeight: 600, marginLeft: '6px' }}>Legal</span>
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="desktop-nav nav-pill" style={desktopNavStyle}>
           <ul style={menuStyle}>
             <li>
-              <Link href="/" className="nav-link">
+              <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/about" className="nav-link">
+              <Link href="/about" className={`nav-link ${pathname === '/about' ? 'active' : ''}`}>
                 About
               </Link>
             </li>
 
             {/* Services Mega Menu */}
             <li className="nav-item-dropdown">
-              <Link href="/immigration-law" className="nav-link dropdown-toggle">
+              <Link href="/immigration-law" className={`nav-link dropdown-toggle ${pathname.startsWith('/immigration-law') || pathname.startsWith('/family-law') || pathname.startsWith('/appeals-and-reviews') ? 'active' : ''}`}>
                 <span>Services</span>
                 <svg className="chevron-icon" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -214,12 +225,12 @@ export default function Navbar() {
                       <h5 style={subGroupLabelStyle}>Divorce</h5>
                       <ul className="dropdown-links" style={{ marginBottom: '16px' }}>
                         <li>
-                          <Link href="/divorce/divorce-in-australia" className="dropdown-link-item-simple">
+                          <Link href="/family-law/divorce-in-australia" className="dropdown-link-item-simple">
                             Divorce in Australia
                           </Link>
                         </li>
                         <li>
-                          <Link href="/divorce/divorce-in-nepal" className="dropdown-link-item-simple">
+                          <Link href="/family-law/divorce-in-nepal" className="dropdown-link-item-simple">
                             Divorce in Nepal
                           </Link>
                         </li>
@@ -284,17 +295,17 @@ export default function Navbar() {
             </li>
 
             <li>
-              <Link href="/blog" className="nav-link">
+              <Link href="/blog" className={`nav-link ${pathname.startsWith('/blog') ? 'active' : ''}`}>
                 Blog
               </Link>
             </li>
             <li>
-              <Link href="/faqs" className="nav-link">
+              <Link href="/faqs" className={`nav-link ${pathname === '/faqs' ? 'active' : ''}`}>
                 FAQs
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="nav-link">
+              <Link href="/contact" className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}>
                 Contact
               </Link>
             </li>
@@ -320,7 +331,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Search Button & Toggle */}
-        <div className="mobile-only-flex" style={{ display: 'none', alignItems: 'center', gap: '12px' }}>
+        <div className="mobile-only-flex" style={{ alignItems: 'center', gap: '12px' }}>
           <button
             onClick={() => setSearchOpen(true)}
             style={mobileSearchButtonStyle}
@@ -344,59 +355,138 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Nav Backdrop Overlay */}
       {mobileMenuOpen && (
-        <div style={mobileDrawerStyle}>
-          <ul style={mobileMenuListStyle}>
-            <li>
-              <Link href="/" onClick={() => setMobileMenuOpen(false)} style={mobileNavLinkStyle}>
-                Home
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(4, 18, 13, 0.6)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            zIndex: 998,
+          }}
+        />
+      )}
+
+      {/* Mobile Navigation Drawer (Off-Canvas) */}
+      <div
+        className={`mobile-drawer-container ${mobileMenuOpen ? 'mobile-drawer-open' : ''}`}
+        style={{
+          transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+          visibility: mobileMenuOpen ? 'visible' : 'hidden',
+          opacity: mobileMenuOpen ? 1 : 0,
+          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, visibility 0.4s ease',
+        }}
+      >
+        {/* Drawer Header */}
+        <div className="drawer-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '16px', transitionDelay: '50ms' }}>
+          <span style={{ fontFamily: 'var(--font-serif)', fontSize: '1.35rem', fontWeight: 600, letterSpacing: '0.5px' }}>
+            <span style={{ color: '#ffffff' }}>Yantra</span>
+            <span style={{ color: 'var(--clr-yellow)', marginLeft: '4px' }}>Legal</span>
+          </span>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="drawer-close-btn"
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Drawer Search Shortcut */}
+        <div
+          className="drawer-item drawer-search-box"
+          style={{ transitionDelay: '100ms' }}
+          onClick={() => {
+            setSearchOpen(true);
+            setMobileMenuOpen(false);
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ color: 'var(--clr-yellow)', flexShrink: 0 }}>
+            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span>Search legal services...</span>
+        </div>
+
+        {/* Section 1: Navigation */}
+        <div style={{ marginBottom: '28px' }}>
+          <div className="drawer-item drawer-section-title" style={{ transitionDelay: '150ms' }}>Menu</div>
+          <ul style={{ ...mobileMenuListStyle, gap: '10px' }}>
+            <li className="drawer-item" style={{ transitionDelay: '200ms' }}>
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link-card ${pathname === '/' ? 'active' : ''}`}>
+                <span>Home</span>
+                <span className="arrow-icon">→</span>
               </Link>
             </li>
-            <li>
-              <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={mobileNavLinkStyle}>
-                About
+            <li className="drawer-item" style={{ transitionDelay: '250ms' }}>
+              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link-card ${pathname === '/about' ? 'active' : ''}`}>
+                <span>About Us</span>
+                <span className="arrow-icon">→</span>
               </Link>
             </li>
-            <li>
-              <Link href="/immigration-law" onClick={() => setMobileMenuOpen(false)} style={mobileNavLinkStyle}>
-                Services — Immigration
+            <li className="drawer-item" style={{ transitionDelay: '300ms' }}>
+              <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link-card ${pathname.startsWith('/blog') ? 'active' : ''}`}>
+                <span>Blog & Insights</span>
+                <span className="arrow-icon">→</span>
               </Link>
             </li>
-            <li>
-              <Link href="/divorce" onClick={() => setMobileMenuOpen(false)} style={mobileNavLinkStyle}>
-                Services — Family Law / Divorce
-              </Link>
-            </li>
-            <li>
-              <Link href="/appeals-and-reviews" onClick={() => setMobileMenuOpen(false)} style={mobileNavLinkStyle}>
-                Appeals & Reviews
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog" onClick={() => setMobileMenuOpen(false)} style={mobileNavLinkStyle}>
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link href="/faqs" onClick={() => setMobileMenuOpen(false)} style={mobileNavLinkStyle}>
-                FAQs
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} style={mobileNavLinkStyle}>
-                Contact
-              </Link>
-            </li>
-            <li style={{ marginTop: '20px' }}>
-              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="btn btn-yellow" style={{ display: 'flex', justifyContent: 'center' }}>
-                <span>Book a Confidential Consultation</span>
-                <span className="btn-arrow-circle">↗</span>
+            <li className="drawer-item" style={{ transitionDelay: '350ms' }}>
+              <Link href="/faqs" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link-card ${pathname === '/faqs' ? 'active' : ''}`}>
+                <span>FAQs</span>
+                <span className="arrow-icon">→</span>
               </Link>
             </li>
           </ul>
         </div>
-      )}
+
+        {/* Section 2: Services */}
+        <div style={{ marginBottom: '28px' }}>
+          <div className="drawer-item drawer-section-title" style={{ transitionDelay: '400ms' }}>Legal Services</div>
+          <ul style={{ ...mobileMenuListStyle, gap: '10px' }}>
+            <li className="drawer-item" style={{ transitionDelay: '450ms' }}>
+              <Link href="/immigration-law" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link-card ${pathname.startsWith('/immigration-law') ? 'active' : ''}`}>
+                <span>Immigration & Visas</span>
+                <span className="arrow-icon">→</span>
+              </Link>
+            </li>
+            <li className="drawer-item" style={{ transitionDelay: '500ms' }}>
+              <Link href="/family-law" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link-card ${pathname.startsWith('/family-law') ? 'active' : ''}`}>
+                <span>Family & Divorce Law</span>
+                <span className="arrow-icon">→</span>
+              </Link>
+            </li>
+            <li className="drawer-item" style={{ transitionDelay: '550ms' }}>
+              <Link href="/appeals-and-reviews" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link-card ${pathname.startsWith('/appeals-and-reviews') ? 'active' : ''}`}>
+                <span>Appeals & Reviews</span>
+                <span className="arrow-icon">→</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Section 3: Contact Info & CTA */}
+        <div className="drawer-item" style={{ marginTop: 'auto', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '24px', transitionDelay: '600ms' }}>
+          <div className="drawer-section-title" style={{ marginBottom: '16px' }}>Get In Touch</div>
+          <div style={{ color: 'var(--clr-text-muted)', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px', paddingLeft: '4px' }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ color: 'var(--clr-yellow)' }}>📍</span> Sydney Office & Across Australia
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ color: 'var(--clr-yellow)' }}>💬</span> WhatsApp Chat Available
+            </span>
+          </div>
+          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="btn btn-yellow" style={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '14px 20px' }}>
+            <span>Book Consultation</span>
+            <span className="btn-arrow-circle">↗</span>
+          </Link>
+        </div>
+      </div>
       {/* Search Modal */}
       {searchOpen && (
         <div style={searchOverlayStyle} onClick={() => setSearchOpen(false)}>
@@ -443,7 +533,7 @@ export default function Navbar() {
                   ))}
                 </div>
               ) : searchQuery.trim() ? (
-                <div style={noResultsStyle}>No results found for "{searchQuery}"</div>
+                <div style={noResultsStyle}>No results found for &quot;{searchQuery}&quot;</div>
               ) : (
                 <div style={searchHelpStyle}>
                   <h4 style={{ margin: '0 0 12px 0', fontSize: '0.9rem', color: '#cbdad3', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Popular Searches</h4>
@@ -481,12 +571,14 @@ const headerStyle = (scrolled: boolean): React.CSSProperties => ({
   transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
 });
 
-const innerStyle: React.CSSProperties = {
+const innerStyle = (scrolled: boolean): React.CSSProperties => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   position: 'relative',
-};
+  maxWidth: scrolled ? '1280px' : '1440px',
+  transition: 'max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+});
 
 const menuStyle: React.CSSProperties = {
   display: 'flex',
@@ -534,7 +626,6 @@ const noteTextStyle: React.CSSProperties = {
 };
 
 const mobileToggleStyle: React.CSSProperties = {
-  display: 'none',
   flexDirection: 'column',
   justifyContent: 'space-between',
   width: '24px',
@@ -566,12 +657,17 @@ const hamburgerLineMiddle = (open: boolean): React.CSSProperties => ({
 
 const mobileDrawerStyle: React.CSSProperties = {
   position: 'fixed',
-  top: '64px',
-  left: 0,
+  top: 0,
   right: 0,
-  height: 'calc(100vh - 64px)',
-  backgroundColor: '#061912',
-  padding: '30px 24px',
+  width: '320px',
+  maxWidth: '85vw',
+  height: '100vh',
+  backgroundColor: 'rgba(6, 25, 18, 0.98)',
+  backdropFilter: 'blur(20px)',
+  WebkitBackdropFilter: 'blur(20px)',
+  borderLeft: '1px solid rgba(223, 173, 62, 0.2)',
+  boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.3)',
+  padding: '80px 24px 30px 24px',
   display: 'flex',
   flexDirection: 'column',
   zIndex: 999,
@@ -588,12 +684,14 @@ const mobileMenuListStyle: React.CSSProperties = {
 };
 
 const mobileNavLinkStyle: React.CSSProperties = {
-  fontSize: '1.2rem',
+  fontSize: '1.05rem',
   fontWeight: '500',
   color: '#cbdad3',
-  display: 'block',
-  padding: '8px 0',
-  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '6px 0',
+  transition: 'all 0.2s ease',
 };
 
 const searchButtonStyle: React.CSSProperties = {
