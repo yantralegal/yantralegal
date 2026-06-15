@@ -22,8 +22,7 @@ interface HighlighterProps {
   strokeWidth?: number
   animationDuration?: number
   iterations?: number
-
-
+  padding?: number
   multiline?: boolean
   isView?: boolean
   loop?: boolean
