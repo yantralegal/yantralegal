@@ -63,21 +63,25 @@ export default function ContactSection() {
     <section className="contact-section" id="contact">
       <div className="container">
         {/* Top Header Row (2 Columns) */}
-        <div className="contact-header-grid">
+        <div className="contact-header-grid" style={{ alignItems: 'flex-start' }}>
           <div className="contact-header-left reveal-on-scroll reveal-fade-up">
             <span className="contact-badge">CONTACT</span>
-            <h2 className="contact-title">
-              Let&apos;s Discuss Your <br />
-              <span className="text-gradient-gold">Matter</span>
+            <h2 className="contact-title" style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', color: '#061912', fontWeight: 400 }}>
+              Ready to Discuss <span className="text-gradient-gold">Your Matter?</span>
             </h2>
           </div>
-          <div className="contact-header-right reveal-on-scroll reveal-fade-up delay-100">
-            <a href="#contact-form-anchor" className="btn-dark-green" onClick={handleScrollToForm}>
-              <span>Book a Consultation</span>
-            </a>
-            <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" className="btn-outline-dark">
-              <span>Speak with a Solicitor</span>
-            </a>
+          <div className="contact-header-right reveal-on-scroll reveal-fade-up delay-100" style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start', textAlign: 'left' }}>
+            <p style={{ fontSize: '0.98rem', lineHeight: '1.65', color: 'rgba(6, 25, 18, 0.75)', margin: 0 }}>
+              Whether you need assistance with a visa application, migration appeal, family law matter or simply want to understand your options, we are here to help. Book a fixed-fee consultation and receive clear, practical legal advice tailored to your circumstances.
+            </p>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '8px' }}>
+              <a href="#contact-form-anchor" className="btn-dark-green" onClick={handleScrollToForm}>
+                <span>Book a Consultation</span>
+              </a>
+              <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" className="btn-outline-dark">
+                <span>Speak with a Solicitor</span>
+              </a>
+            </div>
           </div>
         </div>
 

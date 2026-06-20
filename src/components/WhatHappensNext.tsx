@@ -17,12 +17,12 @@ export default function WhatHappensNext() {
     {
       num: '03',
       title: 'Strategy and Advice',
-      desc: 'We provide practical legal advice and next steps in clear language so you can make informed decisions.'
+      desc: 'We provide practical legal advice and a clear plan of next steps — with upfront fixed fees or a written cost estimate — so you can make informed decisions with full cost transparency.'
     },
     {
       num: '04',
       title: 'Representation and Support',
-      desc: 'We guide and represent you throughout the process, keeping you informed and supported every step of the way.'
+      desc: 'We represent you throughout the process with thorough preparation and regular communication, keeping you informed and supported at every stage.'
     }
   ];
 

@@ -18,7 +18,7 @@ export default function BlogSection() {
             Latest from Our <span className="text-gradient-gold">Blog</span>
           </h2>
           <p style={subtitleStyle}>
-            Stay informed with practical guides and insights regarding Australian migration law, family law, and review pathways.
+            Practical legal information, migration updates and insights to help you understand your rights and options.
           </p>
         </div>
 

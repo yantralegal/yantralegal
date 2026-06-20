@@ -29,6 +29,11 @@ const homeFaqData: FAQItem[] = [
     id: 4,
     question: 'How long do I have to appeal a visa refusal?',
     answer: 'Time limits vary depending on the type of decision and your individual circumstances. Some review applications must be lodged within as little as 21 days. It is important to seek legal advice as soon as possible after receiving a decision.'
+  },
+  {
+    id: 5,
+    question: 'Do you assist clients outside Sydney?',
+    answer: 'Yes. Yantra Legal assists clients across Australia through telephone and online consultations. Many migration clients are interstate.'
   }
 ];
 

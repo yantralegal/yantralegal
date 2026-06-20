@@ -7,6 +7,7 @@ import HeroHeading from './HeroHeading';
 import LawyerPortrait from './LawyerPortrait';
 import { TypingAnimation } from './ui/typing-animation';
 import { Highlighter } from './ui/highlighter';
+import { Icon } from '@iconify/react';
 
 export default function HeroSection() {
   return (
@@ -23,8 +24,10 @@ export default function HeroSection() {
         <div className="hero-grid-2col">
           {/* Left Column: Heading, Description, Buttons, Social Proof */}
           <div className="hero-left-col">
-            <div style={topTagStyle} className="hero-top-tag reveal-on-scroll reveal-fade-up">
-              AUSTRALIAN SOLICITOR | MIGRATION & FAMILY LAW
+            <div className="hero-top-tag reveal-on-scroll reveal-fade-up">
+              <span className="hero-highlight-tag">
+                Australian Solicitor <span className="tag-dot">&bull;</span> Migration & Family Law Focus <span className="tag-dot">&bull;</span> Fixed-Fee Initial Consultations
+              </span>
             </div>
 
             <HeroHeading />
@@ -45,7 +48,7 @@ export default function HeroSection() {
             </div>
 
             <p className="hero-desc reveal-on-scroll reveal-fade-up delay-100">
-              <Highlighter action="underline" color="var(--clr-yellow)" strokeWidth={2} animationDuration={1200} loop={true} isView={true}>Yantra Legal</Highlighter> provides clear, strategic legal advice and dedicated representation for migration, family law, and visa appeals across Australia.
+              Whether you are building a future in Australia, responding to a visa refusal, or navigating a family law matter, <Highlighter action="underline" color="var(--clr-yellow)" strokeWidth={2} animationDuration={1200} loop={true} isView={true}>Yantra Legal</Highlighter> provides clear advice, practical solutions, and personalised legal support every step of the way.
             </p>
 
             <div className="hero-btn-group reveal-on-scroll reveal-fade-up delay-200">
@@ -80,6 +83,8 @@ export default function HeroSection() {
           {Array(3).fill([
             "Australian Solicitor",
             "Migration & Family Law Focus",
+            "Personalised service",
+            "Fixed-fee Consultations",
             "Lived Experience",
             "Serving Clients Across Australia",
             "Multilingual Support (English, Nepali, Hindi)"
@@ -90,6 +95,24 @@ export default function HeroSection() {
             </div>
           ))}
         </div>
+      </div>
+      {/* Floating Social Media Icons on the Right Edge */}
+      <div className="hero-floating-socials">
+        <a href="https://www.facebook.com/yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="Facebook">
+          <Icon icon="ri:facebook-fill" width="22" height="22" />
+        </a>
+        <a href="https://x.com/YantraLegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="X (Twitter)">
+          <Icon icon="ri:twitter-x-fill" width="20" height="20" />
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="LinkedIn">
+          <Icon icon="ri:linkedin-fill" width="22" height="22" />
+        </a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="TikTok">
+          <Icon icon="ri:tiktok-fill" width="20" height="20" />
+        </a>
+        <a href="https://www.instagram.com/yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="Instagram">
+          <Icon icon="ri:instagram-fill" width="22" height="22" />
+        </a>
       </div>
     </section>
   );

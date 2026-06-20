@@ -129,10 +129,10 @@ export default function TestimonialsSection() {
           <div className="testimonials-header-right reveal-on-scroll reveal-fade-up delay-100">
             <span className="testimonials-badge">Testimonials</span>
             <h2 className="testimonials-title">
-              What My <span className="text-gradient-gold">Clients</span> Say
+              What Our <span className="text-gradient-gold">Clients</span> Say
             </h2>
             <p className="testimonials-desc">
-              Nothing speaks louder than the experiences of my clients. Read stories of families united, visas secured, and disputes resolved with strategic care.
+              The trust our clients place in us is the foundation of our practice. Here are some of their experiences working with Yantra Legal.
             </p>
           </div>
         </div>
@@ -149,7 +149,7 @@ export default function TestimonialsSection() {
             onClick={() => setFilter('immigration')}
             className={`filter-tab ${filter === 'immigration' ? 'active' : ''}`}
           >
-            Immigration Law
+            Migration Law
           </button>
           <button
             onClick={() => setFilter('family')}

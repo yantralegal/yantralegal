@@ -8,7 +8,7 @@ export default function LawyerPortrait() {
       <div style={glowBackdropStyle} />
 
       <Image
-        src="/finallawyerportrait_background_removed.png"
+        src="/solicitorkrishna.png"
         alt="Principal Solicitor Portrait"
         fill
         priority

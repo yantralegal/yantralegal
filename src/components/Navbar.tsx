@@ -53,7 +53,7 @@ export default function Navbar() {
         results.push({
           title: page.title,
           url: page.url,
-          category: page.url.startsWith('/immigration-law') ? 'Immigration Law' : page.url.startsWith('/family-law') ? 'Family Law' : 'Appeals & Reviews',
+          category: page.url.startsWith('/migration-law') ? 'Migration Law' : page.url.startsWith('/family-law') ? 'Family Law' : 'Appeals & Reviews',
           snippet: snippet || 'Legal Service Page',
         });
       }
@@ -90,16 +90,35 @@ export default function Navbar() {
     return results.slice(0, 8);
   }, [searchQuery]);
 
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 30);
+
+      const isMobile = window.innerWidth <= 991;
+      if (isMobile) {
+        if (currentScrollY <= 80) {
+          setShowHeader(true);
+        } else if (currentScrollY > lastScrollY) {
+          setShowHeader(false);
+        } else {
+          setShowHeader(true);
+        }
+      } else {
+        setShowHeader(true);
+      }
+      setLastScrollY(currentScrollY);
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   return (
-    <header style={headerStyle(scrolled)}>
+    <header style={headerStyle(scrolled, showHeader)}>
       <div className="container" style={innerStyle(scrolled)}>
         <Link href="/" className="logo-hover" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{ width: '66px', height: '62px', overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -141,7 +160,7 @@ export default function Navbar() {
 
             {/* Services Mega Menu */}
             <li className="nav-item-dropdown">
-              <Link href="/immigration-law" className={`nav-link dropdown-toggle ${pathname.startsWith('/immigration-law') || pathname.startsWith('/family-law') || pathname.startsWith('/appeals-and-reviews') ? 'active' : ''}`}>
+              <Link href="/migration-law" className={`nav-link dropdown-toggle ${pathname.startsWith('/migration-law') || pathname.startsWith('/family-law') || pathname.startsWith('/appeals-and-reviews') ? 'active' : ''}`}>
                 <span>Services</span>
                 <svg className="chevron-icon" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -153,33 +172,37 @@ export default function Navbar() {
                 <div className="dropdown-grid services-mega-grid">
                   {/* Immigration Column */}
                   <div className="dropdown-column">
-                    <h4 className="dropdown-column-title">Immigration Law</h4>
+                    <h4 className="dropdown-column-title">
+                      <Link href="/migration-law" style={{ color: 'inherit', textDecoration: 'none' }}>
+                        Migration Law
+                      </Link>
+                    </h4>
                     <div style={megaInnerGrid}>
                       <div>
                         <h5 style={subGroupLabelStyle}>Main Visas</h5>
                         <ul className="dropdown-links">
                           <li>
-                            <Link href="/immigration-law/partner-visas" className="dropdown-link-item-simple">
+                            <Link href="/migration-law/partner-visas" className="dropdown-link-item-simple">
                               Partner Visa
                             </Link>
                           </li>
                           <li>
-                            <Link href="/immigration-law/employer-sponsored-visas" className="dropdown-link-item-simple">
+                            <Link href="/migration-law/employer-sponsored-visas" className="dropdown-link-item-simple">
                               Employer Sponsored
                             </Link>
                           </li>
                           <li>
-                            <Link href="/immigration-law/skilled-visas" className="dropdown-link-item-simple">
+                            <Link href="/migration-law/skilled-visas" className="dropdown-link-item-simple">
                               Skilled Visas
                             </Link>
                           </li>
                           <li>
-                            <Link href="/immigration-law/protection-visas" className="dropdown-link-item-simple">
+                            <Link href="/migration-law/protection-visas" className="dropdown-link-item-simple">
                               Protection Visa
                             </Link>
                           </li>
                           <li>
-                            <Link href="/immigration-law/ministerial-intervention" className="dropdown-link-item-simple">
+                            <Link href="/migration-law/ministerial-intervention" className="dropdown-link-item-simple">
                               Ministerial Intervention
                             </Link>
                           </li>
@@ -189,27 +212,27 @@ export default function Navbar() {
                         <h5 style={subGroupLabelStyle}>Other Visas</h5>
                         <ul className="dropdown-links">
                           <li>
-                            <Link href="/immigration-law/child-visas" className="dropdown-link-item-simple">
+                            <Link href="/migration-law/child-visas" className="dropdown-link-item-simple">
                               Child Visas
                             </Link>
                           </li>
                           <li>
-                            <Link href="/immigration-law/parent-visas" className="dropdown-link-item-simple">
+                            <Link href="/migration-law/parent-visas" className="dropdown-link-item-simple">
                               Parent Visas
                             </Link>
                           </li>
                           <li>
-                            <Link href="/immigration-law/visitor-visas" className="dropdown-link-item-simple">
+                            <Link href="/migration-law/visitor-visas" className="dropdown-link-item-simple">
                               Visitor Visas
                             </Link>
                           </li>
                           <li>
-                            <Link href="/immigration-law/resident-return-visas" className="dropdown-link-item-simple">
+                            <Link href="/migration-law/resident-return-visas" className="dropdown-link-item-simple">
                               Resident Return
                             </Link>
                           </li>
                           <li>
-                            <Link href="/immigration-law/bridging-visas" className="dropdown-link-item-simple">
+                            <Link href="/migration-law/bridging-visas" className="dropdown-link-item-simple">
                               Bridging Visas
                             </Link>
                           </li>
@@ -220,7 +243,11 @@ export default function Navbar() {
 
                   {/* Family Law Column */}
                   <div className="dropdown-column">
-                    <h4 className="dropdown-column-title">Family Law</h4>
+                    <h4 className="dropdown-column-title">
+                      <Link href="/family-law" style={{ color: 'inherit', textDecoration: 'none' }}>
+                        Family Law
+                      </Link>
+                    </h4>
                     <div>
                       <h5 style={subGroupLabelStyle}>Divorce</h5>
                       <ul className="dropdown-links" style={{ marginBottom: '16px' }}>
@@ -256,7 +283,11 @@ export default function Navbar() {
               <div className="dropdown-menu" style={{ width: '480px' }}>
                 <div className="dropdown-grid">
                   <div className="dropdown-column">
-                    <h4 className="dropdown-column-title">Refusals & Cancellations</h4>
+                    <h4 className="dropdown-column-title">
+                      <Link href="/appeals-and-reviews" style={{ color: 'inherit', textDecoration: 'none' }}>
+                        Refusals & Cancellations
+                      </Link>
+                    </h4>
                     <ul className="dropdown-links">
                       <li>
                         <Link href="/appeals-and-reviews/visa-refusals" className="dropdown-link-item-simple">
@@ -276,7 +307,11 @@ export default function Navbar() {
                     </ul>
                   </div>
                   <div className="dropdown-column">
-                    <h4 className="dropdown-column-title">Review & Appeals</h4>
+                    <h4 className="dropdown-column-title">
+                      <Link href="/appeals-and-reviews" style={{ color: 'inherit', textDecoration: 'none' }}>
+                        Review & Appeals
+                      </Link>
+                    </h4>
                     <ul className="dropdown-links">
                       <li>
                         <Link href="/appeals-and-reviews/art-appeals" className="dropdown-link-item-simple">
@@ -450,8 +485,8 @@ export default function Navbar() {
           <div className="drawer-item drawer-section-title" style={{ transitionDelay: '400ms' }}>Legal Services</div>
           <ul style={{ ...mobileMenuListStyle, gap: '10px' }}>
             <li className="drawer-item" style={{ transitionDelay: '450ms' }}>
-              <Link href="/immigration-law" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link-card ${pathname.startsWith('/immigration-law') ? 'active' : ''}`}>
-                <span>Immigration & Visas</span>
+              <Link href="/migration-law" onClick={() => setMobileMenuOpen(false)} className={`mobile-nav-link-card ${pathname.startsWith('/migration-law') ? 'active' : ''}`}>
+                <span>Migration & Visas</span>
                 <span className="arrow-icon">→</span>
               </Link>
             </li>
@@ -558,7 +593,7 @@ export default function Navbar() {
   );
 }
 
-const headerStyle = (scrolled: boolean): React.CSSProperties => ({
+const headerStyle = (scrolled: boolean, showHeader: boolean): React.CSSProperties => ({
   position: 'fixed',
   top: 0,
   left: 0,
@@ -569,6 +604,7 @@ const headerStyle = (scrolled: boolean): React.CSSProperties => ({
   boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.25)' : 'none',
   backdropFilter: scrolled ? 'blur(20px)' : 'none',
   transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+  transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
 });
 
 const innerStyle = (scrolled: boolean): React.CSSProperties => ({

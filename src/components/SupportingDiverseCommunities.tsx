@@ -5,19 +5,38 @@ import Link from 'next/link';
 
 export default function SupportingDiverseCommunities() {
   const listItems = [
-    'Facing visa refusals?',
-    'Dealing with visa cancellations?',
-    'Reuniting with family in Australia?',
-    'Navigating separation or divorce?',
-    'Unsure about your visa options?',
+    { text: 'Facing visa refusals?', href: '/appeals-and-reviews/visa-refusals' },
+    { text: 'Dealing with visa cancellations?', href: '/appeals-and-reviews/visa-cancellations' },
+    { text: 'Reuniting with family in Australia?', href: '/migration-law/partner-visas' },
+    { text: 'Navigating separation or divorce?', href: '/family-law/divorce-in-australia' },
+    { text: 'Unsure about your visa options?', href: '/contact' },
   ];
 
+
+  const chooseReasons = [
+    {
+      title: 'Lived Experience',
+      desc: 'Having personally experienced migration and settlement across different countries, we understand many of the challenges our clients face.'
+    },
+    {
+      title: 'Direct Access',
+      desc: 'You work directly with your solicitor from the first consultation through to the resolution of your matter.'
+    },
+    {
+      title: 'Clear Advice',
+      desc: 'We explain legal issues in plain language so you can make informed decisions with confidence.'
+    },
+    {
+      title: 'Personalised Representation',
+      desc: 'Every matter receives individual attention and a tailored legal strategy.'
+    }
+  ];
 
   return (
     <section style={sectionStyle} className="section-padding">
       <div className="container" style={containerStyle}>
         <div style={gridStyle}>
-          {/* Left Column: Heading and Description */}
+          {/* Commented Out Left Column: Supporting Diverse Communities for future use
           <div style={leftColStyle}>
             <span className="sec-pill">Supporting Diverse Communities</span>
             <h2 style={titleStyle}>
@@ -36,18 +55,36 @@ export default function SupportingDiverseCommunities() {
               </Link>
             </div>
           </div>
+          */}
+
+          {/* New Left Column: Why Clients Choose Yantra Legal */}
+          <div style={leftColStyle}>
+            <span className="sec-pill">Why Yantra Legal</span>
+            <h2 style={titleStyle}>
+              Why Clients <span className="text-gradient-gold">Choose Yantra Legal</span>
+            </h2>
+            
+            <div className="why-choose-cards-grid">
+              {chooseReasons.map((reason, idx) => (
+                <div key={idx} className="glass why-choose-card reveal-on-scroll reveal-fade-up">
+                  <h3 className="why-choose-card-title">{reason.title}</h3>
+                  <p className="why-choose-card-desc">{reason.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
 
           {/* Right Column: Interactive Assistance Tiles */}
           <div style={rightColStyle}>
-            <div className="assist-wrapper">
+            <div className="assist-wrapper" style={{ width: '100%' }}>
               <h3 className="assist-header">How We Can Assist You</h3>
               <div className="assist-grid">
                 {listItems.map((item, idx) => (
-                  <div key={idx} className="glass assist-tile reveal-on-scroll reveal-fade-up">
+                  <Link href={item.href} key={idx} className="glass assist-tile reveal-on-scroll reveal-fade-up" style={{ display: 'flex', textDecoration: 'none' }}>
                     <span className="assist-tile-index">0{idx + 1}</span>
-                    <span className="assist-tile-text">{item}</span>
+                    <span className="assist-tile-text">{item.text}</span>
                     <span className="assist-tile-arrow">↗</span>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

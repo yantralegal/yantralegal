@@ -57,22 +57,22 @@ export default function WhyChooseValues() {
     {
       num: 'I',
       title: 'Clarity',
-      desc: 'The law should never feel like a barrier. Every client leaves every conversation with a clear understanding of their situation, their options, and the next step — no jargon, no ambiguity.',
+      desc: 'The law should never feel confusing or inaccessible. We explain legal issues in plain language so clients understand their options and can make informed decisions.',
     },
     {
       num: 'II',
       title: 'Honesty',
-      desc: 'We give straightforward advice — even when it is not what a client hoped to hear. Informed decisions lead to better outcomes, and we never oversell what we can deliver.',
+      desc: 'We provide straightforward advice, even when it may not be what a client hopes to hear. Honest advice creates realistic expectations and better outcomes.',
     },
     {
       num: 'III',
       title: 'Balance',
-      desc: 'The name Yantra is drawn from ancient sacred geometry — a symbol of the perfect balance between opposing forces. That same principle guides our work: strategy and empathy, precision and care, always in proportion.',
+      desc: 'Inspired by the principles behind the Yantra, we approach every matter with balance — combining strategy with empathy, precision with care, and professionalism with understanding.',
     },
     {
       num: 'IV',
       title: 'Commitment',
-      desc: 'Every matter we take on receives our full attention from the first consultation to the final outcome. We do not take on more than we can handle well — because quality matters more than volume.',
+      desc: 'Every matter receives our full attention. We focus on quality over volume, ensuring every client receives personalised service and dedicated representation.',
     },
   ];
 

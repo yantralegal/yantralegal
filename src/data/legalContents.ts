@@ -16,8 +16,8 @@ export interface LegalPage {
 export const legalPages: LegalPage[] = [
   {
     "pageNum": 3,
-    "title": "Immigration Law",
-    "url": "/immigration-law",
+    "title": "Migration Law",
+    "url": "/migration-law",
     "sections": [
       {
         "heading": "Migration Law Services",
@@ -105,7 +105,7 @@ export const legalPages: LegalPage[] = [
   {
     "pageNum": 4,
     "title": "Partner Visas",
-    "url": "/immigration-law/partner-visas",
+    "url": "/migration-law/partner-visas",
     "sections": [
       {
         "heading": "OVERVIEW",
@@ -165,7 +165,7 @@ export const legalPages: LegalPage[] = [
   {
     "pageNum": 5,
     "title": "Employer Sponsored Visas",
-    "url": "/immigration-law/employer-sponsored-visas",
+    "url": "/migration-law/employer-sponsored-visas",
     "sections": [
       {
         "heading": "Introduction",
@@ -223,7 +223,7 @@ export const legalPages: LegalPage[] = [
   {
     "pageNum": 6,
     "title": "Skilled Visas",
-    "url": "/immigration-law/skilled-visas",
+    "url": "/migration-law/skilled-visas",
     "sections": [
       {
         "heading": "Introduction",
@@ -290,7 +290,7 @@ export const legalPages: LegalPage[] = [
   {
     "pageNum": 7,
     "title": "Protection Visas",
-    "url": "/immigration-law/protection-visas",
+    "url": "/migration-law/protection-visas",
     "sections": [
       {
         "heading": "Introduction",
@@ -348,7 +348,7 @@ export const legalPages: LegalPage[] = [
   {
     "pageNum": 8,
     "title": "Ministerial Intervention",
-    "url": "/immigration-law/ministerial-intervention",
+    "url": "/migration-law/ministerial-intervention",
     "sections": [
       {
         "heading": "Introduction",
@@ -406,7 +406,7 @@ export const legalPages: LegalPage[] = [
   {
     "pageNum": 9,
     "title": "Child Visas",
-    "url": "/immigration-law/child-visas",
+    "url": "/migration-law/child-visas",
     "sections": [
       {
         "heading": "Child Visas",
@@ -458,7 +458,7 @@ export const legalPages: LegalPage[] = [
   {
     "pageNum": 10,
     "title": "Parent Visas",
-    "url": "/immigration-law/parent-visas",
+    "url": "/migration-law/parent-visas",
     "sections": [
       {
         "heading": "Introduction",
@@ -512,7 +512,7 @@ export const legalPages: LegalPage[] = [
   {
     "pageNum": 11,
     "title": "Visitor Visas",
-    "url": "/immigration-law/visitor-visas",
+    "url": "/migration-law/visitor-visas",
     "sections": [
       {
         "heading": "Introduction",
@@ -570,7 +570,7 @@ export const legalPages: LegalPage[] = [
   {
     "pageNum": 12,
     "title": "Resident Return Visas",
-    "url": "/immigration-law/resident-return-visas",
+    "url": "/migration-law/resident-return-visas",
     "sections": [
       {
         "heading": "Resident Return Visas (RRV)",
@@ -615,7 +615,7 @@ export const legalPages: LegalPage[] = [
   {
     "pageNum": 13,
     "title": "Bridging Visas",
-    "url": "/immigration-law/bridging-visas",
+    "url": "/migration-law/bridging-visas",
     "sections": [
       {
         "heading": "Introduction",
