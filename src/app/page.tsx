@@ -17,15 +17,15 @@ export default function Home() {
     <main>
       <ScrollObserver />
       <HeroSection />
+      <AffiliationsSection />
+      <ServicesSection />
       {/* <IntroductionSection /> */}
       {/* <AboutPrincipal /> */}
       <SupportingDiverseCommunities />
 
-      <ServicesSection />
-      <BlogSection />
       <TestimonialsSection />
+      <BlogSection />
       <FAQSection />
-      <AffiliationsSection />
       <ContactSection />
       <Footer />
     </main>

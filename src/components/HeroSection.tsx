@@ -24,11 +24,7 @@ export default function HeroSection() {
         <div className="hero-grid-2col">
           {/* Left Column: Heading, Description, Buttons, Social Proof */}
           <div className="hero-left-col">
-            <div className="hero-top-tag reveal-on-scroll reveal-fade-up">
-              <span className="hero-highlight-tag">
-                Australian Solicitor <span className="tag-dot">&bull;</span> Migration & Family Law Focus <span className="tag-dot">&bull;</span> Fixed-Fee Initial Consultations
-              </span>
-            </div>
+
 
             <HeroHeading />
 
@@ -48,7 +44,7 @@ export default function HeroSection() {
             </div>
 
             <p className="hero-desc reveal-on-scroll reveal-fade-up delay-100">
-              Whether you are building a future in Australia, responding to a visa refusal, or navigating a family law matter, <Highlighter action="underline" color="var(--clr-yellow)" strokeWidth={2} animationDuration={1200} loop={true} isView={true}>Yantra Legal</Highlighter> provides clear advice, practical solutions, and personalised legal support every step of the way.
+              Whether you are building a future in Australia, responding to a visa refusal, or navigating a family law matter, Yantra Legal provides clear advice, practical solutions, and personalised legal support every step of the way.
             </p>
 
             <div className="hero-btn-group reveal-on-scroll reveal-fade-up delay-200">
@@ -63,7 +59,7 @@ export default function HeroSection() {
 
             <div className="hero-rating-row reveal-on-scroll reveal-fade-up delay-300">
               <span style={ratingTextStyle}>
-                <strong>Australian Solicitor</strong> &bull; Fixed-Fee Initial Consultations &bull; English, Nepali & Hindi
+                <strong>Australian Solicitor</strong> &bull; <Highlighter action="underline" color="var(--clr-yellow)" strokeWidth={2} animationDuration={1200} loop={true} isView={true}>Fixed-Fee Initial Consultations</Highlighter> &bull; English, Nepali & Hindi
               </span>
             </div>
           </div>

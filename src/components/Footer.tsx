@@ -139,8 +139,24 @@ export default function Footer() {
 
           {/* Bottom Bar */}
           <div className="footer-bottom-bar" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', paddingTop: '16px' }}>
-            <div style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.45)', textAlign: 'center', marginBottom: '4px' }}>
-              Liability limited by a scheme approved under Professional Standards Legislation.
+            <div style={{ 
+              fontSize: '0.85rem', 
+              color: 'var(--clr-yellow)', 
+              textAlign: 'center', 
+              marginBottom: '12px',
+              background: 'rgba(223, 173, 62, 0.05)',
+              border: '1px solid rgba(223, 173, 62, 0.15)',
+              borderRadius: '8px',
+              padding: '6px 16px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              fontWeight: 500,
+              letterSpacing: '0.3px'
+            }}>
+              <Icon icon="ri:scales-3-line" width="16" height="16" />
+              <span>Liability limited by a scheme approved under Professional Standards Legislation.</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', borderTop: '1px solid rgba(255, 255, 255, 0.05)', paddingTop: '8px', flexWrap: 'wrap', gap: '12px' }}>
               <div className="footer-copyright">

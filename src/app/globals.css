@@ -4957,9 +4957,34 @@ a {
    ============================================================ */
 .affiliations-section {
   background-color: #061912;
-  padding: 60px 0 80px 0;
+  padding: 80px 0;
   position: relative;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+/* Glowing gold horizontal divider line fading at the edges */
+.affiliations-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(223, 173, 62, 0.3), transparent);
+  pointer-events: none;
+}
+
+.affiliations-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(223, 173, 62, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .affiliations-container {
@@ -4968,72 +4993,197 @@ a {
   align-items: center;
   gap: 32px;
   text-align: center;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
-.affiliations-intro {
-  font-size: 1rem;
-  color: var(--clr-text-muted);
-  line-height: 1.6;
+.affiliations-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  color: #ffffff;
+  font-weight: 400;
   margin: 0;
 }
 
-.affiliations-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  width: 100%;
+.affiliations-intro {
+  font-size: 1.05rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+  max-width: 640px;
 }
 
-.affiliations-badge {
+/* Marquee wrapper with gradient blur/fade overlays on the sides */
+.affiliations-marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  padding: 20px 0;
+}
+
+/* The side fade mask */
+.affiliations-marquee-wrapper::before,
+.affiliations-marquee-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 15%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.affiliations-marquee-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #061912, transparent);
+}
+
+.affiliations-marquee-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #061912, transparent);
+}
+
+/* The marquee moving track */
+.affiliations-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 24px;
+  animation: logo-marquee-scroll 24s linear infinite;
+}
+
+.affiliations-marquee-wrapper:hover .affiliations-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Individual card styling - transparent wrapper */
+.affiliations-logo-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 16px 28px;
-  background: rgba(11, 43, 32, 0.35);
-  border: 1px solid rgba(223, 173, 62, 0.2);
+  width: 440px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: visible;
+  cursor: pointer;
+  padding: 10px 0;
+}
+
+.logo-card-glow {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(223, 173, 62, 0.18) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.affiliations-logo-card:hover {
+  transform: translateY(-8px);
+}
+
+.affiliations-logo-card:hover .logo-card-glow {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Logo container and blending */
+.logo-image-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  margin-bottom: 16px;
+  z-index: 2;
+  filter: brightness(0) invert(1) opacity(0.65);
+  transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.affiliations-logo-card:hover .logo-image-container {
+  filter: brightness(0) invert(0.7) sepia(1) saturate(3.5) hue-rotate(12deg) opacity(1);
+}
+
+/* Logo credentials metadata - this acts as the card/box now */
+.logo-card-content {
+  width: 100%;
+  padding: 20px 24px;
+  background: rgba(11, 43, 32, 0.25);
+  border: 1px solid rgba(223, 173, 62, 0.08);
   border-radius: 16px;
-  min-width: 240px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  z-index: 2;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.affiliations-badge:hover {
-  transform: translateY(-2px);
-  border-color: rgba(223, 173, 62, 0.45);
+.affiliations-logo-card:hover .logo-card-content {
+  border-color: rgba(223, 173, 62, 0.35);
+  background: rgba(11, 43, 32, 0.45);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35), 0 0 15px rgba(223, 173, 62, 0.1);
 }
 
-.affiliations-role {
-  font-size: 0.75rem;
+.logo-card-role {
+  display: inline-block;
+  font-size: 0.6rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   color: var(--clr-yellow);
+  background: rgba(223, 173, 62, 0.05);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(223, 173, 62, 0.1);
+  margin-bottom: 8px;
+  opacity: 0.8;
+  transition: all 0.3s ease;
 }
 
-.affiliations-org {
-  font-size: 0.92rem;
-  font-weight: 500;
-  color: #ffffff;
+.affiliations-logo-card:hover .logo-card-role {
+  background: rgba(223, 173, 62, 0.12);
+  border-color: rgba(223, 173, 62, 0.3);
+  opacity: 1;
 }
 
-@media (max-width: 768px) {
-  .affiliations-grid {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-    width: 100%;
-    max-width: 340px;
-    margin: 0 auto;
+.logo-card-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 4px 0;
+  line-height: 1.4;
+}
+
+.logo-card-desc {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Specific scaling override for Law Society logo to balance size visually */
+.law-society-card .logo-image-container {
+  transform: scale(1.65);
+}
+
+.law-society-card:hover .logo-image-container {
+  transform: scale(1.75);
+}
+
+/* Scroll Animation Keyframes */
+@keyframes logo-marquee-scroll {
+  0% {
+    transform: translateX(0);
   }
-
-  .affiliations-badge {
-    min-width: 0 !important;
-    width: 100%;
-    padding: 14px 20px;
+  100% {
+    transform: translateX(calc(-440px * 4 - 24px * 4));
   }
 }
 
@@ -5326,4 +5476,93 @@ a {
   .legal-section-title.collapsible-header {
     cursor: default !important;
   }
+}
+
+/* ============================================================
+   Yantra Legal — External Link Warning Modal
+   ============================================================ */
+.external-link-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(4, 15, 11, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: modal-fade-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.external-link-modal {
+  width: 90%;
+  max-width: 480px;
+  background: rgba(11, 43, 32, 0.85);
+  border: 1px solid rgba(223, 173, 62, 0.25);
+  border-radius: 24px;
+  padding: 32px 28px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(223, 173, 62, 0.15);
+  transform: scale(0.92);
+  animation: modal-scale-up 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--clr-white);
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.modal-desc {
+  font-size: 0.95rem;
+  color: var(--clr-text-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.modal-url-box {
+  background: rgba(6, 25, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  color: var(--clr-yellow);
+  word-break: break-all;
+  font-family: monospace;
+  margin-bottom: 18px;
+}
+
+.modal-warning-text {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 12px 20px !important;
+  font-size: 0.9rem !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-scale-up {
+  from { transform: scale(0.92); }
+  to { transform: scale(1); }
 }
