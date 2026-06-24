@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { LegalSection } from '../data/legalContents';
 
 interface CollapsibleSectionsProps {
@@ -9,7 +10,162 @@ interface CollapsibleSectionsProps {
   pageTitle: string;
 }
 
+function WhyChooseYantraLegal() {
+  return (
+    <div className="yantra-why-choose">
+      <h3 className="yantra-why-choose-title">Why Choose Yantra Legal?</h3>
+      
+      {/* Desktop (Full Version) */}
+      <div className="yantra-desktop-only">
+        <p className="yantra-why-choose-desc">
+          Yantra Legal is a boutique Australian law practice focused on providing clear, practical, and compassionate legal support in migration and family law matters.
+          We understand that legal issues are often closely tied to important life decisions, relationships, and future plans. Our approach is grounded in clarity, strategy, and genuine care for each client's situation.
+        </p>
+        <div className="yantra-why-choose-grid">
+          <div className="yantra-why-choose-item">
+            <h4 className="yantra-why-choose-item-title">Australian legal expertise</h4>
+            <p className="yantra-why-choose-item-desc">We provide advice grounded in Australian law, practice, and procedure.</p>
+          </div>
+          <div className="yantra-why-choose-item">
+            <h4 className="yantra-why-choose-item-title">Personal migration understanding</h4>
+            <p className="yantra-why-choose-item-desc">Our approach is informed by both professional experience and a lived understanding of migration journeys.</p>
+          </div>
+          <div className="yantra-why-choose-item">
+            <h4 className="yantra-why-choose-item-title">Practical and strategic advice</h4>
+            <p className="yantra-why-choose-item-desc">We focus on realistic pathways and clear next steps rather than unnecessary complexity.</p>
+          </div>
+          <div className="yantra-why-choose-item">
+            <h4 className="yantra-why-choose-item-title">Clear and honest communication</h4>
+            <p className="yantra-why-choose-item-desc">We explain legal processes in a straightforward way so you always understand where you stand.</p>
+          </div>
+          <div className="yantra-why-choose-item" style={{ gridColumn: 'span 2' }}>
+            <h4 className="yantra-why-choose-item-title">Compassionate and client-focused approach</h4>
+            <p className="yantra-why-choose-item-desc">We recognise that every matter is personal and treat each case with care, respect, and attention to detail.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile (Shorter Version) */}
+      <div className="yantra-mobile-only">
+        <p className="yantra-why-choose-desc" style={{ margin: 0 }}>
+          Yantra Legal is a boutique Australian law practice providing practical and compassionate legal support in migration and family law matters.
+          We combine legal expertise with a clear, honest, and client-focused approach to help you make informed decisions at every stage.
+        </p>
+        <div className="yantra-tags-container">
+          <span className="yantra-tag-pill">Lived Experience</span>
+          <span className="yantra-tag-pill">Australian Solicitor</span>
+          <span className="yantra-tag-pill">Practical Advice</span>
+          <span className="yantra-tag-pill">Clear Communication</span>
+          <span className="yantra-tag-pill">Compassionate Guidance</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WhySeekAdviceEarly() {
+  return (
+    <div className="yantra-early-advice">
+      <h4 className="yantra-early-advice-title">
+        <span>⚠️</span> Why Seek Advice Early?
+      </h4>
+      
+      {/* Desktop (Full Version) */}
+      <p className="yantra-early-advice-desc yantra-desktop-only">
+        Time limits apply to most appeals, review applications, and judicial review matters. In many cases, strict deadlines begin from the date of the decision.
+        Seeking legal advice early can significantly improve your understanding of available options and help ensure that important rights are not missed.
+      </p>
+
+      {/* Mobile (Shorter Version) */}
+      <p className="yantra-early-advice-desc yantra-mobile-only">
+        Strict time limits apply to most appeals and review processes. Early advice can help protect your legal options and improve your chances of a positive outcome.
+      </p>
+    </div>
+  );
+}
+
+function FAQSection({ paragraphs, renderTextWithLinks }: { paragraphs: string[]; renderTextWithLinks: (text: string) => React.ReactNode }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleFAQ = (idx: number) => {
+    setOpenIndex(prev => (prev === idx ? null : idx));
+  };
+
+  const parsedFAQs = paragraphs.map((p, idx) => {
+    const lines = p.split('\n').map(l => l.trim()).filter(Boolean);
+    let question = '';
+    let answer = '';
+
+    if (lines.length >= 2) {
+      question = lines[0].replace(/^\d+\.\s*/, '');
+      answer = lines.slice(1).join('\n');
+    } else if (p.includes('?')) {
+      const qIndex = p.indexOf('?');
+      question = p.substring(0, qIndex + 1).replace(/^\d+\.\s*/, '').trim();
+      answer = p.substring(qIndex + 1).trim();
+    } else {
+      question = `Question ${idx + 1}`;
+      answer = p;
+    }
+
+    return { question, answer };
+  });
+
+  return (
+    <div className="yantra-faq-list">
+      {parsedFAQs.map((faq, fIdx) => {
+        const isOpen = openIndex === fIdx;
+        return (
+          <div key={fIdx} className={`yantra-faq-item ${isOpen ? 'active' : ''}`}>
+            <button
+              className="yantra-faq-header"
+              onClick={() => toggleFAQ(fIdx)}
+              aria-expanded={isOpen}
+            >
+              <h4 className="yantra-faq-question">{faq.question}</h4>
+              <span className="yantra-faq-icon">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="9" y1="4" x2="9" y2="14" />
+                  <line x1="4" y1="9" x2="14" y2="9" />
+                </svg>
+              </span>
+            </button>
+            <div
+              className="yantra-faq-content"
+              style={{
+                maxHeight: isOpen ? '1000px' : '0px',
+                overflow: 'hidden',
+                transition: 'max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            >
+              <div className="yantra-faq-body">
+                {faq.answer.split('\n').map((line, lIdx) => (
+                  <p key={lIdx} style={{ margin: lIdx > 0 ? '12px 0 0 0' : 0 }}>
+                    {renderTextWithLinks(line)}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function CollapsibleSections({ sections, pageTitle }: CollapsibleSectionsProps) {
+  const pathname = usePathname() || '';
+  const isAppealsPage = pathname.startsWith('/appeals-and-reviews');
+
   // Open the first section by default on mobile
   const [expandedSections, setExpandedSections] = useState<{ [key: number]: boolean }>({
     0: true,
@@ -22,29 +178,65 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
     }));
   };
 
-  // Helper to parse links in text
+  // Helper to parse links in text (including markdown [label](url))
   const renderTextWithLinks = (text: string) => {
-    const urlRegex = /(https?:\/\/[^\s\)]+)/g;
-    const parts = text.split(urlRegex);
+    // Matches markdown links like [Partner Visas](/migration-law/partner-visas)
+    const mdLinkRegex = /(\[[^\]]+\]\([^\)]+\))/g;
+    const parts = text.split(mdLinkRegex);
+    
     return parts.map((part, i) => {
-      if (part.match(/^https?:\/\//)) {
-        let displayName = part;
-        if (part.includes('points-calculator')) {
-          displayName = 'Points Calculator';
+      const match = part.match(/^\[([^\]]+)\]\(([^\)]+)\)$/);
+      if (match) {
+        const [, label, url] = match;
+        const isExternal = url.startsWith('http://') || url.startsWith('https://');
+        if (isExternal) {
+          return (
+            <a
+              key={i}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: 'var(--clr-yellow)', textDecoration: 'underline', fontWeight: 600 }}
+            >
+              {label}
+            </a>
+          );
+        } else {
+          return (
+            <Link
+              key={i}
+              href={url}
+              style={{ color: 'var(--clr-yellow)', textDecoration: 'underline', fontWeight: 600 }}
+            >
+              {label}
+            </Link>
+          );
         }
-        return (
-          <a
-            key={i}
-            href={part}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: 'var(--clr-yellow)', textDecoration: 'underline', fontWeight: 600 }}
-          >
-            {displayName}
-          </a>
-        );
       }
-      return part;
+      
+      // Fallback for standard http/https URLs
+      const urlRegex = /(https?:\/\/[^\s\)]+)/g;
+      const subParts = part.split(urlRegex);
+      return subParts.map((subPart, j) => {
+        if (subPart.match(/^https?:\/\//)) {
+          let displayName = subPart;
+          if (subPart.includes('points-calculator')) {
+            displayName = 'Points Calculator';
+          }
+          return (
+            <a
+              key={`${i}-${j}`}
+              href={subPart}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: 'var(--clr-yellow)', textDecoration: 'underline', fontWeight: 600 }}
+            >
+              {displayName}
+            </a>
+          );
+        }
+        return subPart;
+      });
     });
   };
 
@@ -335,7 +527,8 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
       );
     }
 
-    // Standard structural layouts inside a section card wrapper
+    const isFAQ = section.heading.toLowerCase().includes('frequently asked questions') || section.layout === 'faq';
+
     return (
       <div key={idx} className={`legal-section-card ${isSectionOpen ? 'active' : ''}`}>
         {section.heading && (
@@ -368,114 +561,128 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
         <div
           className="legal-collapsible-content-wrapper"
           style={{
-            maxHeight: isSectionOpen ? '2000px' : '0px',
+            maxHeight: isSectionOpen ? (isFAQ ? '4000px' : '2000px') : '0px',
             overflow: 'hidden',
             transition: 'max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
-          {section.layout === 'deck' && (
-            <div className="legal-deck-grid">
-              {section.paragraphs.map((p, pIdx) => {
-                const parts = p.split('|');
-                if (parts.length === 3) {
-                  return (
-                    <div key={pIdx} className="legal-deck-card">
-                      <h4 className="legal-deck-card-title">{parts[0].trim()}</h4>
-                      <div className="legal-deck-card-content">{renderParagraphWithFormatting(parts[2].trim())}</div>
-                    </div>
-                  );
-                }
-                return <div key={pIdx}>{renderParagraphWithFormatting(p)}</div>;
-              })}
-            </div>
-          )}
+          {isFAQ ? (
+            <FAQSection paragraphs={section.paragraphs} renderTextWithLinks={renderTextWithLinks} />
+          ) : (
+            <>
+              {section.layout === 'deck' && (
+                <div className="legal-deck-grid">
+                  {section.paragraphs.map((p, pIdx) => {
+                    const parts = p.split('|');
+                    if (parts.length === 3) {
+                      return (
+                        <div key={pIdx} className="legal-deck-card">
+                          <h4 className="legal-deck-card-title">{parts[0].trim()}</h4>
+                          <div className="legal-deck-card-content">{renderParagraphWithFormatting(parts[2].trim())}</div>
+                        </div>
+                      );
+                    }
+                    return <div key={pIdx}>{renderParagraphWithFormatting(p)}</div>;
+                  })}
+                </div>
+              )}
 
-          {section.layout === 'vertical-deck' && (
-            <div className="legal-vertical-deck">
-              {section.paragraphs.map((p, pIdx) => {
-                const parts = p.split('|');
-                if (parts.length === 3) {
-                  return (
-                    <div key={pIdx} className="legal-deck-card vertical">
-                      <h4 className="legal-deck-card-title">{parts[0].trim()}</h4>
-                      <div className="legal-deck-card-content">{renderParagraphWithFormatting(parts[2].trim())}</div>
-                    </div>
-                  );
-                }
-                return <div key={pIdx}>{renderParagraphWithFormatting(p)}</div>;
-              })}
-            </div>
-          )}
+              {section.layout === 'vertical-deck' && (
+                <div className="legal-vertical-deck">
+                  {section.paragraphs.map((p, pIdx) => {
+                    const parts = p.split('|');
+                    if (parts.length === 3) {
+                      return (
+                        <div key={pIdx} className="legal-deck-card vertical">
+                          <h4 className="legal-deck-card-title">{parts[0].trim()}</h4>
+                          <div className="legal-deck-card-content">{renderParagraphWithFormatting(parts[2].trim())}</div>
+                        </div>
+                      );
+                    }
+                    return <div key={pIdx}>{renderParagraphWithFormatting(p)}</div>;
+                  })}
+                </div>
+              )}
 
-          {section.layout === 'grid' && (
-            <div className="legal-grid">
-              {section.paragraphs.map((p, pIdx) => {
-                const parts = p.split('|');
-                if (parts.length === 3) {
-                  return (
-                    <div key={pIdx} className="legal-grid-card">
-                      <div className="legal-grid-card-header">
-                        <div className="legal-grid-card-icon">{getIconSvg(parts[1].trim())}</div>
-                        <h4 className="legal-grid-card-title">{parts[0].trim()}</h4>
-                      </div>
-                      <div className="legal-grid-card-content">{renderParagraphWithFormatting(parts[2].trim())}</div>
-                    </div>
-                  );
-                }
-                return <div key={pIdx} className="legal-grid-intro">{renderParagraphWithFormatting(p)}</div>;
-              })}
-            </div>
-          )}
+              {section.layout === 'grid' && (
+                <div className="legal-grid">
+                  {section.paragraphs.map((p, pIdx) => {
+                    const parts = p.split('|');
+                    if (parts.length === 3) {
+                      return (
+                        <div key={pIdx} className="legal-grid-card">
+                          <div className="legal-grid-card-header">
+                            <div className="legal-grid-card-icon">{getIconSvg(parts[1].trim())}</div>
+                            <h4 className="legal-grid-card-title">{parts[0].trim()}</h4>
+                          </div>
+                          <div className="legal-grid-card-content">{renderParagraphWithFormatting(parts[2].trim())}</div>
+                        </div>
+                      );
+                    }
+                    return <div key={pIdx} className="legal-grid-intro">{renderParagraphWithFormatting(p)}</div>;
+                  })}
+                </div>
+              )}
 
-          {section.layout === 'timeline' && (
-            <div className="legal-timeline">
-              {section.paragraphs.map((p, pIdx) => {
-                const parts = p.split('|');
-                if (parts.length === 2) {
-                  return (
-                    <div key={pIdx} className="legal-timeline-item">
-                      <div className="legal-timeline-badge">{pIdx + 1}</div>
-                      <div className="legal-timeline-content-wrap">
-                        <h4 className="legal-timeline-step-title">{parts[0].trim()}</h4>
-                        <div className="legal-timeline-desc">{renderParagraphWithFormatting(parts[1].trim())}</div>
-                      </div>
-                    </div>
-                  );
-                }
-                return <div key={pIdx}>{renderParagraphWithFormatting(p)}</div>;
-              })}
-            </div>
-          )}
+              {section.layout === 'timeline' && (
+                <div className="legal-timeline">
+                  {section.paragraphs.map((p, pIdx) => {
+                    const parts = p.split('|');
+                    if (parts.length === 2) {
+                      return (
+                        <div key={pIdx} className="legal-timeline-item">
+                          <div className="legal-timeline-badge">{pIdx + 1}</div>
+                          <div className="legal-timeline-content-wrap">
+                            <h4 className="legal-timeline-step-title">{parts[0].trim()}</h4>
+                            <div className="legal-timeline-desc">{renderParagraphWithFormatting(parts[1].trim())}</div>
+                          </div>
+                        </div>
+                      );
+                    }
+                    return <div key={pIdx}>{renderParagraphWithFormatting(p)}</div>;
+                  })}
+                </div>
+              )}
 
-          {section.layout === 'comparison' && (
-            <div className="legal-comparison-grid">
-              {section.paragraphs.map((p, pIdx) => {
-                const parts = p.split('|');
-                if (parts.length === 2) {
-                  return (
-                    <div key={pIdx} className="legal-comparison-card">
-                      <h4 className="legal-comparison-card-title">{parts[0].trim()}</h4>
-                      <div className="legal-comparison-card-content">{renderParagraphWithFormatting(parts[1].trim())}</div>
-                    </div>
-                  );
-                }
-                return <div key={pIdx}>{renderParagraphWithFormatting(p)}</div>;
-              })}
-            </div>
-          )}
+              {section.layout === 'comparison' && (
+                <div className="legal-comparison-grid">
+                  {section.paragraphs.map((p, pIdx) => {
+                    const parts = p.split('|');
+                    if (parts.length === 2) {
+                      return (
+                        <div key={pIdx} className="legal-comparison-card">
+                          <h4 className="legal-comparison-card-title">{parts[0].trim()}</h4>
+                          <div className="legal-comparison-card-content">{renderParagraphWithFormatting(parts[1].trim())}</div>
+                        </div>
+                      );
+                    }
+                    return <div key={pIdx}>{renderParagraphWithFormatting(p)}</div>;
+                  })}
+                </div>
+              )}
 
-          {!section.layout && renderSectionContent(section.paragraphs)}
+              {!section.layout && renderSectionContent(section.paragraphs)}
+            </>
+          )}
         </div>
       </div>
     );
   };
 
+  const normalSections = sections.filter(s => s.layout !== 'cta');
+  const ctaSections = sections.filter(s => s.layout === 'cta');
+
   return (
     <>
-      {sections.map((section, idx) => renderSection(section, idx))}
+      {normalSections.map((section, idx) => renderSection(section, idx))}
 
-      {/* Dynamic Consultation Call to Action */}
-      {sections.filter(s => s.layout === 'cta').length === 0 && (
+      {/* Reusable Component 1: Why Choose Yantra Legal */}
+      <WhyChooseYantraLegal />
+
+      {/* CTA banner: either the one defined in sections or the default fallback */}
+      {ctaSections.length > 0 ? (
+        ctaSections.map((section, idx) => renderSection(section, normalSections.length + idx))
+      ) : (
         <div className="legal-cta-card">
           <h3 className="legal-cta-title">Ready to Take the Next Step?</h3>
           <p className="legal-cta-desc">
@@ -487,6 +694,9 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
           </Link>
         </div>
       )}
+
+      {/* Reusable Component 2: Why Seek Advice Early? (Appeals & Reviews pages only) */}
+      {isAppealsPage && <WhySeekAdviceEarly />}
     </>
   );
 }

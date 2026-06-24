@@ -5566,3 +5566,237 @@ a {
   from { transform: scale(0.92); }
   to { transform: scale(1); }
 }
+
+/* Justified alignments for body text fields */
+.legal-paragraph, 
+.legal-bullet-item, 
+.legal-timeline-desc, 
+.legal-grid-card-content, 
+.legal-deck-card-content, 
+.legal-comparison-card-content, 
+.yl-body, 
+.about-body {
+  text-align: justify;
+}
+
+/* Reusable Component 1: Why Choose Yantra Legal */
+.yantra-why-choose {
+  margin: 40px 0;
+  padding: 32px;
+  background: rgba(11, 43, 32, 0.35);
+  border: 1px solid rgba(223, 173, 62, 0.18);
+  border-radius: 16px;
+}
+
+.yantra-why-choose-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--clr-yellow);
+  margin-top: 0;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.yantra-why-choose-desc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 24px;
+}
+
+.yantra-why-choose-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.yantra-why-choose-item {
+  background: rgba(6, 25, 18, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.yantra-why-choose-item:hover {
+  border-color: rgba(223, 173, 62, 0.25);
+  transform: translateY(-2px);
+}
+
+.yantra-why-choose-item-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--clr-yellow);
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.yantra-why-choose-item-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* Mobile Shorter Version Tags */
+.yantra-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.yantra-tag-pill {
+  font-size: 11px;
+  font-family: var(--font-sans);
+  color: var(--clr-yellow);
+  border: 1px solid rgba(223, 173, 62, 0.3);
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(223, 173, 62, 0.05);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+/* Reusable Component 2: Advice Early Callout */
+.yantra-early-advice {
+  margin: 40px 0;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(223, 173, 62, 0.08) 0%, rgba(223, 173, 62, 0.02) 100%);
+  border: 1px solid rgba(223, 173, 62, 0.35);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.yantra-early-advice-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--clr-yellow);
+  margin-top: 0;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.yantra-early-advice-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+/* Utilities for responsive content hiding */
+.yantra-desktop-only {
+  display: block;
+}
+.yantra-mobile-only {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .yantra-desktop-only {
+    display: none;
+  }
+  .yantra-mobile-only {
+    display: block;
+  }
+  
+  .yantra-why-choose {
+    padding: 20px;
+  }
+  
+  .yantra-why-choose-title {
+    font-size: 1.5rem;
+  }
+  
+  .yantra-why-choose-desc {
+    font-size: 0.9rem;
+  }
+}
+
+/* Custom Interactive FAQ styles for Yantra Legal page accordions */
+.yantra-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 0;
+}
+
+.yantra-faq-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.yantra-faq-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(223, 173, 62, 0.15);
+}
+
+.yantra-faq-item.active {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(223, 173, 62, 0.3);
+}
+
+.yantra-faq-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 16px;
+}
+
+.yantra-faq-question {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--clr-white);
+  margin: 0 !important;
+  line-height: 1.4;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.yantra-faq-icon {
+  color: var(--clr-yellow);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yantra-faq-item.active .yantra-faq-icon {
+  transform: rotate(45deg);
+}
+
+.yantra-faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.yantra-faq-item.active .yantra-faq-content {
+  max-height: 1000px;
+}
+
+.yantra-faq-body {
+  padding: 0 24px 18px 24px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: justify;
+}

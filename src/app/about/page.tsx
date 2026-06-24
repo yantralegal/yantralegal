@@ -66,12 +66,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* 4. Core Values & Why Choose Us */}
-        <WhyChooseValues />
-
-        {/* 5. Our Approach */}
-        <WhatHappensNext />
-
         {/* 5. Meet Krishna Giri - Visual Editorial Layout */}
         <section className="yl-section" style={{ padding: '80px 40px', background: 'rgba(6, 25, 18, 0.55)', border: '1px solid rgba(223, 173, 62, 0.15)' }}>
           <style dangerouslySetInnerHTML={{ __html: profileMediaStyles }} />
@@ -258,6 +252,13 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
+
+        {/* 4. Core Values & Why Choose Us */}
+        <WhyChooseValues />
+
+        {/* 5. Our Approach */}
+        <WhatHappensNext />
+
 
         {/* 8. Supporting Diverse Communities block */}
         <SupportingDiverseCommunities />

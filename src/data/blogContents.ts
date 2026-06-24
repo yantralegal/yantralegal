@@ -89,5 +89,32 @@ export const blogPosts: BlogPost[] = [
       "How We Can Help",
       "At Yantra Legal, we guide clients through the divorce application process, ensuring all documents are filed correctly, service requirements are met, and custody disclosures are handled properly. Principal Solicitor Krishna Giri's dual admission in Australia and Nepal also provides unique expertise for cross-border divorces. Contact us today for a confidential discussion."
     ]
+  },
+  {
+    title: "Procedure for Mutual Divorce in Nepal for Nepali Citizens Residing Abroad",
+    slug: "mutual-divorce-nepal-citizens-abroad",
+    excerpt: "Nepali couples residing abroad can obtain a divorce by mutual consent through the District Court in Nepal without traveling in person. Learn the step-by-step procedure and required documents.",
+    date: "June 24, 2026",
+    category: "Family Law",
+    readTime: "5 min read",
+    content: [
+      "Nepali couples residing abroad may obtain a divorce by mutual consent through the District Court in Nepal within a relatively short period of time. For this purpose, both parties may appoint a close relative or a trusted person residing in Nepal as their authorized representative (Power of Attorney holder). The Power of Attorney document can be prepared in Nepal and, after being authenticated by the Nepali Embassy or Consular Office in the country of residence, can be used to initiate and complete the legal divorce process in Nepal.",
+      "Procedures to be Followed",
+      "1. Preparation of the Power of Attorney",
+      "A Power of Attorney document must be prepared in Nepal with the assistance of a legal practitioner. The document should state that the concerned person is currently unable to be physically present in Nepal and is delegating his or her legal authority to a trusted relative or representative residing in Nepal. Original citizenship certificates of both the person granting the authority and the person receiving the authority are required.",
+      "2. Arrangement of Witnesses",
+      "At least two witnesses are required for the Power of Attorney document. The witnesses must appear before the legal practitioner with their original citizenship certificates and sign the document.",
+      "3. Completion of the Power of Attorney Document",
+      "The authorized representative must provide a photograph, thumbprint, and signature. Once the signatures of the witnesses have also been obtained, the Power of Attorney document is considered complete.",
+      "4. Authentication by the Nepali Embassy or Consular Office",
+      "The original Power of Attorney document prepared in Nepal must be sent to the concerned person residing abroad. The person must then have the document authenticated by the Nepali Embassy or Consular Office in the country of residence. After authentication, the original document must be sent back to Nepal.",
+      "5. Filing the Divorce Petition",
+      "Upon receipt of the authenticated Power of Attorney document, the authorized representative of one party may file a divorce petition before the competent District Court in Nepal.",
+      "6. Finalizing the Divorce by Mutual Consent",
+      "The authorized representative of the other party may appear before the court, accept service of the case, submit the necessary response, and proceed with the divorce process based on the mutual agreement of both parties. Where both parties consent to the divorce, the court may conclude the proceedings and issue a decree of divorce accordingly.",
+      "Conclusion",
+      "Nepali couples residing abroad can initiate and complete divorce proceedings in a District Court of Nepal through duly authorized representatives without having to travel to Nepal in person. By preparing the required legal documents, obtaining authentication from the relevant Nepali Embassy or Consular Office, and complying with the prescribed legal procedures, the divorce process can be completed efficiently, conveniently, and in accordance with the law.",
+      "The principal laws governing this process are the Muluki Civil Code, 2017 (2074 B.S.) and the Muluki Civil Procedure Code, 2017 (2074 B.S.). These laws provide the legal framework for divorce, the use of Powers of Attorney, and the conduct of court proceedings through authorized representatives."
+    ]
   }
 ];

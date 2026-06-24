@@ -183,27 +183,27 @@ export default function Navbar() {
                         <ul className="dropdown-links">
                           <li>
                             <Link href="/migration-law/partner-visas" className="dropdown-link-item-simple">
-                              Partner Visa
+                              Partner Visas
                             </Link>
                           </li>
                           <li>
                             <Link href="/migration-law/employer-sponsored-visas" className="dropdown-link-item-simple">
-                              Employer Sponsored
+                              Employer Sponsored Visas
                             </Link>
                           </li>
                           <li>
                             <Link href="/migration-law/skilled-visas" className="dropdown-link-item-simple">
-                              Skilled Visas
+                              Skilled Migration Visas
                             </Link>
                           </li>
                           <li>
                             <Link href="/migration-law/protection-visas" className="dropdown-link-item-simple">
-                              Protection Visa
+                              Protection Visas
                             </Link>
                           </li>
                           <li>
-                            <Link href="/migration-law/ministerial-intervention" className="dropdown-link-item-simple">
-                              Ministerial Intervention
+                            <Link href="/migration-law/child-visas" className="dropdown-link-item-simple">
+                              Child Visas
                             </Link>
                           </li>
                         </ul>
@@ -211,11 +211,6 @@ export default function Navbar() {
                       <div>
                         <h5 style={subGroupLabelStyle}>Other Visas</h5>
                         <ul className="dropdown-links">
-                          <li>
-                            <Link href="/migration-law/child-visas" className="dropdown-link-item-simple">
-                              Child Visas
-                            </Link>
-                          </li>
                           <li>
                             <Link href="/migration-law/parent-visas" className="dropdown-link-item-simple">
                               Parent Visas
@@ -228,12 +223,17 @@ export default function Navbar() {
                           </li>
                           <li>
                             <Link href="/migration-law/resident-return-visas" className="dropdown-link-item-simple">
-                              Resident Return
+                              Resident Return Visas
                             </Link>
                           </li>
                           <li>
                             <Link href="/migration-law/bridging-visas" className="dropdown-link-item-simple">
                               Bridging Visas
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="/migration-law/ministerial-intervention" className="dropdown-link-item-simple">
+                              Ministerial Intervention
                             </Link>
                           </li>
                         </ul>
@@ -245,7 +245,7 @@ export default function Navbar() {
                   <div className="dropdown-column">
                     <h4 className="dropdown-column-title">
                       <Link href="/family-law" style={{ color: 'inherit', textDecoration: 'none' }}>
-                        Family Law
+                        Family & Divorce Law
                       </Link>
                     </h4>
                     <div>
@@ -263,7 +263,7 @@ export default function Navbar() {
                         </li>
                       </ul>
                       <div style={familyNoteStyle}>
-                        <p style={noteTextStyle}>💡 Property Settlement, Parenting & Custody arrangements supported as services expand.</p>
+                        <p style={noteTextStyle}>💡 We currently provide advice and assistance in divorce matters and related family law issues. Additional family law services will be introduced as the practice expands.</p>
                       </div>
                     </div>
                   </div>
