@@ -17,6 +17,29 @@ export async function generateStaticParams() {
   });
 }
 
+const metaDescriptions: Record<string, string> = {
+  '/migration-law': 'Consult with a trusted Sydney migration solicitor. Practical legal advice on partner visas, skilled migration, sponsor compliance, and complex appeals.',
+  '/migration-law/partner-visas': 'Apply for onshore (820/801) and offshore (309/100) partner visas or subclass 300 prospective marriage visas. Experienced legal help to prove a genuine relationship.',
+  '/migration-law/employer-sponsored-visas': 'Expert legal guidance for standard business sponsorships, nominations, standard employer compliance, and subclass 482 Skills in Demand visa streams.',
+  '/migration-law/skilled-visas': 'Navigate GSM subclasses 189, 190, and 491 with strategic advice on skills assessments, EOI preparation, and state/territory nomination pathways.',
+  '/migration-law/protection-visas': 'Confidential legal representation for onshore protection visa (subclass 866) applications, statement of claims preparation, and ART review appeals.',
+  '/migration-law/child-visas': 'Reunite your family in Australia. Experienced assistance with subclass 101 (offshore) and subclass 802 (onshore) child visa applications.',
+  '/migration-law/parent-visas': 'Understand contributory (143/864) and non-contributory (103/804) parent visa queues, the balance of family test, and temporary subclass 870 options.',
+  '/migration-law/visitor-visas': 'Get assistance for subclass 600 visitor visa applications, sponsor declarations, genuine temporary entrant requirements, and condition 8503 waivers.',
+  '/migration-law/resident-return-visas': 'Maintain your entry rights to Australia. Help with subclass 155/157 resident return visas, demonstrating substantial ties, and compelling reasons.',
+  '/migration-law/bridging-visas': 'Maintain lawful status in Australia. Practical advice on bridging visa A, B, C, or E conditions, work rights, and travel permissions.',
+  '/migration-law/ministerial-intervention': 'Request the Minister to exercise personal discretionary powers. High-stakes strategic representations for compelling and compassionate cases.',
+  '/family-law': 'Comprehensive advice on international family law and divorce applications in Australia and Nepal. Straightforward legal help from Advocate Krishna Giri.',
+  '/family-law/divorce-in-australia': 'Navigate the Australian no-fault divorce system. Assistance with single or joint divorce applications, service issues, and court requirements.',
+  '/family-law/divorce-in-nepal': 'Legal guidance on Nepalese divorce processes, power of attorney (अधिकृत वारेसनामा), registration, and recognition of overseas divorces.',
+  '/appeals-and-reviews': 'If your visa has been refused or cancelled, explore your merits review options at the ART, judicial reviews in federal court, or ministerial requests.',
+  '/appeals-and-reviews/visa-refusals': 'Act quickly after a visa refusal. Professional assessment of your refusal notice, review options, time limits, and merits appeal strategies.',
+  '/appeals-and-reviews/visa-cancellations': 'Respond to Notices of Intention to Cancel (NOIC) or challenge active cancellations. Fast-turnaround legal support to protect your visa status.',
+  '/appeals-and-reviews/art-appeals': 'Independent merits review at the Administrative Review Tribunal (ART). Strategic preparation and representation for visa refusal and cancellation appeals.',
+  '/appeals-and-reviews/judicial-review': 'Assess if your visa decision involved a jurisdictional error. Professional legal representation for judicial review before the Federal Court of Australia.',
+  '/appeals-and-reviews/sponsorship-nomination-refusals': 'Challenge refused employer sponsorships or nomination applications. Strategic guidance for standard business sponsors and nominated workers.',
+};
+
 export async function generateMetadata({ params }: { params: Params }) {
   const { slug } = await params;
   const url = '/' + slug.join('/');
@@ -28,9 +51,11 @@ export async function generateMetadata({ params }: { params: Params }) {
     };
   }
 
+  const customDesc = metaDescriptions[page.url] || `Professional legal representation for ${page.title} in Sydney, Australia. Straightforward advice and personal attention from Krishna Giri.`;
+
   return {
     title: `${page.title} | Yantra Legal`,
-    description: `Professional legal representation for ${page.title} in Sydney, Australia. Straightforward advice and personal attention from Krishna Giri.`,
+    description: customDesc,
     alternates: {
       canonical: page.url,
     },

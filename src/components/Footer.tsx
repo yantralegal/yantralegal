@@ -80,7 +80,7 @@ export default function Footer() {
                     <polyline points="22,6 12,13 2,6"></polyline>
                   </svg>
                 </span>
-                <a href="mailto:contact@yantralegal.com.au" className="contact-value">contact@yantralegal.com.au</a>
+                <a href="mailto:info@yantralegal.com.au" className="contact-value">info@yantralegal.com.au</a>
               </li>
               <li className="contact-item">
                 <span className="contact-icon">
@@ -139,13 +139,17 @@ export default function Footer() {
 
           {/* Bottom Bar */}
           <div className="footer-bottom-bar" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', paddingTop: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', width: '100%', borderTop: '1px solid rgba(255, 255, 255, 0.05)', paddingTop: '16px', flexWrap: 'wrap', gap: '12px' }}>
+              <div className="footer-copyright" style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.6)' }}>
+                <span>&copy; 2026 Yantra Legal Pty Ltd | ABN 33 698 723 858 | All Rights Reserved</span>
+              </div>
+            </div>
             <div style={{ 
-              fontSize: '0.85rem', 
+              fontSize: '0.8rem', 
               color: 'var(--clr-yellow)', 
               textAlign: 'center', 
-              marginBottom: '12px',
-              background: 'rgba(223, 173, 62, 0.05)',
-              border: '1px solid rgba(223, 173, 62, 0.15)',
+              background: 'rgba(223, 173, 62, 0.03)',
+              border: '1px solid rgba(223, 173, 62, 0.12)',
               borderRadius: '8px',
               padding: '6px 16px',
               display: 'inline-flex',
@@ -153,18 +157,11 @@ export default function Footer() {
               justifyContent: 'center',
               gap: '8px',
               fontWeight: 500,
-              letterSpacing: '0.3px'
+              letterSpacing: '0.3px',
+              marginTop: '4px'
             }}>
-              <Icon icon="ri:scales-3-line" width="16" height="16" />
+              <Icon icon="ri:scales-3-line" width="14" height="14" />
               <span>Liability limited by a scheme approved under Professional Standards Legislation.</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', borderTop: '1px solid rgba(255, 255, 255, 0.05)', paddingTop: '8px', flexWrap: 'wrap', gap: '12px' }}>
-              <div className="footer-copyright">
-                <span>&copy; Yantra Legal 2026</span>
-              </div>
-              <div className="footer-legal-tag">
-                <span>All Rights Reserved.</span>
-              </div>
             </div>
           </div>
         </div>

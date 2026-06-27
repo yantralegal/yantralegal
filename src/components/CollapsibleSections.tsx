@@ -166,6 +166,14 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
   const pathname = usePathname() || '';
   const isAppealsPage = pathname.startsWith('/appeals-and-reviews');
 
+  const isMigrationPage = pathname.startsWith('/migration-law');
+  const isSensitiveMigration = 
+    pathname === '/migration-law/protection-visas' || 
+    pathname === '/migration-law/ministerial-intervention';
+  const isConfidential = !isMigrationPage || isSensitiveMigration;
+
+  const ctaButtonText = isConfidential ? 'Book a Confidential Consultation' : 'Book a Consultation';
+
   // Open the first section by default on mobile
   const [expandedSections, setExpandedSections] = useState<{ [key: number]: boolean }>({
     0: true,
@@ -177,6 +185,39 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
       [idx]: !prev[idx],
     }));
   };
+
+  const [showNepali, setShowNepali] = useState(false);
+
+  const hasNepaliSection = sections.some(s => /[\u0900-\u097F]/.test(s.heading || ''));
+
+  const handleNepaliToggle = () => {
+    const nextShowNepali = !showNepali;
+    setShowNepali(nextShowNepali);
+    if (nextShowNepali) {
+      const nepaliIdx = sections.findIndex(s => /[\u0900-\u097F]/.test(s.heading || ''));
+      if (nepaliIdx !== -1) {
+        setExpandedSections(prev => ({
+          ...prev,
+          [nepaliIdx]: true
+        }));
+        // Scroll to the Nepali section smoothly after it renders
+        setTimeout(() => {
+          const element = document.getElementById(`legal-section-${nepaliIdx}`);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
+    }
+  };
+
+  const filteredSections = sections.filter(section => {
+    const isNepali = /[\u0900-\u097F]/.test(section.heading || '');
+    if (isNepali) {
+      return showNepali;
+    }
+    return true;
+  });
 
   // Helper to parse links in text (including markdown [label](url))
   const renderTextWithLinks = (text: string) => {
@@ -434,7 +475,8 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
 
   // Modern conditional block renderer for layout schemas
   const renderSection = (section: LegalSection, idx: number) => {
-    const isSectionOpen = !!expandedSections[idx];
+    const originalIdx = sections.indexOf(section);
+    const isSectionOpen = !!expandedSections[originalIdx];
 
     // Inline Call to Action
     if (section.layout === 'cta') {
@@ -446,7 +488,7 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
             <h3 className="legal-inline-cta-title">{title}</h3>
             <p className="legal-inline-cta-desc">{desc}</p>
             <Link href="/contact" className="btn btn-yellow">
-              <span>Book a Confidential Consultation</span>
+              <span>{ctaButtonText}</span>
               <span className="btn-arrow-circle">↗</span>
             </Link>
           </div>
@@ -457,19 +499,21 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
     // Alerts: warning, notice, callout, highlight
     if (section.layout === 'warning' || section.layout === 'notice' || section.layout === 'callout' || section.layout === 'highlight') {
       const isDuplicateTitle = section.paragraphs[0] === section.heading;
-      const alertTitle = section.paragraphs[0];
-      const alertBodyParagraphs = isDuplicateTitle ? section.paragraphs.slice(1) : section.paragraphs;
+      const alertTitle = section.paragraphs.length > 1 ? section.paragraphs[0] : '';
+      const alertBodyParagraphs = isDuplicateTitle 
+        ? section.paragraphs.slice(1) 
+        : (section.paragraphs.length > 1 ? section.paragraphs.slice(1) : section.paragraphs);
 
       const alertHeader = section.heading && !isDuplicateTitle && section.heading !== 'Standard Page CTA'
         ? section.heading
-        : alertTitle;
+        : section.paragraphs[0];
 
       return (
-        <div key={idx} className={`legal-alert-box-container ${isSectionOpen ? 'active' : ''}`}>
+        <div key={idx} id={`legal-section-${originalIdx}`} style={{ scrollMarginTop: '100px' }} className={`legal-alert-box-container ${isSectionOpen ? 'active' : ''}`}>
           {alertHeader && (
             <h2
               className="legal-section-title collapsible-header"
-              onClick={() => toggleSection(idx)}
+              onClick={() => toggleSection(originalIdx)}
             >
               <span>{alertHeader}</span>
               <span className="legal-accordion-chevron">
@@ -516,7 +560,7 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
                 )}
               </div>
               <div className="legal-alert-content">
-                {alertTitle && section.layout !== 'highlight' && <h4 className="legal-alert-title">{alertTitle}</h4>}
+                {alertTitle && alertHeader !== alertTitle && section.layout !== 'highlight' && <h4 className="legal-alert-title">{alertTitle}</h4>}
                 {alertBodyParagraphs.map((p, pIdx) => (
                   <React.Fragment key={pIdx}>{renderParagraphWithFormatting(p)}</React.Fragment>
                 ))}
@@ -530,11 +574,11 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
     const isFAQ = section.heading.toLowerCase().includes('frequently asked questions') || section.layout === 'faq';
 
     return (
-      <div key={idx} className={`legal-section-card ${isSectionOpen ? 'active' : ''}`}>
+      <div key={idx} id={`legal-section-${originalIdx}`} style={{ scrollMarginTop: '100px' }} className={`legal-section-card ${isSectionOpen ? 'active' : ''}`}>
         {section.heading && (
           <h2
             className="legal-section-title collapsible-header"
-            onClick={() => toggleSection(idx)}
+            onClick={() => toggleSection(originalIdx)}
           >
             <span>{section.heading}</span>
             <span className="legal-accordion-chevron">
@@ -669,11 +713,67 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
     );
   };
 
-  const normalSections = sections.filter(s => s.layout !== 'cta');
-  const ctaSections = sections.filter(s => s.layout === 'cta');
+  const normalSections = filteredSections.filter(s => s.layout !== 'cta');
+  const ctaSections = filteredSections.filter(s => s.layout === 'cta');
 
   return (
     <>
+      {hasNepaliSection && (
+        <div className="nepali-toggle-container" style={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          marginBottom: '24px',
+          paddingBottom: '16px',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+          gap: '12px',
+          flexWrap: 'wrap'
+        }}>
+          <span style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.5)', fontWeight: 500 }}>
+            Language / भाषा:
+          </span>
+          <button
+            onClick={handleNepaliToggle}
+            className={`btn-nepali-toggle ${showNepali ? 'active' : ''}`}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '6px 14px',
+              borderRadius: '20px',
+              border: showNepali ? '1px solid var(--clr-yellow)' : '1px solid rgba(255, 255, 255, 0.15)',
+              background: showNepali ? 'rgba(223, 173, 62, 0.1)' : 'rgba(255, 255, 255, 0.03)',
+              color: showNepali ? 'var(--clr-yellow)' : 'rgba(255, 255, 255, 0.8)',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              outline: 'none',
+              boxShadow: showNepali ? '0 0 10px rgba(223, 173, 62, 0.1)' : 'none'
+            }}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 8l6 6" />
+              <path d="M4 14l6-6 2-3" />
+              <path d="M2 5h12" />
+              <path d="M7 2h1" />
+              <path d="M22 22l-5-10-5 10" />
+              <path d="M14 18h6" />
+            </svg>
+            <span>{showNepali ? 'नेपाली विवरण लुकाउनुहोस् (Hide Nepali)' : 'नेपालीमा हेर्नुहोस् (Show in Nepali)'}</span>
+          </button>
+        </div>
+      )}
+
       {normalSections.map((section, idx) => renderSection(section, idx))}
 
       {/* Reusable Component 1: Why Choose Yantra Legal */}
@@ -686,10 +786,14 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
         <div className="legal-cta-card">
           <h3 className="legal-cta-title">Ready to Take the Next Step?</h3>
           <p className="legal-cta-desc">
-            Book a confidential consultation with Krishna Giri today. We offer fixed-fee initial consultations so you can discuss your {pageTitle.toLowerCase()} matter with complete privacy and certainty.
+            {isConfidential ? (
+              `Book a confidential consultation with Krishna Giri today. We offer fixed-fee initial consultations so you can discuss your ${pageTitle.toLowerCase()} matter with complete privacy and certainty.`
+            ) : (
+              `Book a consultation with Krishna Giri today. We offer fixed-fee initial consultations so you can discuss your ${pageTitle.toLowerCase()} matter with complete certainty.`
+            )}
           </p>
           <Link href="/contact" className="btn btn-yellow">
-            <span>Book a Confidential Consultation</span>
+            <span>{ctaButtonText}</span>
             <span className="btn-arrow-circle">↗</span>
           </Link>
         </div>

@@ -190,7 +190,7 @@ export default function TermsOfUsePage() {
               <p style={{ fontWeight: 600, color: '#ffffff', margin: '0 0 8px 0' }}>Yantra Legal Pty Ltd trading as Yantra Legal</p>
               <p style={{ margin: '4px 0' }}>ABN: 33 698 723 858</p>
               <p style={{ margin: '4px 0' }}>GPO Box 1230, Sydney NSW 2001</p>
-              <p style={{ margin: '4px 0' }}>Email: <a href="mailto:contact@yantralegal.com.au" style={{ color: 'var(--clr-yellow)' }}>contact@yantralegal.com.au</a></p>
+              <p style={{ margin: '4px 0' }}>Email: <a href="mailto:info@yantralegal.com.au" style={{ color: 'var(--clr-yellow)' }}>info@yantralegal.com.au</a></p>
               <p style={{ margin: '4px 0 0 0' }}>Phone: <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-yellow)' }}>0402 402 120 (WhatsApp)</a></p>
             </div>
           </div>

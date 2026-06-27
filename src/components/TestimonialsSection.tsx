@@ -22,17 +22,17 @@ const testimonialsData: Testimonial[] = [
     rating: 5,
     time: '2 weeks ago',
     initial: 'S',
-    text: 'I was facing a highly stressful visa cancellation and felt completely lost. The strategic AAT appeal advice and support I received from Yantra Legal was outstanding. They handled everything with absolute professionalism and genuine care. Highly recommend their services for complex appeals.'
+    text: 'I was facing a highly stressful visa cancellation and felt completely lost. The strategic ART appeal advice and support I received from Yantra Legal was outstanding. They handled everything with absolute professionalism and genuine care. Highly recommend their services for complex appeals.'
   },
   {
     id: 2,
     name: 'Rebecca T.',
     category: 'family',
-    categoryLabel: 'Divorce & Custody',
+    categoryLabel: 'Divorce Application',
     rating: 5,
     time: '3 weeks ago',
     initial: 'R',
-    text: 'Going through a divorce is emotionally draining, but the family law and parenting custody representation here made all the difference. They protected my interests fiercely while keeping the negotiations calm and structured. I felt supported and informed at every step of the process.'
+    text: 'Going through a divorce is emotionally draining, but the family law and divorce representation here made all the difference. They protected my interests fiercely while keeping the process structured and straightforward. I felt supported and informed at every step of the process.'
   },
   {
     id: 3,
@@ -48,11 +48,11 @@ const testimonialsData: Testimonial[] = [
     id: 4,
     name: 'James W.',
     category: 'family',
-    categoryLabel: 'Property Settlement',
+    categoryLabel: 'Divorce Application',
     rating: 5,
     time: '1 month ago',
     initial: 'J',
-    text: 'Excellent, efficient legal service for my property division consent orders. Their turnaround times were incredibly fast, and their attention to detail was exceptional. They saved us months of court delays by drafting a fair, comprehensive agreement that both parties approved.'
+    text: 'Excellent, efficient legal service for my divorce application. The turnaround times were fast, and the guidance on the required documentation was exceptional. They made a stressful process feel straightforward and stress-free.'
   },
   {
     id: 5,
@@ -68,11 +68,11 @@ const testimonialsData: Testimonial[] = [
     id: 6,
     name: 'Aisha H.',
     category: 'family',
-    categoryLabel: 'Dispute Resolution',
+    categoryLabel: 'Divorce Application',
     rating: 5,
     time: '2 months ago',
     initial: 'A',
-    text: 'A reassuring voice in a very dark time. They helped us resolve a challenging family dispute out of court, saving us immense stress and legal fees. Their strategic insight was spot on, and their human, empathetic approach made all the difference.'
+    text: 'A reassuring voice in a very stressful time. They helped me navigate my divorce application, keeping the process straightforward and helping me avoid unnecessary delays. Their strategic insight and empathetic approach made all the difference.'
   }
 ];
 
@@ -115,7 +115,7 @@ export default function TestimonialsSection() {
               </div>
 
               <a
-                href="https://google.com"
+                href="https://www.google.com/search?q=Yantra+Legal"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="write-review-btn"

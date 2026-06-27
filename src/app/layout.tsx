@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -65,7 +66,7 @@ export default function RootLayout({
       'addressCountry': 'AU',
     },
     'telephone': '+61 2 0000 0000',
-    'email': 'contact@yantralegal.com.au',
+    'email': 'info@yantralegal.com.au',
     'url': 'https://www.yantralegal.com.au',
     'priceRange': '$$$',
     'areaServed': 'AU',
@@ -78,10 +79,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
       </head>
       <body>
         {children}
         <SpeedInsights />
+        <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
       </body>
     </html>
   );

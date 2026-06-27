@@ -1,6 +1,5 @@
-'use client';
-
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -10,6 +9,11 @@ import Timeline from '../../components/Timeline';
 import WhyChooseValues from '../../components/WhyChooseValues';
 import WhatHappensNext from '../../components/WhatHappensNext';
 import ScrollObserver from '../../components/ScrollObserver';
+
+export const metadata: Metadata = {
+  title: 'About Krishna Giri & Yantra Legal | Sydney Law Practice',
+  description: 'Learn about Yantra Legal, founded by solicitor Krishna Giri. Our boutique Sydney practice provides strategic migration and divorce representation shaped by lived experience.',
+};
 
 export default function AboutPage() {
   return (

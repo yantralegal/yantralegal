@@ -9,7 +9,7 @@ import { TypingAnimation } from './ui/typing-animation';
 import { Highlighter } from './ui/highlighter';
 import { Icon } from '@iconify/react';
 
-export default function HeroSection() {
+export default function HeroSection2() {
   const handleCalendlyClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (typeof window !== 'undefined' && (window as any).Calendly) {
@@ -35,8 +35,6 @@ export default function HeroSection() {
         <div className="hero-grid-2col">
           {/* Left Column: Heading, Description, Buttons, Social Proof */}
           <div className="hero-left-col">
-
-
             <HeroHeading />
 
             <div className="hero-subheading reveal-on-scroll reveal-fade-up delay-50">
@@ -49,15 +47,20 @@ export default function HeroSection() {
               />
             </div>
 
-            {/* Mobile-only image positioned between the "Expertise in" subheading and description paragraph */}
-            <div className="hero-portrait-frame mobile-only-portrait">
+            {/* Mobile-only image banner positioned between sub-heading and description */}
+            <div className="mobile-only-portrait" style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '300px',
+              aspectRatio: '1/1',
+              margin: '20px auto'
+            }}>
               <Image
-                src="/sydney_law_office_clean.png"
-                alt="Yantra Legal Sydney Office"
+                src="/gold_scales_black_bg.png"
+                alt="Scales of Justice"
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 440px"
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'contain', mixBlendMode: 'screen' }}
               />
             </div>
 
@@ -82,16 +85,27 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Framed Image */}
-          <div className="hero-right-col">
-            <div className="hero-portrait-frame">
+          {/* Right Column: Borderless gold scales of justice covering right side without background */}
+          <div className="hero-right-col" style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: '50vw',
+            height: '100%',
+            zIndex: 1,
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden'
+          }}>
+            <div style={{ position: 'relative', width: '80%', height: '80%', maxWidth: '460px', maxHeight: '460px' }}>
               <Image
-                src="/sydney_law_office_clean.png"
-                alt="Yantra Legal Sydney Office"
+                src="/gold_scales_black_bg Background Removed.png"
+                alt="Scales of Justice"
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 440px"
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'contain', mixBlendMode: 'screen' }}
               />
             </div>
           </div>
@@ -117,6 +131,7 @@ export default function HeroSection() {
           ))}
         </div>
       </div>
+
       {/* Floating Social Media Icons on the Right Edge */}
       <div className="hero-floating-socials">
         <a href="https://www.facebook.com/yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="Facebook">
@@ -148,27 +163,7 @@ const gridContainerStyle: React.CSSProperties = {
   zIndex: 5,
 };
 
-const starsStyle: React.CSSProperties = {
-  display: 'flex',
-  gap: '2px',
-  color: 'var(--clr-yellow)',
-  fontSize: '0.95rem',
-};
-
 const ratingTextStyle: React.CSSProperties = {
   fontSize: '0.85rem',
   color: 'var(--clr-text-muted)',
 };
-
-const topTagStyle: React.CSSProperties = {
-  fontSize: '0.85rem',
-  fontWeight: 600,
-  letterSpacing: '1.5px',
-  textTransform: 'uppercase',
-  color: 'var(--clr-yellow)',
-  opacity: 0.95,
-  marginBottom: '-8px',
-};
-
-
-

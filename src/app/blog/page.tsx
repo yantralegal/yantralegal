@@ -1,10 +1,14 @@
-'use client';
-
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { blogPosts } from '../../data/blogContents';
+
+export const metadata: Metadata = {
+  title: 'Blog & Insights | Yantra Legal',
+  description: 'Stay updated with legal guides, visa application tips, and commentary on Australian migration and family law changes from Yantra Legal.',
+};
 
 export default function BlogPage() {
   return (

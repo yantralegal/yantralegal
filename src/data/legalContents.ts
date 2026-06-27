@@ -644,13 +644,13 @@ export const legalPages: LegalPage[] = [
       {
         "heading": "Ties to Australia",
         "paragraphs": [
-          "Where the applicant does not meet the residence requirement, the Department will look at the strength and nature of their ties to Australia, including:"
-        ]
-      },
-      {
-        "heading": "Business or Investment Interests in Australia",
-        "paragraphs": [
-          "Family members in Australia (particularly Australian citizen children or spouse)"
+          "Where the applicant does not meet the residence requirement, the Department will look at the strength and nature of their ties to Australia, including:",
+          "• Family members in Australia, particularly an Australian citizen or permanent resident spouse or children",
+          "• Business or investment interests in Australia",
+          "• Property ownership in Australia",
+          "• Employment or professional ties to Australia",
+          "• Cultural, social, or community connections to Australia",
+          "• The applicant's intention to reside in Australia going forward"
         ]
       },
       {
@@ -886,14 +886,10 @@ export const legalPages: LegalPage[] = [
       {
         "heading": "Eligibility",
         "paragraphs": [
-          "To apply for a divorce in Australia, at least one of the following must apply:"
-        ]
-      },
-      {
-        "heading": "One or Both Parties Is an Australian Citizen",
-        "paragraphs": [
-          "One or both parties regards Australia as their home and intends to live in Australia indefinitely",
-          "One or both parties has been ordinarily resident in Australia for at least 12 months immediately before filing",
+          "To apply for a divorce in Australia, at least one of the following must apply:",
+          "• One or both parties is an Australian citizen",
+          "• One or both parties regards Australia as their home and intends to live in Australia indefinitely",
+          "• One or both parties has been ordinarily resident in Australia for at least 12 months immediately before filing",
           "If the parties have been married for less than two years, they must attend counselling before applying for divorce (or provide a certificate that counselling is not appropriate in their circumstances)."
         ]
       },
@@ -1073,11 +1069,11 @@ export const legalPages: LegalPage[] = [
       {
         "heading": "Areas of Practice",
         "paragraphs": [
-          "✦ Visa Refusals  →  /appeals-and-reviews/visa-refusals",
-          "✦ Visa Cancellations  →  /appeals-and-reviews/visa-cancellations",
-          "✦ ART Appeals  →  /appeals-and-reviews/art-appeals",
-          "✦ Judicial Review  →  /appeals-and-reviews/judicial-review",
-          "✦ Sponsorship & Nomination Refusals  →  /appeals-and-reviews/sponsorship-nomination-refusals"
+          "• [Visa Refusals](/appeals-and-reviews/visa-refusals)",
+          "• [Visa Cancellations](/appeals-and-reviews/visa-cancellations)",
+          "• [ART Appeals](/appeals-and-reviews/art-appeals)",
+          "• [Judicial Review](/appeals-and-reviews/judicial-review)",
+          "• [Sponsorship & Nomination Refusals](/appeals-and-reviews/sponsorship-nomination-refusals)"
         ]
       },
       {
