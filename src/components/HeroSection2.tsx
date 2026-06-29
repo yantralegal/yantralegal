@@ -22,17 +22,45 @@ export default function HeroSection2() {
   };
 
   return (
-    <section className="hero-section-container">
+    <section className="hero-section-container" style={{ position: 'relative', overflow: 'hidden' }}>
+      {/* Background Image Layer with reduced opacity and shifted right */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: '-35%',
+        bottom: 0,
+        backgroundImage: "url('/herosectionbg.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'right center',
+        backgroundRepeat: 'no-repeat',
+        opacity: 0.45,
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
+
+      {/* Background Gradient Overlay for text contrast */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'linear-gradient(to right, #061912 25%, rgba(6, 25, 18, 0.8) 50%, rgba(6, 25, 18, 0.2) 75%, transparent 100%)',
+        zIndex: 2,
+        pointerEvents: 'none'
+      }} />
+
       {/* Navbar Navigation */}
       <Navbar />
 
       {/* Atmospheric Background Orbs */}
-      <div className="orb orb-left" />
-      <div className="orb orb-right" />
+      <div className="orb orb-left" style={{ zIndex: 3 }} />
+      <div className="orb orb-right" style={{ zIndex: 3 }} />
 
       {/* Main Grid Content */}
-      <div className="container" style={gridContainerStyle}>
-        <div className="hero-grid-2col">
+      <div className="container" style={{ ...gridContainerStyle, zIndex: 5 }}>
+        <div className="hero-grid-2col" style={{ alignItems: 'center' }}>
           {/* Left Column: Heading, Description, Buttons, Social Proof */}
           <div className="hero-left-col">
             <HeroHeading />
@@ -56,11 +84,11 @@ export default function HeroSection2() {
               margin: '20px auto'
             }}>
               <Image
-                src="/gold_scales_black_bg.png"
-                alt="Scales of Justice"
+                src="/herosectionbg.png"
+                alt="Yantra Legal Hero Background"
                 fill
                 priority
-                style={{ objectFit: 'contain', mixBlendMode: 'screen' }}
+                style={{ objectFit: 'contain' }}
               />
             </div>
 
@@ -85,30 +113,8 @@ export default function HeroSection2() {
             </div>
           </div>
 
-          {/* Right Column: Borderless gold scales of justice covering right side without background */}
-          <div className="hero-right-col" style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            width: '50vw',
-            height: '100%',
-            zIndex: 1,
-            pointerEvents: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden'
-          }}>
-            <div style={{ position: 'relative', width: '80%', height: '80%', maxWidth: '460px', maxHeight: '460px' }}>
-              <Image
-                src="/gold_scales_black_bg Background Removed.png"
-                alt="Scales of Justice"
-                fill
-                priority
-                style={{ objectFit: 'contain', mixBlendMode: 'screen' }}
-              />
-            </div>
-          </div>
+          {/* Right Column: Empty spacer to preserve layout flow and let background show through */}
+          <div className="hero-right-col" style={{ pointerEvents: 'none' }} />
         </div>
       </div>
 

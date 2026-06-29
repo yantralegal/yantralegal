@@ -265,7 +265,7 @@ export default function AboutPage() {
 
 
         {/* 8. Supporting Diverse Communities block */}
-        <SupportingDiverseCommunities />
+        {/* <SupportingDiverseCommunities /> */}
 
         {/* 9. Closing values block ("Our Commitment") */}
         <section style={{ padding: '80px 0 60px 0' }}>
