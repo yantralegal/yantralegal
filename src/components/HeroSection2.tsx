@@ -23,30 +23,30 @@ export default function HeroSection2() {
 
   return (
     <section className="hero-section-container" style={{ position: 'relative', overflow: 'hidden' }}>
-      {/* Background Image Layer with reduced opacity and shifted right */}
+      {/* Background Image Layer showing full image, positioned lower and right bottom */}
       <div style={{
         position: 'absolute',
-        top: 0,
+        top: '-120px',
         left: 0,
         right: '-35%',
         bottom: 0,
-        backgroundImage: "url('/herosectionbg.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'right center',
+        backgroundImage: "url('/testbg.jpeg')",
+        backgroundSize: 'auto 140%',
+        backgroundPosition: 'right bottom -50px',
         backgroundRepeat: 'no-repeat',
         opacity: 0.45,
         zIndex: 1,
         pointerEvents: 'none'
       }} />
 
-      {/* Background Gradient Overlay for text contrast */}
+      {/* Background Gradient Overlay */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        background: 'linear-gradient(to right, #061912 25%, rgba(6, 25, 18, 0.8) 50%, rgba(6, 25, 18, 0.2) 75%, transparent 100%)',
+        background: 'linear-gradient(to right, var(--clr-bg-primary) 15%, transparent 60%)',
         zIndex: 2,
         pointerEvents: 'none'
       }} />
@@ -59,7 +59,7 @@ export default function HeroSection2() {
       <div className="orb orb-right" style={{ zIndex: 3 }} />
 
       {/* Main Grid Content */}
-      <div className="container" style={{ ...gridContainerStyle, zIndex: 5 }}>
+      <div className="container" style={{ ...gridContainerStyle, zIndex: 5, paddingTop: '50px' }}>
         <div className="hero-grid-2col" style={{ alignItems: 'center' }}>
           {/* Left Column: Heading, Description, Buttons, Social Proof */}
           <div className="hero-left-col">
@@ -119,7 +119,7 @@ export default function HeroSection2() {
       </div>
 
       {/* Homepage Trust Banner - Sliding Right to Left Marquee */}
-      <div className="hero-marquee-container reveal-on-scroll reveal-fade-up delay-350">
+      <div className="hero-marquee-container">
         <div className="hero-marquee-track">
           {Array(3).fill([
             "Australian Solicitor",
