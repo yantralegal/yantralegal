@@ -31,7 +31,7 @@ export default function HeroSection2() {
         right: '-35%',
         bottom: 0,
         backgroundImage: "url('/testbg.jpeg')",
-        backgroundSize: 'auto 140%',
+        backgroundSize: 'auto 125%',
         backgroundPosition: 'right bottom -50px',
         backgroundRepeat: 'no-repeat',
         opacity: 0.45,
