@@ -487,10 +487,10 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
           <div className="legal-inline-cta">
             <h3 className="legal-inline-cta-title">{title}</h3>
             <p className="legal-inline-cta-desc">{desc}</p>
-            <Link href="/contact" className="btn btn-yellow">
+            <button onClick={() => window.dispatchEvent(new CustomEvent('open-consultation-modal'))} className="btn btn-yellow" style={{ border: 'none', cursor: 'pointer' }}>
               <span>{ctaButtonText}</span>
               <span className="btn-arrow-circle">↗</span>
-            </Link>
+            </button>
           </div>
         </div>
       );
@@ -792,10 +792,10 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
               `Book a consultation with Krishna Giri today. We offer fixed-fee initial consultations so you can discuss your ${pageTitle.toLowerCase()} matter with complete certainty.`
             )}
           </p>
-          <Link href="/contact" className="btn btn-yellow">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('open-consultation-modal'))} className="btn btn-yellow" style={{ border: 'none', cursor: 'pointer' }}>
             <span>{ctaButtonText}</span>
             <span className="btn-arrow-circle">↗</span>
-          </Link>
+          </button>
         </div>
       )}
 

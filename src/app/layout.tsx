@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import ConsultationModal from '../components/ConsultationModal';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -79,12 +80,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
       </head>
       <body>
         {children}
+        <ConsultationModal />
         <SpeedInsights />
-        <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
       </body>
     </html>
   );

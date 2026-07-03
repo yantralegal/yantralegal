@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { blogPosts } from '../../../data/blogContents';
+import BookConsultationButton from '../../../components/ui/BookConsultationButton';
 
 type Params = Promise<{ slug: string }>;
 
@@ -101,10 +102,10 @@ export default async function BlogPostPage({ params }: { params: Params }) {
             <p style={{ fontSize: '0.92rem', lineHeight: '1.6', color: 'var(--clr-text-muted)', margin: '0 0 20px 0' }}>
               If you are facing a similar legal situation or require personalized assistance with your migration or family law matter, book a confidential consultation with Krishna Giri today.
             </p>
-            <Link href="/contact" className="btn btn-yellow">
+            <BookConsultationButton className="btn btn-yellow">
               <span>Book a Confidential Consultation</span>
               <span className="btn-arrow-circle">↗</span>
-            </Link>
+            </BookConsultationButton>
           </div>
         </article>
       </main>

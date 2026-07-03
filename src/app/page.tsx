@@ -1,6 +1,6 @@
 import React from 'react';
 import ScrollObserver from '../components/ScrollObserver';
-import HeroSection from '../components/HeroSection';
+import HeroSection2 from '../components/HeroSection2';
 import IntroductionSection from '../components/IntroductionSection';
 import AboutPrincipal from '../components/AboutPrincipal';
 import SupportingDiverseCommunities from '../components/SupportingDiverseCommunities';
@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main>
       <ScrollObserver />
-      <HeroSection />
+      <HeroSection2 />
       <AffiliationsSection />
       <ServicesSection />
       {/* <IntroductionSection /> */}

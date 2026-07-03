@@ -8,9 +8,9 @@ export default function ContactSection() {
     name: '',
     email: '',
     phone: '',
-    service: '',
-    subject: '',
-    message: '',
+    matterType: '',
+    method: '',
+    description: '',
     isConfirmed: false,
   });
 
@@ -35,7 +35,7 @@ export default function ContactSection() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.isConfirmed) {
       alert('Please confirm that the information provided is accurate.');
@@ -43,20 +43,48 @@ export default function ContactSection() {
     }
 
     setIsSubmitting(true);
-    // Mock API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setForm({
-        name: '',
-        email: '',
-        phone: '',
-        service: '',
-        subject: '',
-        message: '',
-        isConfirmed: false,
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: '00ff7f6e-1316-43e5-bc22-8cc93fa5a64a',
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          matter_type: form.matterType,
+          preferred_format: form.method,
+          description: form.description,
+          subject: 'New Consultation Enquiry - Yantra Legal (Contact Section)',
+        }),
       });
-    }, 1500);
+
+      const result = await response.json();
+      if (response.status === 200 || result.success) {
+        setSubmitStatus('success');
+        setForm({
+          name: '',
+          email: '',
+          phone: '',
+          matterType: '',
+          method: '',
+          description: '',
+          isConfirmed: false,
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -136,20 +164,21 @@ export default function ContactSection() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="legal-contact-form">
-                  <div className="form-row-2col">
-                    <div className="form-group floating-group">
-                      <input
-                        type="text"
-                        id="form-name"
-                        name="name"
-                        placeholder=" "
-                        required
-                        value={form.name}
-                        onChange={handleChange}
-                        className="form-input"
-                      />
-                      <label htmlFor="form-name" className="floating-label">Your Name</label>
-                    </div>
+                  <div className="form-group floating-group full-width" style={{ marginBottom: '20px' }}>
+                    <input
+                      type="text"
+                      id="form-name"
+                      name="name"
+                      placeholder=" "
+                      required
+                      value={form.name}
+                      onChange={handleChange}
+                      className="form-input"
+                    />
+                    <label htmlFor="form-name" className="floating-label">Full Name</label>
+                  </div>
+
+                  <div className="form-row-2col" style={{ marginBottom: '20px' }}>
                     <div className="form-group floating-group">
                       <input
                         type="email"
@@ -163,37 +192,60 @@ export default function ContactSection() {
                       />
                       <label htmlFor="form-email" className="floating-label">Email Address</label>
                     </div>
-                  </div>
-
-                  <div className="form-row-2col">
                     <div className="form-group floating-group">
                       <input
                         type="tel"
                         id="form-phone"
                         name="phone"
                         placeholder=" "
+                        required
                         value={form.phone}
                         onChange={handleChange}
                         className="form-input"
                       />
                       <label htmlFor="form-phone" className="floating-label">Phone Number</label>
                     </div>
+                  </div>
+
+                  <div className="form-row-2col" style={{ marginBottom: '20px' }}>
                     <div className="form-group floating-group select-wrapper">
                       <select
-                        id="form-service"
-                        name="service"
-                        value={form.service}
+                        id="form-matterType"
+                        name="matterType"
+                        value={form.matterType}
                         onChange={handleChange}
                         required
-                        className={`form-select ${form.service ? 'has-value' : ''}`}
+                        className={`form-select ${form.matterType ? 'has-value' : ''}`}
                       >
                         <option value="" disabled hidden></option>
-                        <option value="Immigration & Visa Services">Immigration & Visa Services</option>
-                        <option value="ART Appeals & Reviews">ART Appeals & Reviews</option>
-                        <option value="Divorce & Separation">Divorce & Separation</option>
-                        <option value="General Legal Guidance">General Legal Guidance</option>
+                        <option value="Migration">Migration Law</option>
+                        <option value="Divorce">Divorce</option>
+                        <option value="Appeals">Appeals & Reviews</option>
+                        <option value="Other">Other Legal Matter</option>
                       </select>
-                      <label htmlFor="form-service" className="floating-label">Legal Services</label>
+                      <label htmlFor="form-matterType" className="floating-label">Matter Type</label>
+                      <div className="select-chevron-container">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="select-chevron-svg">
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+
+                    <div className="form-group floating-group select-wrapper">
+                      <select
+                        id="form-method"
+                        name="method"
+                        value={form.method}
+                        onChange={handleChange}
+                        required
+                        className={`form-select ${form.method ? 'has-value' : ''}`}
+                      >
+                        <option value="" disabled hidden></option>
+                        <option value="In Person">In Person (Sydney CBD)</option>
+                        <option value="Video">Video Call (Zoom/Teams)</option>
+                        <option value="Phone">Phone Call</option>
+                      </select>
+                      <label htmlFor="form-method" className="floating-label">Preferred Format</label>
                       <div className="select-chevron-container">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="select-chevron-svg">
                           <polyline points="6 9 12 15 18 9"></polyline>
@@ -202,35 +254,22 @@ export default function ContactSection() {
                     </div>
                   </div>
 
-                  <div className="form-group floating-group full-width">
-                    <input
-                      type="text"
-                      id="form-subject"
-                      name="subject"
-                      placeholder=" "
-                      required
-                      value={form.subject}
-                      onChange={handleChange}
-                      className="form-input"
-                    />
-                    <label htmlFor="form-subject" className="floating-label">Subject</label>
-                  </div>
-
-                  <div className="form-group floating-group floating-textarea-group">
+                  <div className="form-group floating-group floating-textarea-group full-width" style={{ marginBottom: '24px' }}>
                     <textarea
-                      id="form-message"
-                      name="message"
+                      id="form-description"
+                      name="description"
                       placeholder=" "
                       required
-                      rows={3}
-                      value={form.message}
+                      rows={4}
+                      value={form.description}
                       onChange={handleChange}
                       className="form-textarea"
+                      style={{ height: 'auto' }}
                     />
-                    <label htmlFor="form-message" className="floating-label">Your Message</label>
+                    <label htmlFor="form-description" className="floating-label">Brief Description of Your Matter</label>
                   </div>
 
-                  <div className="form-checkbox-group">
+                  <div className="form-checkbox-group" style={{ marginBottom: '24px' }}>
                     <input
                       type="checkbox"
                       id="form-confirm"

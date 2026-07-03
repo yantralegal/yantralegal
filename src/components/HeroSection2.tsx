@@ -10,46 +10,18 @@ import { Highlighter } from './ui/highlighter';
 import { Icon } from '@iconify/react';
 
 export default function HeroSection2() {
-  const handleCalendlyClick = (e: React.MouseEvent) => {
+  const handleConsultationClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (typeof window !== 'undefined' && (window as any).Calendly) {
-      (window as any).Calendly.initPopupWidget({
-        url: 'https://calendly.com/yantralegalweb/30min'
-      });
-    } else {
-      window.open('https://calendly.com/yantralegalweb/30min', '_blank');
-    }
+    window.dispatchEvent(new CustomEvent('open-consultation-modal'));
   };
 
   return (
     <section className="hero-section-container" style={{ position: 'relative', overflow: 'hidden' }}>
       {/* Background Image Layer showing full image, positioned lower and right bottom */}
-      <div style={{
-        position: 'absolute',
-        top: '-120px',
-        left: 0,
-        right: '-35%',
-        bottom: 0,
-        backgroundImage: "url('/testbg.jpeg')",
-        backgroundSize: 'auto 125%',
-        backgroundPosition: 'right bottom -50px',
-        backgroundRepeat: 'no-repeat',
-        opacity: 0.45,
-        zIndex: 1,
-        pointerEvents: 'none'
-      }} />
+      <div className="hero2-bg-layer" />
 
       {/* Background Gradient Overlay */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'linear-gradient(to right, var(--clr-bg-primary) 15%, transparent 60%)',
-        zIndex: 2,
-        pointerEvents: 'none'
-      }} />
+      <div className="hero2-gradient-overlay" />
 
       {/* Navbar Navigation */}
       <Navbar />
@@ -75,29 +47,12 @@ export default function HeroSection2() {
               />
             </div>
 
-            {/* Mobile-only image banner positioned between sub-heading and description */}
-            <div className="mobile-only-portrait" style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '300px',
-              aspectRatio: '1/1',
-              margin: '20px auto'
-            }}>
-              <Image
-                src="/herosectionbg.png"
-                alt="Yantra Legal Hero Background"
-                fill
-                priority
-                style={{ objectFit: 'contain' }}
-              />
-            </div>
-
             <p className="hero-desc reveal-on-scroll reveal-fade-up delay-100">
               Whether you are building a future in Australia, responding to a visa refusal, or navigating a family law matter, Yantra Legal provides clear advice, practical solutions, and personalised legal support every step of the way.
             </p>
 
             <div className="hero-btn-group reveal-on-scroll reveal-fade-up delay-200">
-              <a href="https://calendly.com/yantralegalweb/30min" onClick={handleCalendlyClick} className="btn btn-yellow">
+              <a href="#" onClick={handleConsultationClick} className="btn btn-yellow">
                 <span>Book a Legal Consultation</span>
                 <span className="btn-arrow-circle">↗</span>
               </a>

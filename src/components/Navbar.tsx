@@ -359,10 +359,10 @@ export default function Navbar() {
               <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
-          <Link href="/contact" className="btn btn-yellow">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('open-consultation-modal'))} className="btn btn-yellow" style={{ border: 'none', cursor: 'pointer' }}>
             <span>Book a Consultation</span>
             <span className="btn-arrow-circle">↗</span>
-          </Link>
+          </button>
         </div>
 
         {/* Mobile Search Button & Toggle */}
@@ -516,10 +516,10 @@ export default function Navbar() {
               <span style={{ color: 'var(--clr-yellow)' }}>💬</span> WhatsApp Chat Available
             </span>
           </div>
-          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="btn btn-yellow" style={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '14px 20px' }}>
+          <button onClick={() => { setMobileMenuOpen(false); window.dispatchEvent(new CustomEvent('open-consultation-modal')); }} className="btn btn-yellow" style={{ display: 'flex', justifyContent: 'center', width: '100%', padding: '14px 20px', border: 'none', cursor: 'pointer' }}>
             <span>Book Consultation</span>
             <span className="btn-arrow-circle">↗</span>
-          </Link>
+          </button>
         </div>
       </div>
       {/* Search Modal */}

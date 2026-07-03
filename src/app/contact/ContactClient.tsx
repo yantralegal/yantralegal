@@ -28,7 +28,7 @@ export default function ContactClient() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.isConfirmed) {
       alert('Please confirm that the information provided is accurate.');
@@ -36,19 +36,48 @@ export default function ContactClient() {
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setForm({
-        name: '',
-        email: '',
-        phone: '',
-        matterType: '',
-        description: '',
-        method: '',
-        isConfirmed: false,
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: '00ff7f6e-1316-43e5-bc22-8cc93fa5a64a',
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          matter_type: form.matterType,
+          preferred_format: form.method,
+          description: form.description,
+          subject: 'New Consultation Enquiry - Yantra Legal (Contact Page)',
+        }),
       });
-    }, 1500);
+
+      const result = await response.json();
+      if (response.status === 200 || result.success) {
+        setSubmitStatus('success');
+        setForm({
+          name: '',
+          email: '',
+          phone: '',
+          matterType: '',
+          description: '',
+          method: '',
+          isConfirmed: false,
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -144,9 +173,18 @@ export default function ContactClient() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="legal-contact-form">
-                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', color: '#ffffff', marginBottom: '24px' }}>
+                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', color: '#ffffff', marginBottom: '8px' }}>
                       Enquiry Form
                     </h3>
+                    <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.65)', marginBottom: '24px' }}>
+                      Provide details about your matter to schedule a confidential legal session.
+                    </p>
+
+                    {submitStatus === 'error' && (
+                      <p style={{ color: '#ff6b6b', fontSize: '0.9rem', marginBottom: '16px' }}>
+                        Something went wrong. Please try again or contact us directly.
+                      </p>
+                    )}
 
                     {/* Name */}
                     <div className="form-group floating-group full-width" style={{ marginBottom: '20px' }}>
@@ -242,7 +280,7 @@ export default function ContactClient() {
                     </div>
 
                     {/* Description */}
-                    <div className="form-group floating-group full-width" style={{ marginBottom: '24px' }}>
+                    <div className="form-group floating-group floating-textarea-group full-width" style={{ marginBottom: '24px' }}>
                       <textarea
                         id="form-description"
                         name="description"
