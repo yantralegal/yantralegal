@@ -27,28 +27,28 @@ export default function WhyChooseValues() {
   const reasons = [
     {
       num: '01',
-      title: 'Direct Access to Your Solicitor',
-      desc: 'You communicate directly with the lawyer handling your matter.',
+      title: 'Lived Migration Experience',
+      desc: 'Having lived in Nepal, Germany and Australia, we understand what it feels like to build a new life in a different country. We know that migration matters often involve family, work, uncertainty and important life decisions—not just paperwork.',
     },
     {
       num: '02',
-      title: 'Legal Expertise Backed by Lived Experience',
-      desc: 'We understand migration journeys because we have experienced them personally.',
+      title: 'Direct Access to Your Solicitor',
+      desc: 'When you choose Yantra Legal, you work directly with our solicitor, Krishna Giri from your first consultation until your matter is finalised. Your case is not passed between different staff members, so you always know who is handling your matter.',
     },
     {
       num: '03',
-      title: 'Clear and Practical Advice',
-      desc: 'No unnecessary legal jargon. Just clear explanations and realistic options.',
+      title: 'Clear & Honest Advice',
+      desc: 'Legal advice should be clear, not confusing. We explain your options in plain English and, where helpful, in Nepali or Hindi, so you can make informed decisions with confidence.',
     },
     {
       num: '04',
-      title: 'Focused Legal Practice',
-      desc: 'We specialise in migration law and divorce matters – not general legal services.',
+      title: 'Truly Personalised Representation',
+      desc: 'No two legal matters are the same. We take the time to understand your circumstances, your goals and what matters most to you. Our advice is tailored to your situation rather than following a one-size-fits-all approach.',
     },
     {
       num: '05',
-      title: 'Transparent Communication',
-      desc: 'We keep you informed at every stage of your matter.',
+      title: 'Fixed-Fee Transparency',
+      desc: 'We believe you should know what to expect before you proceed. We offer fixed-fee initial consultations and provide clear information about legal costs, so there are no unexpected surprises.',
     },
   ];
 
@@ -89,7 +89,7 @@ export default function WhyChooseValues() {
               <span>Choose Yantra Legal</span>
             </h2>
             <p className="wcu-sticky-sub">
-              Yantra Legal brings a unique combination of dual qualifications, lived cross-cultural experience, and personal commitment to every matter.
+              Choosing a lawyer is about more than legal knowledge. You want someone who will listen, understand your situation, and guide you with honesty and care. {"That's how we work at Yantra Legal."}
             </p>
           </div>
 

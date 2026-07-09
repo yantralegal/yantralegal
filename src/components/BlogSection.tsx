@@ -26,6 +26,11 @@ export default function BlogSection() {
         <div style={gridStyle}>
           {posts.map((post, index) => (
             <div key={post.slug} className="glass reveal-on-scroll reveal-fade-up" style={cardStyle}>
+              {/* Featured Image */}
+              <div style={cardImageContainerStyle} className="blog-card-img-container">
+                <img src={post.thumbnail} alt={post.title} style={cardImageStyle} className="blog-card-img" />
+              </div>
+
               {/* Category & Date */}
               <div style={cardMetaStyle}>
                 <span style={cardCategoryStyle}>{post.category}</span>
@@ -183,4 +188,20 @@ const bottomCTAStyle: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'center',
   marginTop: '48px',
+};
+
+const cardImageContainerStyle: React.CSSProperties = {
+  width: '100%',
+  height: '200px',
+  overflow: 'hidden',
+  borderRadius: '8px',
+  marginBottom: '20px',
+  position: 'relative',
+};
+
+const cardImageStyle: React.CSSProperties = {
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+  transition: 'transform 0.5s ease',
 };

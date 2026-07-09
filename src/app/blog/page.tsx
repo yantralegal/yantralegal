@@ -33,6 +33,11 @@ export default function BlogPage() {
             <div style={blogGridStyle}>
               {blogPosts.map((post) => (
                 <div key={post.slug} className="glass" style={blogCardStyle}>
+                  {/* Featured Image */}
+                  <div style={cardImageContainerStyle} className="blog-card-img-container">
+                    <img src={post.thumbnail} alt={post.title} style={cardImageStyle} className="blog-card-img" />
+                  </div>
+
                   <div style={cardMetaStyle}>
                     <span style={cardCategoryStyle}>{post.category}</span>
                     <span style={cardDateStyle}>{post.date}</span>
@@ -200,4 +205,20 @@ const bodyStyle: React.CSSProperties = {
   lineHeight: 1.7,
   color: 'var(--clr-text-muted)',
   margin: 0,
+};
+
+const cardImageContainerStyle: React.CSSProperties = {
+  width: '100%',
+  height: '200px',
+  overflow: 'hidden',
+  borderRadius: '8px',
+  marginBottom: '20px',
+  position: 'relative',
+};
+
+const cardImageStyle: React.CSSProperties = {
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+  transition: 'transform 0.5s ease',
 };

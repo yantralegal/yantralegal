@@ -5,6 +5,7 @@ export interface BlogPost {
   date: string;
   category: string;
   readTime: string;
+  thumbnail: string;
   content: string[];
 }
 
@@ -16,6 +17,7 @@ export const blogPosts: BlogPost[] = [
     date: "June 2, 2026",
     category: "Migration Law",
     readTime: "5 min read",
+    thumbnail: "/partner_visa_refusal_thumbnail.png",
     content: [
       "A partner visa is one of the most important and personal applications in the Australian migration system. When an application is refused, the emotional and practical impact on a couple can be overwhelming. However, a visa refusal does not always mean the end of your pathway to living together in Australia.",
       "If you have received a refusal decision from the Department of Home Affairs, the critical first step is to understand why the decision was made and identify the options available to you.",
@@ -44,6 +46,7 @@ export const blogPosts: BlogPost[] = [
     date: "May 25, 2026",
     category: "Appeals & Reviews",
     readTime: "4 min read",
+    thumbnail: "/art_appeals_thumbnail.png",
     content: [
       "If your Australian visa application has been refused or your visa has been cancelled by the Department of Home Affairs, you may have the right to seek an independent review of that decision.",
       "On 14 October 2024, a major change occurred in the Australian administrative law system: the Administrative Appeals Tribunal (AAT) was abolished and replaced by the new Administrative Review Tribunal (ART). Understanding how this new tribunal works is essential for anyone challenging a migration decision.",
@@ -72,6 +75,7 @@ export const blogPosts: BlogPost[] = [
     date: "May 18, 2026",
     category: "Family Law",
     readTime: "6 min read",
+    thumbnail: "/divorce_process_australia_thumbnail.png",
     content: [
       "The breakdown of a marriage is a challenging personal experience. In addition to the emotional adjustments, there are legal steps that must be taken to formally end the marriage. In Australia, the process of obtaining a divorce is governed by the Family Law Act 1975 (Cth) and is handled through the Federal Circuit and Family Court of Australia.",
       "Here is a straightforward explanation of how the divorce process works in Australia.",
@@ -97,6 +101,7 @@ export const blogPosts: BlogPost[] = [
     date: "June 24, 2026",
     category: "Family Law",
     readTime: "5 min read",
+    thumbnail: "/mutual_divorce_nepal_thumbnail.png",
     content: [
       "Nepali couples residing abroad may obtain a divorce by mutual consent through the District Court in Nepal within a relatively short period of time. For this purpose, both parties may appoint a close relative or a trusted person residing in Nepal as their authorized representative (Power of Attorney holder). The Power of Attorney document can be prepared in Nepal and, after being authenticated by the Nepali Embassy or Consular Office in the country of residence, can be used to initiate and complete the legal divorce process in Nepal.",
       "Procedures to be Followed",

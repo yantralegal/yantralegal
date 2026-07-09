@@ -18,29 +18,28 @@ function WhyChooseYantraLegal() {
       {/* Desktop (Full Version) */}
       <div className="yantra-desktop-only">
         <p className="yantra-why-choose-desc">
-          Yantra Legal is a boutique Australian law practice focused on providing clear, practical, and compassionate legal support in migration and family law matters.
-          We understand that legal issues are often closely tied to important life decisions, relationships, and future plans. Our approach is grounded in clarity, strategy, and genuine care for each client's situation.
+          Choosing a lawyer is about more than legal knowledge. You want someone who will listen, understand your situation, and guide you with honesty and care. {"That's how we work at Yantra Legal."}
         </p>
         <div className="yantra-why-choose-grid">
           <div className="yantra-why-choose-item">
-            <h4 className="yantra-why-choose-item-title">Australian legal expertise</h4>
-            <p className="yantra-why-choose-item-desc">We provide advice grounded in Australian law, practice, and procedure.</p>
+            <h4 className="yantra-why-choose-item-title">Lived Migration Experience</h4>
+            <p className="yantra-why-choose-item-desc">Having lived in Nepal, Germany and Australia, we understand what it feels like to build a new life in a different country. We know that migration matters often involve family, work, uncertainty and important life decisions—not just paperwork.</p>
           </div>
           <div className="yantra-why-choose-item">
-            <h4 className="yantra-why-choose-item-title">Personal migration understanding</h4>
-            <p className="yantra-why-choose-item-desc">Our approach is informed by both professional experience and a lived understanding of migration journeys.</p>
+            <h4 className="yantra-why-choose-item-title">Direct Access to Your Solicitor</h4>
+            <p className="yantra-why-choose-item-desc">When you choose Yantra Legal, you work directly with our solicitor, Krishna Giri from your first consultation until your matter is finalised. Your case is not passed between different staff members, so you always know who is handling your matter.</p>
           </div>
           <div className="yantra-why-choose-item">
-            <h4 className="yantra-why-choose-item-title">Practical and strategic advice</h4>
-            <p className="yantra-why-choose-item-desc">We focus on realistic pathways and clear next steps rather than unnecessary complexity.</p>
+            <h4 className="yantra-why-choose-item-title">Clear & Honest Advice</h4>
+            <p className="yantra-why-choose-item-desc">Legal advice should be clear, not confusing. We explain your options in plain English and, where helpful, in Nepali or Hindi, so you can make informed decisions with confidence.</p>
           </div>
           <div className="yantra-why-choose-item">
-            <h4 className="yantra-why-choose-item-title">Clear and honest communication</h4>
-            <p className="yantra-why-choose-item-desc">We explain legal processes in a straightforward way so you always understand where you stand.</p>
+            <h4 className="yantra-why-choose-item-title">Truly Personalised Representation</h4>
+            <p className="yantra-why-choose-item-desc">No two legal matters are the same. We take the time to understand your circumstances, your goals and what matters most to you. Our advice is tailored to your situation rather than following a one-size-fits-all approach.</p>
           </div>
           <div className="yantra-why-choose-item" style={{ gridColumn: 'span 2' }}>
-            <h4 className="yantra-why-choose-item-title">Compassionate and client-focused approach</h4>
-            <p className="yantra-why-choose-item-desc">We recognise that every matter is personal and treat each case with care, respect, and attention to detail.</p>
+            <h4 className="yantra-why-choose-item-title">Fixed-Fee Transparency</h4>
+            <p className="yantra-why-choose-item-desc">We believe you should know what to expect before you proceed. We offer fixed-fee initial consultations and provide clear information about legal costs, so there are no unexpected surprises.</p>
           </div>
         </div>
       </div>
@@ -48,15 +47,14 @@ function WhyChooseYantraLegal() {
       {/* Mobile (Shorter Version) */}
       <div className="yantra-mobile-only">
         <p className="yantra-why-choose-desc" style={{ margin: 0 }}>
-          Yantra Legal is a boutique Australian law practice providing practical and compassionate legal support in migration and family law matters.
-          We combine legal expertise with a clear, honest, and client-focused approach to help you make informed decisions at every stage.
+          Choosing a lawyer is about more than legal knowledge. You want someone who will listen, understand your situation, and guide you with honesty and care. {"That's how we work at Yantra Legal."}
         </p>
         <div className="yantra-tags-container">
           <span className="yantra-tag-pill">Lived Experience</span>
-          <span className="yantra-tag-pill">Australian Solicitor</span>
-          <span className="yantra-tag-pill">Practical Advice</span>
-          <span className="yantra-tag-pill">Clear Communication</span>
-          <span className="yantra-tag-pill">Compassionate Guidance</span>
+          <span className="yantra-tag-pill">Direct Solicitor Access</span>
+          <span className="yantra-tag-pill">Clear & Honest Advice</span>
+          <span className="yantra-tag-pill">Personalised Representation</span>
+          <span className="yantra-tag-pill">Fixed-Fee Transparency</span>
         </div>
       </div>
     </div>

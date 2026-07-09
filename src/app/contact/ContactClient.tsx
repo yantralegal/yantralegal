@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import RevealingPhone from '../../components/RevealingPhone';
 
 export default function ContactClient() {
   const [form, setForm] = useState({
@@ -109,7 +110,11 @@ export default function ContactClient() {
                 <div style={infoListStyle}>
                   <div style={infoItemStyle}>
                     <span style={labelStyle}>Phone:</span>
-                    <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" style={valueStyle}>0402 402 120 (WhatsApp)</a>
+                    <span style={valueStyle}><RevealingPhone goldText={true} /></span>
+                  </div>
+                  <div style={infoItemStyle}>
+                    <span style={labelStyle}>WhatsApp:</span>
+                    <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" style={valueStyle}>WhatsApp Chat Available</a>
                   </div>
                   <div style={infoItemStyle}>
                     <span style={labelStyle}>Email:</span>

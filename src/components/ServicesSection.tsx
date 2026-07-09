@@ -137,7 +137,7 @@ export default function ServicesSection() {
                       </React.Fragment>
                     ))}
                   </div>
-                  
+
                   <div style={actionLinkStyle}>
                     <a href={service.url} style={{
                       color: service.isActive ? 'var(--clr-yellow)' : 'var(--clr-bg-primary)',

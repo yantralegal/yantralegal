@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import RevealingPhone from '../../components/RevealingPhone';
 
 export const metadata = {
   title: 'Terms of Use | Yantra Legal',
@@ -191,7 +192,8 @@ export default function TermsOfUsePage() {
               <p style={{ margin: '4px 0' }}>ABN: 33 698 723 858</p>
               <p style={{ margin: '4px 0' }}>GPO Box 1230, Sydney NSW 2001</p>
               <p style={{ margin: '4px 0' }}>Email: <a href="mailto:info@yantralegal.com.au" style={{ color: 'var(--clr-yellow)' }}>info@yantralegal.com.au</a></p>
-              <p style={{ margin: '4px 0 0 0' }}>Phone: <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-yellow)' }}>0402 402 120 (WhatsApp)</a></p>
+              <p style={{ margin: '4px 0' }}>Phone: <RevealingPhone /></p>
+              <p style={{ margin: '4px 0 0 0' }}>WhatsApp: <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-yellow)', fontWeight: 'bold' }}>WhatsApp Chat</a></p>
             </div>
           </div>
         </article>

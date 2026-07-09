@@ -4,6 +4,7 @@ import Script from 'next/script';
 import './globals.css';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ConsultationModal from '../components/ConsultationModal';
+import ScrollToTop from '../components/ScrollToTop';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -84,6 +85,7 @@ export default function RootLayout({
       <body>
         {children}
         <ConsultationModal />
+        <ScrollToTop />
         <SpeedInsights />
       </body>
     </html>

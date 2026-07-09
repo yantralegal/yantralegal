@@ -40,8 +40,8 @@ export default function AffiliationsSection() {
     {
       logoSrc: '/associatedlogos/logos/nepalbarcouncil.png',
       title: 'Nepal Bar Council',
-      role: 'Overseas-Qualified Lawyer',
-      desc: 'Registered & Admitted Advocate',
+      role: 'Member',
+      desc: 'Admitted as an Advocate',
       url: 'https://nepalbarcouncil.org.np/'
     }
   ];
@@ -83,8 +83,8 @@ export default function AffiliationsSection() {
         <div className="affiliations-marquee-wrapper">
           <div className="affiliations-marquee-track">
             {marqueeItems.map((item, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className={`affiliations-logo-card glass ${item.logoSrc.includes('lawsociety') ? 'law-society-card' : ''}`}
                 onClick={() => handleCardClick(item.url, item.title)}
               >
@@ -106,7 +106,7 @@ export default function AffiliationsSection() {
                     {item.title === 'Law Society of NSW' ? (
                       <>
                         Admitted Practitioner,{' '}
-                        <span 
+                        <span
                           style={{ color: 'var(--clr-yellow)', textDecoration: 'underline', cursor: 'pointer' }}
                           onClick={(e) => {
                             e.stopPropagation();

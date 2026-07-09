@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
+import RevealingPhone from './RevealingPhone';
 
 export default function Footer() {
   return (
@@ -84,11 +85,19 @@ export default function Footer() {
               </li>
               <li className="contact-item">
                 <span className="contact-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </span>
+                <RevealingPhone className="contact-value" />
+              </li>
+              <li className="contact-item">
+                <span className="contact-icon">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                     <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.458L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.803-4.394 9.806-9.805.001-2.621-1.013-5.085-2.86-6.937C16.32 2.01 13.882 1 12.009 1 6.608 1 2.206 5.406 2.202 10.817c-.001 1.517.402 3.003 1.17 4.303l-.443 1.62-.2 1.055.228-.216 1.69-.909zm11.332-6.837c-.314-.157-1.855-.916-2.144-1.02-.29-.105-.502-.157-.713.157-.21.314-.817 1.02-.998 1.226-.18.204-.362.229-.675.072-1.823-.915-2.92-1.479-4.103-3.509-.313-.538.313-.5.894-1.657.094-.189.047-.354-.024-.511-.07-.156-.502-1.226-.713-1.72-.206-.497-.432-.41-.58-.418l-.513-.008c-.18 0-.472.067-.719.338-.246.27-1.017.994-1.017 2.424 0 1.43 1.042 2.81 1.188 3.002.146.19 2.051 3.132 4.969 4.388.694.3 1.236.479 1.659.613.698.222 1.334.191 1.838.116.561-.083 1.855-.758 2.119-1.488.264-.729.264-1.354.185-1.488-.078-.135-.29-.215-.603-.372z"/>
                   </svg>
                 </span>
-                <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" className="contact-value">0402 402 120 (WhatsApp)</a>
+                <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" className="contact-value">WhatsApp Chat</a>
               </li>
               <li className="contact-item align-top">
                 <span className="contact-icon mt-1">
@@ -112,10 +121,10 @@ export default function Footer() {
               <a href="https://x.com/YantraLegal" target="_blank" rel="noopener noreferrer" className="footer-social-badge" aria-label="X (formerly Twitter)">
                 <Icon icon="ri:twitter-x-fill" width="16" height="16" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-social-badge" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/yantra-legal" target="_blank" rel="noopener noreferrer" className="footer-social-badge" aria-label="LinkedIn">
                 <Icon icon="ri:linkedin-fill" width="18" height="18" />
               </a>
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="footer-social-badge" aria-label="TikTok">
+              <a href="https://www.tiktok.com/@yantralegal" target="_blank" rel="noopener noreferrer" className="footer-social-badge" aria-label="TikTok">
                 <Icon icon="ri:tiktok-fill" width="16" height="16" />
               </a>
               <a href="https://www.instagram.com/yantralegal" target="_blank" rel="noopener noreferrer" className="footer-social-badge" aria-label="Instagram">

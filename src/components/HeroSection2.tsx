@@ -101,10 +101,10 @@ export default function HeroSection2() {
         <a href="https://x.com/YantraLegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="X (Twitter)">
           <Icon icon="ri:twitter-x-fill" width="20" height="20" />
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/company/yantra-legal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="LinkedIn">
           <Icon icon="ri:linkedin-fill" width="22" height="22" />
         </a>
-        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="TikTok">
+        <a href="https://www.tiktok.com/@yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="TikTok">
           <Icon icon="ri:tiktok-fill" width="20" height="20" />
         </a>
         <a href="https://www.instagram.com/yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="Instagram">

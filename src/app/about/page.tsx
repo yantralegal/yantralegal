@@ -108,7 +108,7 @@ export default function AboutPage() {
                   {/* Australia */}
                   <div className="journey-node">
                     <div className="journey-title">🇦🇺 Australia</div>
-                    <p className="journey-desc">Qualified Solicitor & Practice</p>
+                    <p className="journey-desc">Law Degree and Solicitor</p>
                   </div>
 
                   {/* Yantra Legal */}
@@ -134,6 +134,10 @@ export default function AboutPage() {
                   <div className="qual-card">
                     <span className="qual-icon">✦</span>
                     <span>Admitted to the Nepal Bar Council</span>
+                  </div>
+                  <div className="qual-card">
+                    <span className="qual-icon">✦</span>
+                    <span>Member of Nepal Bar Association</span>
                   </div>
                   <div className="qual-card">
                     <span className="qual-icon">✦</span>
