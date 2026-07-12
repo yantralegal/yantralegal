@@ -29,7 +29,7 @@ function createDateInTimezone(year: number, month: number, day: number, hour: nu
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, date, time, duration } = body;
+    const { name, email, phone, matterType, method, description, date, time, duration } = body;
 
     // Validate request body
     if (!name || !email || !date || !time || typeof duration !== 'number') {
@@ -146,6 +146,10 @@ export async function POST(request: NextRequest) {
       const bookingRecord: Booking = {
         name,
         email,
+        phone,
+        matterType,
+        method,
+        description,
         date,
         time,
         duration,
@@ -166,6 +170,10 @@ export async function POST(request: NextRequest) {
       const bookingRecord: Booking = {
         name,
         email,
+        phone,
+        matterType,
+        method,
+        description,
         date,
         time,
         duration,

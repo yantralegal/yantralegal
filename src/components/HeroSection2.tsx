@@ -40,7 +40,7 @@ export default function HeroSection2() {
             <div className="hero-subheading reveal-on-scroll reveal-fade-up delay-50">
               <span style={{ marginRight: '8px' }}>Expertise in</span>
               <TypingAnimation
-                words={["Migration Law", "Family Law", "ART", "Judicial Review"]}
+                words={["Migration Law", "Family Law", "Divorce Law", "ART", "Judicial Review"]}
                 duration={100}
                 pauseDelay={2000}
                 loop={true}

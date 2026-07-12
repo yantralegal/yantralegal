@@ -37,12 +37,54 @@ export default function ConsultationModal() {
   }, []);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Official Cal.com embed loader snippet
+      (function (C, A, L) {
+        var p = function (a: any, ar: any) { a.q.push(ar); };
+        var d = C.document;
+        (C as any).Cal = (C as any).Cal || function () {
+          var cal = (C as any).Cal;
+          var ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head!.appendChild(d.createElement("script")).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            var api: any = function () { p(api, arguments); };
+            var namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === "string") {
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ["initNamespace", namespace]);
+            } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+
+      // Initialize Cal
+      const cal = (window as any).Cal;
+      if (cal) {
+        cal("init", { origin: "https://cal.com" });
+        cal("ui", { styles: { branding: { brandColor: "#0b2b20" } }, hideEventTypeDetails: false, layout: "month_view" });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     const handleOpen = () => {
-      setIsOpen(true);
-      setStep(1);
-      setSubmitStatus('idle');
-      setErrorMessage('');
-      setSuccessInfo(null);
+      if (typeof window !== 'undefined' && (window as any).Cal) {
+        (window as any).Cal("modal", {
+          calLink: "krishna-giri-m4dgkw",
+          config: { layout: "month_view" }
+        });
+      } else {
+        window.open("https://cal.com/krishna-giri-m4dgkw", "_blank");
+      }
     };
     window.addEventListener('open-consultation-modal', handleOpen);
     return () => {
@@ -167,7 +209,7 @@ export default function ConsultationModal() {
     }
   };
 
-  if (!isOpen) return null;
+  return null;
 
   return (
     <div className="modal-backdrop" onClick={handleClose}>
@@ -294,8 +336,7 @@ export default function ConsultationModal() {
                     >
                       <option value="" disabled hidden></option>
                       <option value="In Person">In Person (Sydney CBD)</option>
-                      <option value="Video">Video Call (Zoom/Teams)</option>
-                      <option value="Phone">Phone Call</option>
+                      <option value="Video">Video Call (Teams/Google Meet)</option>
                     </select>
                     <label htmlFor="modal-method" className="floating-label">Preferred Format</label>
                     <div className="select-chevron-container">

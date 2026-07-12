@@ -29,6 +29,10 @@ export default function SupportingDiverseCommunities() {
     {
       title: 'Personalised Representation',
       desc: 'Every matter receives individual attention and a tailored legal strategy.'
+    },
+    {
+      title: 'Fixed-Fee Transparency',
+      desc: 'We believe you should know what to expect before you proceed. We offer fixed-fee initial consultations and provide clear information about legal costs, so there are no unexpected surprises.'
     }
   ];
 
@@ -60,14 +64,17 @@ export default function SupportingDiverseCommunities() {
           {/* New Left Column: Why Clients Choose Yantra Legal */}
           <div style={leftColStyle}>
             <span className="sec-pill">Why Yantra Legal</span>
-            <h2 style={titleStyle}>
-              Why Clients <span className="text-gradient-gold">Choose Yantra Legal</span>
+            <h2 style={titleStyle} className="text-gradient-gold">
+              Why Choose Yantra Legal
             </h2>
+            <p style={{ ...descStyle, marginTop: '-8px', marginBottom: '8px' }}>
+              Choosing a lawyer is about more than legal knowledge. You want someone who will listen, understand your situation, and guide you with honesty and care. {"That's how we work at Yantra Legal."}
+            </p>
             
             <div className="why-choose-cards-grid">
               {chooseReasons.map((reason, idx) => (
-                <div key={idx} className="glass why-choose-card reveal-on-scroll reveal-fade-up">
-                  <h3 className="why-choose-card-title">{reason.title}</h3>
+                <div key={idx} className={`glass why-choose-card reveal-on-scroll reveal-fade-up ${idx === 4 ? 'why-choose-card-wide' : ''}`}>
+                  <h3 className="why-choose-card-title text-gradient-gold">{reason.title}</h3>
                   <p className="why-choose-card-desc">{reason.desc}</p>
                 </div>
               ))}

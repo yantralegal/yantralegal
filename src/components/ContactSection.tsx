@@ -253,8 +253,7 @@ export default function ContactSection() {
                       >
                         <option value="" disabled hidden></option>
                         <option value="In Person">In Person (Sydney CBD)</option>
-                        <option value="Video">Video Call (Zoom/Teams)</option>
-                        <option value="Phone">Phone Call</option>
+                        <option value="Video">Video Call (Teams/Google Meet)</option>
                       </select>
                       <label htmlFor="form-method" className="floating-label">Preferred Format</label>
                       <div className="select-chevron-container">

@@ -147,11 +147,7 @@ export default function ContactClient() {
                   </li>
                   <li>
                     <span style={bulletIconStyle}>✦</span>
-                    <span><strong>Video Call:</strong> Zoom, Microsoft Teams, or Google Meet</span>
-                  </li>
-                  <li>
-                    <span style={bulletIconStyle}>✦</span>
-                    <span><strong>Phone:</strong> Strategic call to discuss urgency</span>
+                    <span><strong>Video Call:</strong> Microsoft Teams or Google Meet</span>
                   </li>
                 </ul>
                 <div style={languagesBoxStyle}>
@@ -272,8 +268,7 @@ export default function ContactClient() {
                         >
                           <option value="" disabled hidden></option>
                           <option value="In Person">In Person (Sydney CBD)</option>
-                          <option value="Video">Video Call (Zoom/Teams)</option>
-                          <option value="Phone">Phone Call</option>
+                          <option value="Video">Video Call (Teams/Google Meet)</option>
                         </select>
                         <label htmlFor="form-method" className="floating-label">Preferred Format</label>
                         <div className="select-chevron-container">

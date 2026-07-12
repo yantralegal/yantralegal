@@ -71,13 +71,9 @@ export default function AffiliationsSection() {
       <div className="affiliations-glow" />
 
       <div className="container affiliations-container">
-        {/* <span className="sec-pill">Credentials</span> */}
-        <h2 className="affiliations-heading">
-          Trusted <span className="text-gradient-gold">Legal Guidance</span>
-        </h2>
-        <p className="affiliations-intro">
-          Yantra Legal is backed by formal admissions, registrations, and active professional memberships in leading legal bodies.
-        </p>
+        <h3 className="text-gradient-gold" style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(0.9rem, 2.2vw, 1.6rem)', fontWeight: 500, textAlign: 'center', margin: '0 auto 16px auto', whiteSpace: 'nowrap', width: 'max-content', maxWidth: '100%', lineHeight: 1.4 }}>
+          Backed By Formal Qualifications, Admissions & Professional Memberships
+        </h3>
 
         {/* Outer marquee wrapper with side fade masks */}
         <div className="affiliations-marquee-wrapper">

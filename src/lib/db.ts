@@ -27,6 +27,10 @@ export interface Booking {
   _id?: ObjectId;
   name: string;
   email: string;
+  phone?: string;
+  matterType?: string;
+  method?: string;
+  description?: string;
   date: string; // YYYY-MM-DD
   time: string; // HH:MM (e.g. "09:30")
   duration: number; // minutes

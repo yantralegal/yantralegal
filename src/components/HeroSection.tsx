@@ -10,14 +10,15 @@ import { Highlighter } from './ui/highlighter';
 import { Icon } from '@iconify/react';
 
 export default function HeroSection() {
-  const handleCalendlyClick = (e: React.MouseEvent) => {
+  const handleCalClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (typeof window !== 'undefined' && (window as any).Calendly) {
-      (window as any).Calendly.initPopupWidget({
-        url: 'https://calendly.com/yantralegalweb/30min'
+    if (typeof window !== 'undefined' && (window as any).Cal) {
+      (window as any).Cal("modal", {
+        calLink: "krishna-giri-m4dgkw",
+        config: { layout: "month_view" }
       });
     } else {
-      window.open('https://calendly.com/yantralegalweb/30min', '_blank');
+      window.open('https://cal.com/krishna-giri-m4dgkw', '_blank');
     }
   };
 
@@ -42,7 +43,7 @@ export default function HeroSection() {
             <div className="hero-subheading reveal-on-scroll reveal-fade-up delay-50">
               <span style={{ marginRight: '8px' }}>Expertise in</span>
               <TypingAnimation
-                words={["Migration Law", "Family Law", "ART", "Judicial Review"]}
+                words={["Migration Law", "Family Law", "Divorce Law", "ART", "Judicial Review"]}
                 duration={100}
                 pauseDelay={2000}
                 loop={true}
@@ -66,7 +67,7 @@ export default function HeroSection() {
             </p>
 
             <div className="hero-btn-group reveal-on-scroll reveal-fade-up delay-200">
-              <a href="https://calendly.com/yantralegalweb/30min" onClick={handleCalendlyClick} className="btn btn-yellow">
+              <a href="https://cal.com/krishna-giri-m4dgkw" onClick={handleCalClick} className="btn btn-yellow">
                 <span>Book a Legal Consultation</span>
                 <span className="btn-arrow-circle">↗</span>
               </a>
