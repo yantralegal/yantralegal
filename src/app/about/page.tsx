@@ -9,13 +9,38 @@ import Timeline from '../../components/Timeline';
 import WhyChooseValues from '../../components/WhyChooseValues';
 import WhatHappensNext from '../../components/WhatHappensNext';
 import ScrollObserver from '../../components/ScrollObserver';
+import { getAboutContent } from '../../lib/dataFetcher';
 
 export const metadata: Metadata = {
   title: 'About Krishna Giri & Yantra Legal | Sydney Law Practice',
   description: 'Learn about Yantra Legal, founded by solicitor Krishna Giri. Our boutique Sydney practice provides strategic migration and divorce representation shaped by lived experience.',
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const content = await getAboutContent();
+  const {
+    heroPill = "About Our Practice",
+    heroTitle = "A Practice Built Around People, Not Files",
+    heroSubtitle = "Yantra Legal is a dedicated migration and family law practice committed to protecting client rights with clear, honest legal guidance.",
+    storyPill = "Our Story",
+    storyTitle = "The Journey Behind Yantra Legal",
+    storyParagraphs = [
+      "Yantra Legal was established after a professional and personal journey that has spanned multiple countries, cultures and legal systems.",
+      "Having lived, studied and worked across Nepal, Europe and Australia, Krishna Giri developed a deep appreciation for the challenges people face when navigating unfamiliar systems and major life transitions.",
+      "This experience continues to shape the way Yantra Legal serves clients today: with empathy, clarity and practical legal guidance."
+    ],
+    introTitle = "Introduction",
+    introSubtitle = "Principal Solicitor & Founder",
+    introTagline = "Legal expertise shaped by international experience, cultural understanding, and a personal commitment to helping people navigate major life transitions.",
+    introParagraphs = [
+      "Many legal matters arise during significant moments in life — building a future in a new country, reuniting with family, responding to an unexpected visa refusal, or navigating the breakdown of a relationship.",
+      "Having lived, studied, and worked across Nepal, Europe, and Australia, Krishna Giri understands many of these transitions firsthand. This perspective allows him to combine legal expertise with genuine insight into the personal challenges that often accompany migration and family law matters.",
+      "As the founder of Yantra Legal, Krishna is committed to providing practical legal advice that is clear, accessible, and tailored to the individual circumstances of each client."
+    ],
+    quoteText = "What matters most to me is that you never feel like just another file.\nEvery client deserves to be heard, understood and supported.",
+    quoteAuthor = "— Krishna Giri"
+  } = content;
+
   return (
     <div style={layoutStyle}>
       <ScrollObserver />
@@ -34,12 +59,14 @@ export default function AboutPage() {
         {/* 2. Eyebrow & Hero */}
         <section style={headerSectionStyle}>
           <div className="container">
-            <span className="sec-pill" style={{ marginBottom: '16px', display: 'inline-block' }}>About Our Practice</span>
+            <span className="sec-pill" style={{ marginBottom: '16px', display: 'inline-block' }}>{heroPill}</span>
             <h1 style={titleStyle}>
-              A Practice Built Around <span className="text-gradient-gold">People</span>, Not Files
+              {heroTitle.includes('People') ? (
+                <>A Practice Built Around <span className="text-gradient-gold">People</span>, Not Files</>
+              ) : heroTitle}
             </h1>
             <p style={subtitleStyle}>
-              Yantra Legal is a dedicated migration and family law practice committed to protecting client rights with clear, honest legal guidance.
+              {heroSubtitle}
             </p>
           </div>
         </section>
@@ -47,23 +74,19 @@ export default function AboutPage() {
         {/* 3. Our Story Section & Timeline Layout */}
         <section style={storySectionStyle}>
           <div className="container" style={{ maxWidth: '800px', textAlign: 'center', marginBottom: '40px' }}>
-            <span className="sec-pill" style={{ marginBottom: '16px', display: 'inline-block' }}>Our Story</span>
-            <h2 style={storyTitleStyle}>The Journey Behind Yantra Legal</h2>
-            <p style={storyBodyStyle}>
-              Yantra Legal was established after a professional and personal journey that has spanned multiple countries, cultures and legal systems.
-            </p>
-            <p style={storyBodyStyle}>
-              Having lived, studied and worked across Nepal, Europe and Australia, Krishna Giri developed a deep appreciation for the challenges people face when navigating unfamiliar systems and major life transitions.
-            </p>
-            <p style={storyBodyStyle}>
-              This experience continues to shape the way Yantra Legal serves clients today: with empathy, clarity and practical legal guidance.
-            </p>
+            <span className="sec-pill" style={{ marginBottom: '16px', display: 'inline-block' }}>{storyPill}</span>
+            <h2 style={storyTitleStyle}>{storyTitle}</h2>
+            {storyParagraphs.map((para: string, idx: number) => (
+              <p key={idx} style={storyBodyStyle}>
+                {para}
+              </p>
+            ))}
           </div>
 
           <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', color: 'var(--clr-yellow)', fontWeight: 400 }}>
-                The Journey Behind Yantra Legal
+                {storyTitle}
               </h3>
             </div>
             <Timeline />
@@ -86,7 +109,7 @@ export default function AboutPage() {
               {/* Signature / Styled Name */}
               <div style={sigContainerStyle}>
                 <p style={sigNameStyle}>Krishna Giri</p>
-                <p style={sigTitleStyle}>Principal Solicitor & Founder</p>
+                <p style={sigTitleStyle}>{introSubtitle}</p>
               </div>
 
               {/* Krishna's Journey (Visual timeline) */}
@@ -159,25 +182,21 @@ export default function AboutPage() {
                   Krishna Giri
                 </h3>
                 <p style={{ textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.6)', fontWeight: 600, margin: '0 0 20px 0' }}>
-                  Principal Solicitor & Founder
+                  {introSubtitle}
                 </p>
                 <div style={taglineWrapperStyle}>
-                  Legal expertise shaped by international experience, cultural understanding, and a personal commitment to helping people navigate major life transitions.
+                  {introTagline}
                 </div>
               </div>
 
               {/* Personal Introduction */}
               <div style={{ marginBottom: '40px' }}>
-                <h4 className="right-section-title">Introduction</h4>
-                <p style={paragraphStyle}>
-                  Many legal matters arise during significant moments in life — building a future in a new country, reuniting with family, responding to an unexpected visa refusal, or navigating the breakdown of a relationship.
-                </p>
-                <p style={paragraphStyle}>
-                  Having lived, studied, and worked across Nepal, Europe, and Australia, Krishna Giri understands many of these transitions firsthand. This perspective allows him to combine legal expertise with genuine insight into the personal challenges that often accompany migration and family law matters.
-                </p>
-                <p style={paragraphStyle}>
-                  As the founder of Yantra Legal, Krishna is committed to providing practical legal advice that is clear, accessible, and tailored to the individual circumstances of each client.
-                </p>
+                <h4 className="right-section-title">{introTitle}</h4>
+                {introParagraphs.map((para: string, idx: number) => (
+                  <p key={idx} style={paragraphStyle}>
+                    {para}
+                  </p>
+                ))}
               </div>
 
               {/* Languages */}
@@ -240,13 +259,12 @@ export default function AboutPage() {
               {/* Featured Quote */}
               <div className="quote-block">
                 <div className="quote-icon-large">❝</div>
-                <blockquote className="quote-text">
-                  What matters most to me is that you never feel like just another file.<br />
-                  Every client deserves to be heard, understood and supported.
+                <blockquote className="quote-text" style={{ whiteSpace: 'pre-line' }}>
+                  {quoteText}
                 </blockquote>
                 <div className="quote-divider" />
                 <cite className="quote-author">
-                  — Krishna Giri
+                  {quoteAuthor}
                 </cite>
               </div>
 

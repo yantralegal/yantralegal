@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import RevealingPhone from '../../components/RevealingPhone';
@@ -14,10 +15,25 @@ export default function ContactClient() {
     description: '',
     method: '',
     isConfirmed: false,
+    agreeToTerms: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  const showToast = (message: string, type: 'success' | 'error' = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 5000);
+  };
+
+  useEffect(() => {
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'contact_page_view' }),
+    }).catch(console.error);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -32,7 +48,11 @@ export default function ContactClient() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.isConfirmed) {
-      alert('Please confirm that the information provided is accurate.');
+      showToast('Please confirm that the information provided is accurate.', 'error');
+      return;
+    }
+    if (!form.agreeToTerms) {
+      showToast('Please agree to the Initial Consultation Terms and Conditions, Privacy Policy and Terms of Use.', 'error');
       return;
     }
 
@@ -40,26 +60,23 @@ export default function ContactClient() {
     setSubmitStatus('idle');
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
         body: JSON.stringify({
-          access_key: '00ff7f6e-1316-43e5-bc22-8cc93fa5a64a',
           name: form.name,
           email: form.email,
           phone: form.phone,
           matter_type: form.matterType,
           preferred_format: form.method,
           description: form.description,
-          subject: 'New Consultation Enquiry - Yantra Legal (Contact Page)',
         }),
       });
 
       const result = await response.json();
-      if (response.status === 200 || result.success) {
+      if (response.ok && result.success) {
         setSubmitStatus('success');
         setForm({
           name: '',
@@ -69,13 +86,17 @@ export default function ContactClient() {
           description: '',
           method: '',
           isConfirmed: false,
+          agreeToTerms: false,
         });
+        showToast('Enquiry submitted successfully!', 'success');
       } else {
         setSubmitStatus('error');
+        showToast(result.error || 'Validation failed. Please ensure all fields are filled correctly.', 'error');
       }
     } catch (err) {
       console.error('Submission error:', err);
       setSubmitStatus('error');
+      showToast('Connection error. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -174,10 +195,10 @@ export default function ContactClient() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="legal-contact-form">
-                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', color: '#ffffff', marginBottom: '8px' }}>
+                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', color: '#061912', marginBottom: '8px' }}>
                       Enquiry Form
                     </h3>
-                    <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.65)', marginBottom: '24px' }}>
+                    <p style={{ fontSize: '0.85rem', color: 'rgba(6, 25, 18, 0.7)', marginBottom: '24px' }}>
                       Provide details about your matter to schedule a confidential legal session.
                     </p>
 
@@ -194,7 +215,6 @@ export default function ContactClient() {
                         id="form-name"
                         name="name"
                         placeholder=" "
-                        required
                         value={form.name}
                         onChange={handleChange}
                         className="form-input"
@@ -210,7 +230,6 @@ export default function ContactClient() {
                           id="form-email"
                           name="email"
                           placeholder=" "
-                          required
                           value={form.email}
                           onChange={handleChange}
                           className="form-input"
@@ -223,7 +242,6 @@ export default function ContactClient() {
                           id="form-phone"
                           name="phone"
                           placeholder=" "
-                          required
                           value={form.phone}
                           onChange={handleChange}
                           className="form-input"
@@ -231,7 +249,6 @@ export default function ContactClient() {
                         <label htmlFor="form-phone" className="floating-label">Phone Number</label>
                       </div>
                     </div>
-
                     {/* Matter Type & Consultation Method */}
                     <div className="form-row-2col" style={{ marginBottom: '20px' }}>
                       <div className="form-group floating-group select-wrapper">
@@ -240,7 +257,6 @@ export default function ContactClient() {
                           name="matterType"
                           value={form.matterType}
                           onChange={handleChange}
-                          required
                           className={`form-select ${form.matterType ? 'has-value' : ''}`}
                         >
                           <option value="" disabled hidden></option>
@@ -263,7 +279,6 @@ export default function ContactClient() {
                           name="method"
                           value={form.method}
                           onChange={handleChange}
-                          required
                           className={`form-select ${form.method ? 'has-value' : ''}`}
                         >
                           <option value="" disabled hidden></option>
@@ -285,7 +300,6 @@ export default function ContactClient() {
                         id="form-description"
                         name="description"
                         placeholder=" "
-                        required
                         rows={4}
                         value={form.description}
                         onChange={handleChange}
@@ -296,18 +310,33 @@ export default function ContactClient() {
                     </div>
 
                     {/* Confirmation Checkbox */}
-                    <div className="form-checkbox-group" style={{ marginBottom: '24px' }}>
+                    <div className="form-checkbox-group" style={{ marginBottom: '12px' }}>
                       <input
                         type="checkbox"
                         id="form-confirm"
                         name="isConfirmed"
                         checked={form.isConfirmed}
                         onChange={handleChange}
-                        required
                         className="form-checkbox"
                       />
-                      <label htmlFor="form-confirm" className="checkbox-label" style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.82rem' }}>
+                      <label htmlFor="form-confirm" className="checkbox-label" style={{ color: 'rgba(6, 25, 18, 0.7)', fontSize: '0.82rem' }}>
                         I confirm the information provided is accurate and I request a consultation.
+                      </label>
+                    </div>
+
+                    {/* Terms Checkbox */}
+                    <div className="form-checkbox-group" style={{ marginBottom: '24px', alignItems: 'flex-start' }}>
+                      <input
+                        type="checkbox"
+                        id="form-agree-terms"
+                        name="agreeToTerms"
+                        checked={form.agreeToTerms}
+                        onChange={handleChange}
+                        className="form-checkbox"
+                        style={{ marginTop: '3px' }}
+                      />
+                      <label htmlFor="form-agree-terms" className="checkbox-label" style={{ color: 'rgba(6, 25, 18, 0.7)', fontSize: '0.82rem', lineHeight: '1.4' }}>
+                        I confirm that I have read, understood and agree to the <Link href="/consultation-terms" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Initial Consultation Terms and Conditions</Link>, <Link href="/privacy-policy" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Privacy Policy</Link> and <Link href="/terms-of-use" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Terms of Use</Link>.
                       </label>
                     </div>
 
@@ -347,6 +376,32 @@ export default function ContactClient() {
       </main>
 
       <Footer />
+
+      {/* Floating custom Toast notification */}
+      {toast && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            zIndex: 9999,
+            padding: '14px 20px',
+            borderRadius: '10px',
+            backgroundColor: toast.type === 'success' ? '#ecfdf5' : '#fef2f2',
+            border: `1px solid ${toast.type === 'success' ? '#a7f3d0' : '#fecaca'}`,
+            color: toast.type === 'success' ? '#065f46' : '#991b1b',
+            boxShadow: '0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.05)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            fontWeight: 600,
+            fontSize: '0.88rem',
+            fontFamily: 'system-ui, sans-serif'
+          }}
+        >
+          <span>{toast.message}</span>
+        </div>
+      )}
     </div>
   );
 }

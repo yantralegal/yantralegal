@@ -4,14 +4,16 @@ import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CollapsibleSections from '../../components/CollapsibleSections';
-import { legalPages, LegalPage } from '../../data/legalContents';
+import { getLegalPages, getLegalPageByUrl } from '../../lib/dataFetcher';
+import { LegalPage } from '../../data/legalContents';
+
+export const dynamic = 'force-dynamic';
 
 type Params = Promise<{ slug: string[] }>;
 
 export async function generateStaticParams() {
-  // Generate static paths for all 20 pages in our legalContents
-  return legalPages.map((page) => {
-    // Remove the leading slash and split by '/'
+  const pages = await getLegalPages();
+  return pages.map((page) => {
     const slug = page.url.substring(1).split('/');
     return { slug };
   });
@@ -43,7 +45,7 @@ const metaDescriptions: Record<string, string> = {
 export async function generateMetadata({ params }: { params: Params }) {
   const { slug } = await params;
   const url = '/' + slug.join('/');
-  const page = legalPages.find((p) => p.url === url);
+  const page = await getLegalPageByUrl(url);
 
   if (!page) {
     return {
@@ -65,7 +67,7 @@ export async function generateMetadata({ params }: { params: Params }) {
 export default async function LegalDetailPage({ params }: { params: Params }) {
   const { slug } = await params;
   const url = '/' + slug.join('/');
-  const page = legalPages.find((p) => p.url === url);
+  const page = await getLegalPageByUrl(url);
 
   if (!page) {
     notFound();
@@ -74,16 +76,24 @@ export default async function LegalDetailPage({ params }: { params: Params }) {
   // Determine category and sidebar pages
   let categoryName = 'Services';
   let sidebarPages: LegalPage[] = [];
+  const allPages = await getLegalPages();
 
   if (url.startsWith('/migration-law')) {
     categoryName = 'Migration Law';
-    sidebarPages = legalPages.filter((p) => p.url.startsWith('/migration-law'));
+    sidebarPages = allPages.filter((p) => p.url.startsWith('/migration-law'));
   } else if (url.startsWith('/family-law')) {
     categoryName = 'Family Law';
-    sidebarPages = legalPages.filter((p) => p.url.startsWith('/family-law'));
+    sidebarPages = allPages.filter((p) => p.url.startsWith('/family-law'));
   } else if (url.startsWith('/appeals-and-reviews')) {
     categoryName = 'Appeals & Reviews';
-    sidebarPages = legalPages.filter((p) => p.url.startsWith('/appeals-and-reviews'));
+    sidebarPages = allPages.filter((p) => p.url.startsWith('/appeals-and-reviews'));
+  } else {
+    categoryName = 'Other Services';
+    sidebarPages = allPages.filter((p) => 
+      !p.url.startsWith('/migration-law') && 
+      !p.url.startsWith('/family-law') && 
+      !p.url.startsWith('/appeals-and-reviews')
+    );
   }
 
   return (

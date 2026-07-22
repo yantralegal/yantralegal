@@ -27,10 +27,12 @@ function createDateInTimezone(year: number, month: number, day: number, hour: nu
   return new Date(utcDate.getTime() - diff);
 }
 
+import { isAuthorized } from '@/lib/auth';
+
 export async function POST(request: NextRequest) {
   try {
     const authHeader = request.headers.get('Authorization');
-    if (!authHeader || authHeader !== process.env.ADMIN_PASSWORD) {
+    if (!(await isAuthorized(authHeader))) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

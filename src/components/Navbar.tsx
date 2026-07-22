@@ -4,15 +4,63 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { legalPages } from '../data/legalContents';
-import { blogPosts } from '../data/blogContents';
-
 export default function Navbar() {
   const pathname = usePathname() || '';
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [legalPages, setLegalPages] = useState<any[]>([]);
+  const [blogPosts, setBlogPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('/api/legal-contents')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.pages) setLegalPages(data.pages);
+      })
+      .catch(console.error);
+
+    fetch('/api/blogs')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.posts) setBlogPosts(data.posts);
+      })
+      .catch(console.error);
+  }, []);
+
+  const baseUrls = useMemo(() => [
+    '/migration-law',
+    '/family-law',
+    '/appeals-and-reviews',
+    '/migration-law/partner-visas',
+    '/migration-law/employer-sponsored-visas',
+    '/migration-law/skilled-visas',
+    '/migration-law/protection-visas',
+    '/migration-law/child-visas',
+    '/migration-law/parent-visas',
+    '/migration-law/visitor-visas',
+    '/migration-law/resident-return-visas',
+    '/migration-law/bridging-visas',
+    '/migration-law/ministerial-intervention',
+    '/family-law/divorce-in-australia',
+    '/family-law/divorce-in-nepal',
+    '/appeals-and-reviews/visa-refusals',
+    '/appeals-and-reviews/visa-cancellations',
+    '/appeals-and-reviews/sponsorship-nomination-refusals',
+    '/appeals-and-reviews/art-appeals',
+    '/appeals-and-reviews/judicial-review',
+  ], []);
+
+  const customMigrationPages = useMemo(() => legalPages.filter((p: any) => p.url.startsWith('/migration-law/') && !baseUrls.includes(p.url)), [legalPages, baseUrls]);
+  const customFamilyPages = useMemo(() => legalPages.filter((p: any) => p.url.startsWith('/family-law/') && !baseUrls.includes(p.url)), [legalPages, baseUrls]);
+  const customAppealsPages = useMemo(() => legalPages.filter((p: any) => p.url.startsWith('/appeals-and-reviews/') && !baseUrls.includes(p.url)), [legalPages, baseUrls]);
+  const otherCustomPages = useMemo(() => legalPages.filter((p: any) => 
+    !p.url.startsWith('/migration-law') && 
+    !p.url.startsWith('/family-law') && 
+    !p.url.startsWith('/appeals-and-reviews') &&
+    !['/', '/about', '/contact', '/faqs', '/blog', '/terms-of-use', '/privacy-policy', '/consultation-terms'].includes(p.url)
+  ), [legalPages]);
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) {
       return [];
@@ -121,27 +169,24 @@ export default function Navbar() {
     <header style={headerStyle(scrolled, showHeader)}>
       <div className="container" style={innerStyle(scrolled)}>
         <Link href="/" className="logo-hover" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ width: '66px', height: '62px', overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <div style={{ width: '300px', height: '60px', position: 'relative', display: 'flex', alignItems: 'center' }}>
             <Image
-              src="/yantralegallogoweb.png"
+              src="/Yantralegalnewlogo.png"
               alt="Yantra Legal Logo"
-              width={240}
-              height={62}
+              width={300}
+              height={110}
               priority
-              style={{ objectFit: 'cover', objectPosition: 'left center', maxWidth: 'none' }}
+              className="nav-logo-image"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: 0,
+                transform: 'translateY(-50%)',
+                objectFit: 'contain',
+                maxWidth: 'none'
+              }}
             />
           </div>
-          <span style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: '1.8rem',
-            letterSpacing: '0.8px',
-            whiteSpace: 'nowrap',
-            display: 'inline-flex',
-            alignItems: 'center',
-          }}>
-            <span style={{ fontWeight: 600, color: 'var(--clr-white)' }}>Yantra</span>
-            <span className="text-gradient-gold" style={{ fontWeight: 600, marginLeft: '6px' }}>Legal</span>
-          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -177,7 +222,10 @@ export default function Navbar() {
                         Migration Law
                       </Link>
                     </h4>
-                    <div style={megaInnerGrid}>
+                    <div style={{
+                      ...megaInnerGrid,
+                      gridTemplateColumns: customMigrationPages.length > 0 ? '1fr 1fr 1fr' : '1fr 1fr'
+                    }}>
                       <div>
                         <h5 style={subGroupLabelStyle}>Main Visas</h5>
                         <ul className="dropdown-links">
@@ -238,6 +286,20 @@ export default function Navbar() {
                           </li>
                         </ul>
                       </div>
+                      {customMigrationPages.length > 0 && (
+                        <div>
+                          <h5 style={subGroupLabelStyle}>Additional Visas</h5>
+                          <ul className="dropdown-links">
+                            {customMigrationPages.map((page) => (
+                              <li key={page.url}>
+                                <Link href={page.url} className="dropdown-link-item-simple">
+                                  {page.title}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -261,7 +323,28 @@ export default function Navbar() {
                             Divorce in Nepal
                           </Link>
                         </li>
+                        {customFamilyPages.map((page) => (
+                          <li key={page.url}>
+                            <Link href={page.url} className="dropdown-link-item-simple">
+                              {page.title}
+                            </Link>
+                          </li>
+                        ))}
                       </ul>
+                      {otherCustomPages.length > 0 && (
+                        <div style={{ marginBottom: '16px' }}>
+                          <h5 style={subGroupLabelStyle}>Other Services</h5>
+                          <ul className="dropdown-links">
+                            {otherCustomPages.map((page) => (
+                              <li key={page.url}>
+                                <Link href={page.url} className="dropdown-link-item-simple">
+                                  {page.title}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                       <div style={familyNoteStyle}>
                         <p style={noteTextStyle}>💡 We currently provide advice and assistance in divorce matters and related family law issues. Additional family law services will be introduced as the practice expands.</p>
                       </div>
@@ -323,6 +406,13 @@ export default function Navbar() {
                           Judicial Review
                         </Link>
                       </li>
+                      {customAppealsPages.map((page) => (
+                        <li key={page.url}>
+                          <Link href={page.url} className="dropdown-link-item-simple">
+                            {page.title}
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>

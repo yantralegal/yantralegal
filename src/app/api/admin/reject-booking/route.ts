@@ -2,10 +2,12 @@ import { NextRequest } from 'next/server';
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '@/lib/db';
 
+import { isAuthorized } from '@/lib/auth';
+
 export async function POST(request: NextRequest) {
   try {
     const authHeader = request.headers.get('Authorization');
-    if (!authHeader || authHeader !== process.env.ADMIN_PASSWORD) {
+    if (!(await isAuthorized(authHeader))) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

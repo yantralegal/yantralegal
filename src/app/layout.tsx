@@ -45,6 +45,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: '/yantralegalfavicon.png?v=2',
+    shortcut: '/yantralegalfavicon.png?v=2',
+    apple: '/yantralegalfavicon.png?v=2',
+  },
 };
 
 export default function RootLayout({

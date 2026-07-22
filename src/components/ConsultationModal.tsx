@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function ConsultationModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,7 @@ export default function ConsultationModal() {
     duration: 30, // Default 30 min (Paid)
     description: '',
     isConfirmed: false,
+    agreeToTerms: false,
   });
 
   const [selectedDate, setSelectedDate] = useState('');
@@ -77,6 +79,13 @@ export default function ConsultationModal() {
 
   useEffect(() => {
     const handleOpen = () => {
+      // Track consultation booking click
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'book_consultation_click' }),
+      }).catch(console.error);
+
       if (typeof window !== 'undefined' && (window as any).Cal) {
         (window as any).Cal("modal", {
           calLink: "krishna-giri-m4dgkw",
@@ -155,6 +164,10 @@ export default function ConsultationModal() {
       alert('Please confirm that the information provided is accurate.');
       return;
     }
+    if (!form.agreeToTerms) {
+      alert('Please agree to the Initial Consultation Terms and Conditions, Privacy Policy and Terms of Use.');
+      return;
+    }
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -193,6 +206,7 @@ export default function ConsultationModal() {
           duration: 30,
           description: '',
           isConfirmed: false,
+          agreeToTerms: false,
         });
         setSelectedDate('');
         setSelectedTime('');
@@ -466,21 +480,38 @@ export default function ConsultationModal() {
                   <label htmlFor="modal-description" className="floating-label">Brief Description of Your Matter</label>
                 </div>
 
-                {/* Confirmation Checkbox */}
-                <div className="form-checkbox-group" style={{ marginBottom: '24px' }}>
-                  <input
-                    type="checkbox"
-                    id="modal-confirm"
-                    name="isConfirmed"
-                    checked={form.isConfirmed}
-                    onChange={handleChange}
-                    required
-                    className="form-checkbox"
-                  />
-                  <label htmlFor="modal-confirm" className="checkbox-label" style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.82rem' }}>
-                    I confirm the information provided is accurate and I request a consultation.
-                  </label>
-                </div>
+                 {/* Confirmation Checkbox */}
+                 <div className="form-checkbox-group" style={{ marginBottom: '12px' }}>
+                   <input
+                     type="checkbox"
+                     id="modal-confirm"
+                     name="isConfirmed"
+                     checked={form.isConfirmed}
+                     onChange={handleChange}
+                     required
+                     className="form-checkbox"
+                   />
+                   <label htmlFor="modal-confirm" className="checkbox-label" style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.82rem' }}>
+                     I confirm the information provided is accurate and I request a consultation.
+                   </label>
+                 </div>
+
+                 {/* Terms Checkbox */}
+                 <div className="form-checkbox-group" style={{ marginBottom: '24px', alignItems: 'flex-start' }}>
+                   <input
+                     type="checkbox"
+                     id="modal-agree-terms"
+                     name="agreeToTerms"
+                     checked={form.agreeToTerms}
+                     onChange={handleChange}
+                     required
+                     className="form-checkbox"
+                     style={{ marginTop: '3px' }}
+                   />
+                   <label htmlFor="modal-agree-terms" className="checkbox-label" style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.82rem', lineHeight: '1.4' }}>
+                     I confirm that I have read, understood and agree to the <Link href="/consultation-terms" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Initial Consultation Terms and Conditions</Link>, <Link href="/privacy-policy" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Privacy Policy</Link> and <Link href="/terms-of-use" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Terms of Use</Link>.
+                   </label>
+                 </div>
 
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <button

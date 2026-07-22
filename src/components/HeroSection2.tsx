@@ -73,6 +73,25 @@ export default function HeroSection2() {
         </div>
       </div>
 
+      {/* Floating Social Media Icons on the Right Edge */}
+      <div className="hero-floating-socials">
+        <a href="https://www.facebook.com/yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="Facebook">
+          <Icon icon="ri:facebook-fill" width="22" height="22" />
+        </a>
+        <a href="https://x.com/YantraLegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="X (Twitter)">
+          <Icon icon="ri:twitter-x-fill" width="20" height="20" />
+        </a>
+        <a href="https://www.linkedin.com/company/yantra-legal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="LinkedIn">
+          <Icon icon="ri:linkedin-fill" width="22" height="22" />
+        </a>
+        <a href="https://www.tiktok.com/@yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="TikTok">
+          <Icon icon="ri:tiktok-fill" width="20" height="20" />
+        </a>
+        <a href="https://www.instagram.com/yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="Instagram">
+          <Icon icon="ri:instagram-fill" width="22" height="22" />
+        </a>
+      </div>
+
       {/* Homepage Trust Banner - Sliding Right to Left Marquee */}
       <div className="hero-marquee-container">
         <div className="hero-marquee-track">
@@ -91,25 +110,6 @@ export default function HeroSection2() {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Floating Social Media Icons on the Right Edge */}
-      <div className="hero-floating-socials">
-        <a href="https://www.facebook.com/yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="Facebook">
-          <Icon icon="ri:facebook-fill" width="22" height="22" />
-        </a>
-        <a href="https://x.com/YantraLegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="X (Twitter)">
-          <Icon icon="ri:twitter-x-fill" width="20" height="20" />
-        </a>
-        <a href="https://www.linkedin.com/company/yantra-legal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="LinkedIn">
-          <Icon icon="ri:linkedin-fill" width="22" height="22" />
-        </a>
-        <a href="https://www.tiktok.com/@yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="TikTok">
-          <Icon icon="ri:tiktok-fill" width="20" height="20" />
-        </a>
-        <a href="https://www.instagram.com/yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="Instagram">
-          <Icon icon="ri:instagram-fill" width="22" height="22" />
-        </a>
       </div>
     </section>
   );

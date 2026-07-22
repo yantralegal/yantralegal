@@ -3,20 +3,23 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
-import { blogPosts } from '../../../data/blogContents';
+import { getBlogPosts, getBlogPostBySlug } from '../../../lib/dataFetcher';
 import BookConsultationButton from '../../../components/ui/BookConsultationButton';
+
+export const dynamic = 'force-dynamic';
 
 type Params = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
+  const posts = await getBlogPosts();
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
 export async function generateMetadata({ params }: { params: Params }) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     return {
@@ -32,7 +35,7 @@ export async function generateMetadata({ params }: { params: Params }) {
 
 export default async function BlogPostPage({ params }: { params: Params }) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();

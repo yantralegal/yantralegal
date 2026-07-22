@@ -99,25 +99,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Homepage Trust Banner - Sliding Right to Left Marquee */}
-      <div className="hero-marquee-container reveal-on-scroll reveal-fade-up delay-350">
-        <div className="hero-marquee-track">
-          {Array(3).fill([
-            "Australian Solicitor",
-            "Migration & Family Law Focus",
-            "Personalised service",
-            "Fixed-fee Consultations",
-            "Lived Experience",
-            "Serving Clients Across Australia",
-            "Multilingual Support (English, Nepali, Hindi)"
-          ]).flat().map((item, idx) => (
-            <div key={idx} className="hero-marquee-item">
-              <span>{item}</span>
-              <span style={{ color: 'rgba(223, 173, 62, 0.5)', fontWeight: 'bold' }}>•</span>
-            </div>
-          ))}
-        </div>
-      </div>
       {/* Floating Social Media Icons on the Right Edge */}
       <div className="hero-floating-socials">
         <a href="https://www.facebook.com/yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="Facebook">
@@ -135,6 +116,26 @@ export default function HeroSection() {
         <a href="https://www.instagram.com/yantralegal" target="_blank" rel="noopener noreferrer" className="hero-social-float-icon" aria-label="Instagram">
           <Icon icon="ri:instagram-fill" width="22" height="22" />
         </a>
+      </div>
+
+      {/* Trust Marquee Banner Section */}
+      <div className="hero-marquee-container" style={{ zIndex: 5 }}>
+        <div className="hero-marquee-track">
+          {Array(3).fill([
+            "Australian Solicitor",
+            "Migration & Family Law Focus",
+            "Personalised service",
+            "Fixed-fee Consultations",
+            "Lived Experience",
+            "Serving Clients Across Australia",
+            "Multilingual Support (English, Nepali, Hindi)"
+          ]).flat().map((item, idx) => (
+            <div key={idx} className="hero-marquee-item">
+              <span>{item}</span>
+              <span style={{ color: 'rgba(223, 173, 62, 0.5)', fontWeight: 'bold' }}>•</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -2883,6 +2883,10 @@ a {
   .mobile-only-flex {
     display: flex !important;
   }
+
+  .nav-logo-image {
+    object-position: left !important;
+  }
 }
 
 /* Client About Section Badges */
@@ -3036,31 +3040,47 @@ a {
 @media (max-width: 991px) {
   .wcu-split-layout {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 40px;
   }
 
   .wcu-left {
     position: static !important;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .wcu-list {
-    gap: 20px;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 10px 4px 20px 4px !important;
+    scrollbar-width: none;
+    margin: 0 -12px !important;
+  }
+
+  .wcu-list::-webkit-scrollbar {
+    display: none;
   }
 
   .wcu-item {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
     gap: 16px;
-    padding: 24px 20px;
+    padding: 24px;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 16px;
+    flex: 0 0 85% !important;
+    max-width: 340px !important;
+    scroll-snap-align: center;
   }
 
   .wcu-item:last-child {
@@ -3069,25 +3089,31 @@ a {
   }
 
   .wcu-item-num {
-    font-size: 2rem;
-    border-bottom: none;
-    padding-bottom: 0;
-    display: block;
-    text-align: center;
+    font-size: 1.8rem;
+    color: var(--clr-yellow);
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.1;
+    min-width: 32px;
+    text-align: left;
   }
 
   .wcu-item-content {
-    text-align: center;
+    text-align: left;
   }
 
   .wcu-item-title {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     margin-bottom: 8px;
-    text-align: center;
+    text-align: left;
+    color: #f5f0e8;
   }
 
   .wcu-item-body {
-    text-align: center;
+    text-align: left;
+    font-size: 0.9rem;
+    color: rgba(245, 240, 232, 0.7);
+    line-height: 1.6;
   }
 }
 
@@ -5192,19 +5218,24 @@ a {
   :root {
     --logo-card-width: 190px;
   }
+
   .logo-card-content {
     display: none !important;
   }
+
   .logo-image-container {
     height: 110px !important;
     margin-bottom: 0 !important;
   }
+
   .affiliations-logo-card {
     padding: 5px 0 !important;
   }
+
   .law-society-card .logo-image-container {
     transform: scale(1.3) !important;
   }
+
   .law-society-card:hover .logo-image-container {
     transform: scale(1.4) !important;
   }
@@ -5302,9 +5333,13 @@ a {
   margin: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
   .why-choose-cards-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+  }
+
+  .why-choose-card-wide {
+    grid-column: span 1 !important;
   }
 }
 
@@ -5349,10 +5384,12 @@ a {
     right: auto;
     top: auto;
     transform: none;
+    display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 32px;
-    margin-bottom: -16px;
+    margin: 32px auto 16px auto !important;
+    gap: 16px;
+    z-index: 100;
   }
 }
 
@@ -5876,7 +5913,8 @@ a {
     right: 0;
     background-size: cover;
     background-position: center bottom;
-    opacity: 0.45; /* Raised opacity to match desktop clarity */
+    opacity: 0.45;
+    /* Raised opacity to match desktop clarity */
   }
 
   .hero2-gradient-overlay {
@@ -5935,13 +5973,25 @@ a {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Dark Theme Overrides for Consultation Modal Inputs & Labels */
@@ -5970,23 +6020,25 @@ a {
   color: rgba(255, 255, 255, 0.55);
 }
 
-.modal-container .form-input:focus ~ .floating-label,
-.modal-container .form-input:not(:placeholder-shown) ~ .floating-label,
-.modal-container .form-select:focus ~ .floating-label,
-.modal-container .form-select.has-value ~ .floating-label {
-  background: #09241b; /* Matches the dark green gradient of the modal container */
+.modal-container .form-input:focus~.floating-label,
+.modal-container .form-input:not(:placeholder-shown)~.floating-label,
+.modal-container .form-select:focus~.floating-label,
+.modal-container .form-select.has-value~.floating-label {
+  background: #09241b;
+  /* Matches the dark green gradient of the modal container */
   color: var(--clr-yellow) !important;
 }
 
-.modal-container .form-textarea:focus ~ .floating-label,
-.modal-container .form-textarea:not(:placeholder-shown) ~ .floating-label {
-  background: #09241b; /* Matches the dark green gradient of the modal container */
+.modal-container .form-textarea:focus~.floating-label,
+.modal-container .form-textarea:not(:placeholder-shown)~.floating-label {
+  background: #09241b;
+  /* Matches the dark green gradient of the modal container */
   color: var(--clr-yellow) !important;
 }
 
-.modal-container .form-input:not(:focus):not(:placeholder-shown) ~ .floating-label,
-.modal-container .form-select:not(:focus).has-value ~ .floating-label,
-.modal-container .form-textarea:not(:focus):not(:placeholder-shown) ~ .floating-label {
+.modal-container .form-input:not(:focus):not(:placeholder-shown)~.floating-label,
+.modal-container .form-select:not(:focus).has-value~.floating-label,
+.modal-container .form-textarea:not(:focus):not(:placeholder-shown)~.floating-label {
   color: rgba(255, 255, 255, 0.75) !important;
   background: #09241b;
 }

@@ -3,14 +3,18 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import { blogPosts } from '../../data/blogContents';
+import { getBlogPosts } from '../../lib/dataFetcher';
 
 export const metadata: Metadata = {
   title: 'Blog & Insights | Yantra Legal',
   description: 'Stay updated with legal guides, visa application tips, and commentary on Australian migration and family law changes from Yantra Legal.',
 };
 
-export default function BlogPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function BlogPage() {
+  const posts = await getBlogPosts();
+
   return (
     <div style={layoutStyle}>
       <Navbar />
@@ -31,7 +35,7 @@ export default function BlogPage() {
         <section style={contentSectionStyle}>
           <div className="container">
             <div style={blogGridStyle}>
-              {blogPosts.map((post) => (
+              {posts.map((post) => (
                 <div key={post.slug} className="glass" style={blogCardStyle}>
                   {/* Featured Image */}
                   <div style={cardImageContainerStyle} className="blog-card-img-container">

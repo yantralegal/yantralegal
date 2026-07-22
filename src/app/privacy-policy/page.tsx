@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p style={{ color: 'var(--clr-text-muted)', fontSize: '0.95rem', marginBottom: '40px' }}>
-            Yantra Legal Pty Ltd trading as Yantra Legal &nbsp;•&nbsp; www.yantralegal.com.au &nbsp;•&nbsp; Last updated: 12 June 2026
+            Yantra Legal Pty Ltd trading as Yantra Legal &nbsp;•&nbsp; www.yantralegal.com.au &nbsp;•&nbsp; Last updated: 20 July 2026
           </p>
 
           <p style={{ marginBottom: '24px' }}>

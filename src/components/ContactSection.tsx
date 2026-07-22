@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import StarBorder from './ui/StarBorder';
 import RevealingPhone from './RevealingPhone';
 
@@ -13,10 +14,17 @@ export default function ContactSection() {
     method: '',
     description: '',
     isConfirmed: false,
+    agreeToTerms: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  const showToast = (message: string, type: 'success' | 'error' = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 5000);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -39,7 +47,11 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.isConfirmed) {
-      alert('Please confirm that the information provided is accurate.');
+      showToast('Please confirm that the information provided is accurate.', 'error');
+      return;
+    }
+    if (!form.agreeToTerms) {
+      showToast('Please agree to the Initial Consultation Terms and Conditions, Privacy Policy and Terms of Use.', 'error');
       return;
     }
 
@@ -47,26 +59,23 @@ export default function ContactSection() {
     setSubmitStatus('idle');
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
         body: JSON.stringify({
-          access_key: '00ff7f6e-1316-43e5-bc22-8cc93fa5a64a',
           name: form.name,
           email: form.email,
           phone: form.phone,
           matter_type: form.matterType,
           preferred_format: form.method,
           description: form.description,
-          subject: 'New Consultation Enquiry - Yantra Legal (Contact Section)',
         }),
       });
 
       const result = await response.json();
-      if (response.status === 200 || result.success) {
+      if (response.ok && result.success) {
         setSubmitStatus('success');
         setForm({
           name: '',
@@ -76,13 +85,17 @@ export default function ContactSection() {
           method: '',
           description: '',
           isConfirmed: false,
+          agreeToTerms: false,
         });
+        showToast('Enquiry submitted successfully!', 'success');
       } else {
         setSubmitStatus('error');
+        showToast(result.error || 'Validation failed. Please ensure all fields are filled correctly.', 'error');
       }
     } catch (err) {
       console.error('Submission error:', err);
       setSubmitStatus('error');
+      showToast('Connection error. Please try again.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -181,7 +194,6 @@ export default function ContactSection() {
                       id="form-name"
                       name="name"
                       placeholder=" "
-                      required
                       value={form.name}
                       onChange={handleChange}
                       className="form-input"
@@ -196,7 +208,6 @@ export default function ContactSection() {
                         id="form-email"
                         name="email"
                         placeholder=" "
-                        required
                         value={form.email}
                         onChange={handleChange}
                         className="form-input"
@@ -209,7 +220,6 @@ export default function ContactSection() {
                         id="form-phone"
                         name="phone"
                         placeholder=" "
-                        required
                         value={form.phone}
                         onChange={handleChange}
                         className="form-input"
@@ -225,7 +235,6 @@ export default function ContactSection() {
                         name="matterType"
                         value={form.matterType}
                         onChange={handleChange}
-                        required
                         className={`form-select ${form.matterType ? 'has-value' : ''}`}
                       >
                         <option value="" disabled hidden></option>
@@ -248,7 +257,6 @@ export default function ContactSection() {
                         name="method"
                         value={form.method}
                         onChange={handleChange}
-                        required
                         className={`form-select ${form.method ? 'has-value' : ''}`}
                       >
                         <option value="" disabled hidden></option>
@@ -269,7 +277,6 @@ export default function ContactSection() {
                       id="form-description"
                       name="description"
                       placeholder=" "
-                      required
                       rows={4}
                       value={form.description}
                       onChange={handleChange}
@@ -279,18 +286,32 @@ export default function ContactSection() {
                     <label htmlFor="form-description" className="floating-label">Brief Description of Your Matter</label>
                   </div>
 
-                  <div className="form-checkbox-group" style={{ marginBottom: '24px' }}>
+                  <div className="form-checkbox-group" style={{ marginBottom: '12px' }}>
                     <input
                       type="checkbox"
                       id="form-confirm"
                       name="isConfirmed"
                       checked={form.isConfirmed}
                       onChange={handleChange}
-                      required
                       className="form-checkbox"
                     />
                     <label htmlFor="form-confirm" className="checkbox-label">
                       I confirm the information provided is accurate.
+                    </label>
+                  </div>
+
+                  <div className="form-checkbox-group" style={{ marginBottom: '24px', alignItems: 'flex-start' }}>
+                    <input
+                      type="checkbox"
+                      id="form-agree-terms"
+                      name="agreeToTerms"
+                      checked={form.agreeToTerms}
+                      onChange={handleChange}
+                      className="form-checkbox"
+                      style={{ marginTop: '3px' }}
+                    />
+                    <label htmlFor="form-agree-terms" className="checkbox-label" style={{ lineHeight: '1.4' }}>
+                      I confirm that I have read, understood and agree to the <Link href="/consultation-terms" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Initial Consultation Terms and Conditions</Link>, <Link href="/privacy-policy" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Privacy Policy</Link> and <Link href="/terms-of-use" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Terms of Use</Link>.
                     </label>
                   </div>
 
@@ -309,6 +330,31 @@ export default function ContactSection() {
           </div>
         </div>
       </div>
+      {/* Floating custom Toast notification */}
+      {toast && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            zIndex: 9999,
+            padding: '14px 20px',
+            borderRadius: '10px',
+            backgroundColor: toast.type === 'success' ? '#ecfdf5' : '#fef2f2',
+            border: `1px solid ${toast.type === 'success' ? '#a7f3d0' : '#fecaca'}`,
+            color: toast.type === 'success' ? '#065f46' : '#991b1b',
+            boxShadow: '0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.05)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            fontWeight: 600,
+            fontSize: '0.88rem',
+            fontFamily: 'system-ui, sans-serif'
+          }}
+        >
+          <span>{toast.message}</span>
+        </div>
+      )}
     </section>
   );
 }

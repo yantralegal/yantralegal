@@ -3,10 +3,12 @@ import { connectToDatabase } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
+import { isAuthorized } from '@/lib/auth';
+
 export async function GET(request: NextRequest) {
   try {
     const authHeader = request.headers.get('Authorization');
-    if (!authHeader || authHeader !== process.env.ADMIN_PASSWORD) {
+    if (!(await isAuthorized(authHeader))) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

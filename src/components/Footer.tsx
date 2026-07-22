@@ -56,15 +56,18 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Navigation */}
+          {/* Column 3: Legal */}
           <div className="footer-col">
-            <h4 className="footer-col-title">Navigation</h4>
+            <h4 className="footer-col-title">Legal</h4>
             <ul className="footer-links-list">
               <li>
-                <Link href="/privacy-policy">Privacy Policy</Link>
+                <Link href="/consultation-terms">Consultation Terms and Conditions</Link>
               </li>
               <li>
-                <Link href="/terms-of-use">Terms of Use</Link>
+                <Link href="/terms-of-use">Website Terms of Use</Link>
+              </li>
+              <li>
+                <Link href="/privacy-policy">Privacy Policy</Link>
               </li>
             </ul>
           </div>
