@@ -34,7 +34,7 @@ export default function AdminDashboard() {
   const [isLoading, setIsLoading] = useState(false);
 
   // Tabs
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'services' | 'blogs' | 'settings' | 'about' | 'faqs'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'services' | 'blogs' | 'settings' | 'about' | 'faqs' | 'marquee'>('dashboard');
 
   // Dashboard state
   const [dashboardStats, setDashboardStats] = useState<any>(null);
@@ -67,6 +67,12 @@ export default function AdminDashboard() {
   // Change Password state
   const [newPassword, setNewPassword] = useState('');
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+
+  // Marquee updates state
+  const [marqueeUpdates, setMarqueeUpdates] = useState<any[]>([]);
+  const [editingMarqueeUpdate, setEditingMarqueeUpdate] = useState<any | null>(null);
+  const [isCreatingMarqueeUpdate, setIsCreatingMarqueeUpdate] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   // Toast state
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
@@ -227,6 +233,76 @@ export default function AdminDashboard() {
     }
   };
 
+  const fetchMarqueeUpdates = useCallback(async (authPass: string) => {
+    try {
+      const res = await fetch('/api/admin/marquee', {
+        headers: { 'Authorization': authPass },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setMarqueeUpdates(data.updates || []);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  const handleSaveMarqueeUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingMarqueeUpdate?.heading || !editingMarqueeUpdate?.content) {
+      showToast('Heading and content are required', 'error');
+      return;
+    }
+    try {
+      const res = await fetch('/api/admin/marquee', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': password,
+        },
+        body: JSON.stringify({
+          id: editingMarqueeUpdate._id,
+          heading: editingMarqueeUpdate.heading,
+          content: editingMarqueeUpdate.content,
+          imageUrl: editingMarqueeUpdate.imageUrl,
+          isActive: editingMarqueeUpdate.isActive !== false,
+        }),
+      });
+      if (res.ok) {
+        showToast('Marquee update saved successfully!', 'success');
+        setEditingMarqueeUpdate(null);
+        setIsCreatingMarqueeUpdate(false);
+        fetchMarqueeUpdates(password);
+      } else {
+        const data = await res.json();
+        showToast(data.error || 'Failed to save marquee update.', 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      showToast('An unexpected error occurred.', 'error');
+    }
+  };
+
+  const handleDeleteMarqueeUpdate = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this update permanently?')) return;
+    try {
+      const res = await fetch(`/api/admin/marquee?id=${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': password },
+      });
+      if (res.ok) {
+        showToast('Update deleted successfully!', 'success');
+        fetchMarqueeUpdates(password);
+      } else {
+        const data = await res.json();
+        showToast(data.error || 'Failed to delete update.', 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      showToast('An unexpected error occurred.', 'error');
+    }
+  };
+
   // Fetch Dashboard Stats
   const fetchDashboardStats = useCallback(async (authPass: string) => {
     try {
@@ -250,8 +326,9 @@ export default function AdminDashboard() {
     await fetchAbout(authPass);
     await fetchFaqs(authPass);
     await fetchDashboardStats(authPass);
+    await fetchMarqueeUpdates(authPass);
     setIsLoading(false);
-  }, [fetchServices, fetchBlogs, fetchSettings, fetchAbout, fetchFaqs, fetchDashboardStats]);
+  }, [fetchServices, fetchBlogs, fetchSettings, fetchAbout, fetchFaqs, fetchDashboardStats, fetchMarqueeUpdates]);
 
   // Check saved password on load
   useEffect(() => {
@@ -324,6 +401,9 @@ export default function AdminDashboard() {
     setFaqs([]);
     setEditingFaq(null);
     setDashboardStats(null);
+    setMarqueeUpdates([]);
+    setEditingMarqueeUpdate(null);
+    setIsCreatingMarqueeUpdate(false);
   };
 
   // Setting Save/Delete Actions
@@ -758,6 +838,29 @@ export default function AdminDashboard() {
             <Icon icon="material-symbols:quiz" width="22" style={{ color: activeTab === 'faqs' ? '#061912' : '#64748b' }} />
             <span>FAQs Manager</span>
           </button>
+
+          <button
+            onClick={() => { setActiveTab('marquee'); setEditingService(null); setEditingBlog(null); setEditingMarqueeUpdate(null); }}
+            className="sidebar-nav-item"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '12px 16px',
+              background: activeTab === 'marquee' ? 'rgba(6, 25, 18, 0.06)' : 'transparent',
+              color: activeTab === 'marquee' ? '#061912' : '#475569',
+              border: 'none',
+              borderRadius: '10px',
+              cursor: 'pointer',
+              fontWeight: activeTab === 'marquee' ? 700 : 500,
+              fontSize: '0.94rem',
+              textAlign: 'left',
+              width: '100%'
+            }}
+          >
+            <Icon icon="material-symbols:campaign" width="22" style={{ color: activeTab === 'marquee' ? '#061912' : '#64748b' }} />
+            <span>Marquee Updates</span>
+          </button>
         </nav>
 
         {/* Sidebar Footer Site Settings & Log out */}
@@ -802,10 +905,10 @@ export default function AdminDashboard() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
           <div>
             <h2 style={{ fontSize: '2rem', fontWeight: 800, margin: 0, color: '#0f172a', letterSpacing: '-0.03em' }}>
-              {activeTab === 'dashboard' ? 'Dashboard Overview' : activeTab === 'services' ? 'Legal Page Manager' : activeTab === 'blogs' ? 'Blog Insights Manager' : activeTab === 'about' ? 'About Page Manager' : activeTab === 'faqs' ? 'FAQs Manager' : 'Global Settings Manager'}
+              {activeTab === 'dashboard' ? 'Dashboard Overview' : activeTab === 'services' ? 'Legal Page Manager' : activeTab === 'blogs' ? 'Blog Insights Manager' : activeTab === 'about' ? 'About Page Manager' : activeTab === 'faqs' ? 'FAQs Manager' : activeTab === 'marquee' ? 'Marquee Updates Manager' : 'Global Settings Manager'}
             </h2>
             <p style={{ fontSize: '0.92rem', color: '#475569', marginTop: '6px', fontWeight: 500 }}>
-              {activeTab === 'dashboard' ? 'Track real-time site activity metrics, consultation click rates and contact submissions' : activeTab === 'services' ? 'Create, update and structure dynamic service subsections' : activeTab === 'blogs' ? 'Draft, edit and publish legal articles' : activeTab === 'about' ? 'Update headlines, our story narrative, and solicitor biography' : activeTab === 'faqs' ? 'Manage frequently asked questions categorized by legal service streams' : 'Manage office contact info, social links, and consultation variables'}
+              {activeTab === 'dashboard' ? 'Track real-time site activity metrics, consultation click rates and contact submissions' : activeTab === 'services' ? 'Create, update and structure dynamic service subsections' : activeTab === 'blogs' ? 'Draft, edit and publish legal articles' : activeTab === 'about' ? 'Update headlines, our story narrative, and solicitor biography' : activeTab === 'faqs' ? 'Manage frequently asked questions categorized by legal service streams' : activeTab === 'marquee' ? 'Manage information marquee updates, news, and links' : 'Manage office contact info, social links, and consultation variables'}
             </p>
           </div>
         </div>
@@ -2044,6 +2147,239 @@ export default function AdminDashboard() {
                 </div>
               )}
             </div>
+          </div>
+        )}
+
+        {/* ==================== SECTION: MARQUEE UPDATES MANAGER ==================== */}
+        {!isLoading && activeTab === 'marquee' && (
+          <div>
+            {!editingMarqueeUpdate && !isCreatingMarqueeUpdate ? (
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px' }}>
+                  <div>
+                    <span style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', color: '#64748b', letterSpacing: '0.5px' }}>Information stream</span>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: '2px 0 0 0', color: '#0f172a' }}>News & Marquee Updates</h3>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setIsCreatingMarqueeUpdate(true);
+                      setEditingMarqueeUpdate({
+                        heading: '',
+                        content: '',
+                        imageUrl: '',
+                        isActive: true
+                      });
+                    }}
+                    className="btn-modern btn-modern-primary"
+                    style={{ padding: '12px 20px', fontSize: '0.9rem' }}
+                  >
+                    + Add New Update
+                  </button>
+                </div>
+
+                <div className="dashboard-card" style={{ borderRadius: '16px', overflow: 'hidden', backgroundColor: '#ffffff', border: '1px solid #e2e8f0' }}>
+                  {marqueeUpdates.length > 0 ? (
+                    <div style={{ overflowX: 'auto' }}>
+                      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+                        <thead>
+                          <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#475569', fontWeight: 700 }}>
+                            <th style={{ padding: '16px 24px' }}>Info / Update</th>
+                            <th style={{ padding: '16px 24px' }}>Status</th>
+                            <th style={{ padding: '16px 24px' }}>Created Date</th>
+                            <th style={{ padding: '16px 24px', textAlign: 'right' }}>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {marqueeUpdates.map((update: any) => (
+                            <tr key={update._id} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'middle' }}>
+                              <td style={{ padding: '16px 24px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                  {update.imageUrl && (
+                                    <img
+                                      src={update.imageUrl}
+                                      alt=""
+                                      style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'cover', border: '1px solid #cbd5e1' }}
+                                    />
+                                  )}
+                                  <div>
+                                    <div style={{ fontWeight: 700, color: '#0f172a' }}>{update.heading}</div>
+                                    <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '2px', maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                      {update.content}
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td style={{ padding: '16px 24px' }}>
+                                <span style={{
+                                  display: 'inline-block',
+                                  padding: '4px 10px',
+                                  borderRadius: '6px',
+                                  fontSize: '0.75rem',
+                                  fontWeight: 700,
+                                  background: update.isActive !== false ? '#f0fdf4' : '#f8fafc',
+                                  color: update.isActive !== false ? '#166534' : '#64748b',
+                                  border: `1px solid ${update.isActive !== false ? '#bbf7d0' : '#e2e8f0'}`
+                                }}>
+                                  {update.isActive !== false ? 'Active' : 'Inactive'}
+                                </span>
+                              </td>
+                              <td style={{ padding: '16px 24px', color: '#64748b', fontSize: '0.85rem' }}>
+                                {new Date(update.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                              </td>
+                              <td style={{ padding: '16px 24px', textAlign: 'right' }}>
+                                <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                                  <button
+                                    onClick={() => setEditingMarqueeUpdate(JSON.parse(JSON.stringify(update)))}
+                                    className="btn-modern btn-modern-secondary"
+                                    style={{ padding: '6px 12px', fontSize: '0.8rem' }}
+                                  >
+                                    <Icon icon="material-symbols:edit" width="16" />
+                                    <span>Edit</span>
+                                  </button>
+                                  <button
+                                    onClick={() => handleDeleteMarqueeUpdate(update._id)}
+                                    className="btn-modern btn-modern-danger"
+                                    style={{ padding: '6px 12px', fontSize: '0.8rem' }}
+                                  >
+                                    <Icon icon="material-symbols:delete" width="16" />
+                                    <span>Delete</span>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div style={{ padding: '60px 20px', textAlign: 'center', color: '#64748b' }}>
+                      <Icon icon="material-symbols:campaign" width="36" style={{ marginBottom: '8px', color: '#94a3b8' }} />
+                      <p style={{ margin: 0 }}>No updates created yet. Click "+ Add New Update" to create one.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              /* Create or Edit Update Form */
+              <form onSubmit={handleSaveMarqueeUpdate} style={{ padding: '40px', borderRadius: '24px', border: '1px solid #e2e8f0', backgroundColor: '#ffffff', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.03)' }}>
+                <div style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '20px', marginBottom: '32px' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', color: '#64748b', letterSpacing: '0.5px' }}>Update Editor</span>
+                  <h3 style={{ fontSize: '1.65rem', fontWeight: 800, color: '#061912', margin: '4px 0 0 0' }}>
+                    {isCreatingMarqueeUpdate ? 'Publish New Info Update' : `Edit Update: ${editingMarqueeUpdate?.heading}`}
+                  </h3>
+                </div>
+
+                <div style={{ marginBottom: '24px' }}>
+                  <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, color: '#334155', marginBottom: '10px' }}>Marquee Heading (Short title shown scrolling)</label>
+                  <input
+                    type="text"
+                    className="input-modern"
+                    value={editingMarqueeUpdate?.heading || ''}
+                    onChange={(e) => setEditingMarqueeUpdate({ ...editingMarqueeUpdate, heading: e.target.value })}
+                    required
+                    placeholder="e.g. Offices Closed on public holidays..."
+                  />
+                </div>
+
+                <div style={{ marginBottom: '24px' }}>
+                  <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, color: '#334155', marginBottom: '10px' }}>Upload Image (Optional)</label>
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        
+                        setIsUploading(true);
+                        try {
+                          const res = await fetch('/api/admin/upload', {
+                            method: 'POST',
+                            headers: {
+                              'Authorization': password
+                            },
+                            body: formData
+                          });
+                          const data = await res.json();
+                          if (res.ok && data.success) {
+                            setEditingMarqueeUpdate({
+                              ...editingMarqueeUpdate,
+                              imageUrl: data.url
+                            });
+                            showToast('Image uploaded successfully!', 'success');
+                          } else {
+                            showToast(data.error || 'Upload failed', 'error');
+                          }
+                        } catch (err) {
+                          console.error(err);
+                          showToast('Upload error', 'error');
+                        } finally {
+                          setIsUploading(false);
+                        }
+                      }}
+                      className="input-modern"
+                      style={{ padding: '8px', maxWidth: '300px' }}
+                    />
+                    {isUploading && <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Uploading file...</span>}
+                  </div>
+                  {editingMarqueeUpdate?.imageUrl && (
+                    <div style={{ marginTop: '12px' }}>
+                      <img
+                        src={editingMarqueeUpdate.imageUrl}
+                        alt="Preview"
+                        style={{ height: '80px', borderRadius: '8px', border: '1px solid #cbd5e1', objectFit: 'cover' }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div style={{ marginBottom: '24px' }}>
+                  <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, color: '#334155', marginBottom: '10px' }}>Detailed Content</label>
+                  <textarea
+                    rows={8}
+                    className="input-modern"
+                    value={editingMarqueeUpdate?.content || ''}
+                    onChange={(e) => setEditingMarqueeUpdate({ ...editingMarqueeUpdate, content: e.target.value })}
+                    required
+                    placeholder="Enter the full update content. This will be shown when the user clicks the marquee update link."
+                    style={{ fontFamily: 'inherit', resize: 'vertical' }}
+                  />
+                </div>
+
+                <div style={{ marginBottom: '32px' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 600, color: '#334155', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={editingMarqueeUpdate?.isActive !== false}
+                      onChange={(e) => setEditingMarqueeUpdate({ ...editingMarqueeUpdate, isActive: e.target.checked })}
+                      style={{ width: '18px', height: '18px' }}
+                    />
+                    <span>Active & Visible in Marquee</span>
+                  </label>
+                </div>
+
+                <div style={{ display: 'flex', gap: '14px', justifyContent: 'flex-end', borderTop: '1px solid #e2e8f0', paddingTop: '24px' }}>
+                  <button
+                    type="button"
+                    onClick={() => { setEditingMarqueeUpdate(null); setIsCreatingMarqueeUpdate(false); }}
+                    className="btn-modern btn-modern-secondary"
+                    style={{ padding: '12px 24px', fontSize: '0.92rem' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn-modern btn-modern-primary"
+                    style={{ padding: '12px 28px', fontSize: '0.92rem' }}
+                  >
+                    Save Marquee Update
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         )}
 

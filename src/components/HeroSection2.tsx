@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from './Navbar';
+import Marquee from './Marquee';
 import HeroHeading from './HeroHeading';
 import { TypingAnimation } from './ui/typing-animation';
 import { Highlighter } from './ui/highlighter';
@@ -25,6 +26,9 @@ export default function HeroSection2() {
 
       {/* Navbar Navigation */}
       <Navbar />
+
+      {/* Information Updates Scrolling Marquee */}
+      <Marquee />
 
       {/* Atmospheric Background Orbs */}
       <div className="orb orb-left" style={{ zIndex: 3 }} />
