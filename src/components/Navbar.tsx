@@ -55,9 +55,9 @@ export default function Navbar() {
   const customMigrationPages = useMemo(() => legalPages.filter((p: any) => p.url.startsWith('/migration-law/') && !baseUrls.includes(p.url)), [legalPages, baseUrls]);
   const customFamilyPages = useMemo(() => legalPages.filter((p: any) => p.url.startsWith('/family-law/') && !baseUrls.includes(p.url)), [legalPages, baseUrls]);
   const customAppealsPages = useMemo(() => legalPages.filter((p: any) => p.url.startsWith('/appeals-and-reviews/') && !baseUrls.includes(p.url)), [legalPages, baseUrls]);
-  const otherCustomPages = useMemo(() => legalPages.filter((p: any) => 
-    !p.url.startsWith('/migration-law') && 
-    !p.url.startsWith('/family-law') && 
+  const otherCustomPages = useMemo(() => legalPages.filter((p: any) =>
+    !p.url.startsWith('/migration-law') &&
+    !p.url.startsWith('/family-law') &&
     !p.url.startsWith('/appeals-and-reviews') &&
     !['/', '/about', '/contact', '/faqs', '/blog', '/terms-of-use', '/privacy-policy', '/consultation-terms'].includes(p.url)
   ), [legalPages]);
@@ -140,21 +140,25 @@ export default function Navbar() {
 
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 30);
 
-      const isMobile = window.innerWidth <= 991;
-      if (isMobile) {
-        if (currentScrollY <= 80) {
-          setShowHeader(true);
-        } else if (currentScrollY > lastScrollY) {
-          setShowHeader(false);
-        } else {
-          setShowHeader(true);
-        }
+      const mobileCheck = window.innerWidth <= 1024;
+      if (mobileCheck) {
+        setShowHeader(true);
       } else {
         setShowHeader(true);
       }
@@ -165,9 +169,20 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   return (
-    <header style={headerStyle(scrolled, showHeader)}>
-      <div className="container" style={innerStyle(scrolled)}>
+    <header style={headerStyle(scrolled, showHeader, isMobile)}>
+      <div className="container" style={innerStyle(scrolled, isMobile)}>
         <Link href="/" className="logo-hover" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{ width: '300px', height: '60px', position: 'relative', display: 'flex', alignItems: 'center' }}>
             <Image
@@ -456,9 +471,10 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Search Button & Toggle */}
-        <div className="mobile-only-flex" style={{ alignItems: 'center', gap: '12px' }}>
+        <div className="mobile-only-flex" style={{ alignItems: 'center', gap: '12px', marginRight: '10px' }}>
           <button
             onClick={() => setSearchOpen(true)}
+            className="mobile-search-btn"
             style={mobileSearchButtonStyle}
             aria-label="Search website"
           >
@@ -683,13 +699,15 @@ export default function Navbar() {
   );
 }
 
-const headerStyle = (scrolled: boolean, showHeader: boolean): React.CSSProperties => ({
+const headerStyle = (scrolled: boolean, showHeader: boolean, isMobile: boolean): React.CSSProperties => ({
   position: 'fixed',
   top: 0,
   left: 0,
   right: 0,
   zIndex: 1000,
-  padding: scrolled ? '14px 0' : '24px 0',
+  padding: isMobile
+    ? (scrolled ? '10px 0' : '16px 0')
+    : (scrolled ? '14px 0' : '24px 0'),
   background: scrolled ? 'rgba(6, 25, 18, 0.95)' : 'transparent',
   boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.25)' : 'none',
   backdropFilter: scrolled ? 'blur(20px)' : 'none',
@@ -697,11 +715,13 @@ const headerStyle = (scrolled: boolean, showHeader: boolean): React.CSSPropertie
   transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
 });
 
-const innerStyle = (scrolled: boolean): React.CSSProperties => ({
+const innerStyle = (scrolled: boolean, isMobile: boolean): React.CSSProperties => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   position: 'relative',
+  width: '100%',
+  padding: isMobile ? '0 16px' : '0 24px',
   maxWidth: scrolled ? '1280px' : '1440px',
   transition: 'max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
 });
