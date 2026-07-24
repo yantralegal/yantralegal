@@ -168,7 +168,11 @@ export default function ContactClient() {
                   </li>
                   <li>
                     <span style={bulletIconStyle}>✦</span>
-                    <span><strong>Video Call:</strong> Microsoft Teams or Google Meet</span>
+                    <span><strong>Video Call:</strong> Google Meet</span>
+                  </li>
+                  <li>
+                    <span style={bulletIconStyle}>✦</span>
+                    <span><strong>Phone Call:</strong> Direct phone call</span>
                   </li>
                 </ul>
                 <div style={languagesBoxStyle}>
@@ -283,7 +287,8 @@ export default function ContactClient() {
                         >
                           <option value="" disabled hidden></option>
                           <option value="In Person">In Person (Sydney CBD)</option>
-                          <option value="Video">Video Call (Teams/Google Meet)</option>
+                          <option value="Video">Video Call (Google Meet)</option>
+                          <option value="Phone">Phone Call</option>
                         </select>
                         <label htmlFor="form-method" className="floating-label">Preferred Format</label>
                         <div className="select-chevron-container">
