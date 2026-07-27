@@ -22,6 +22,14 @@ export default function ContactClient() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
+  const [settings, setSettings] = useState({
+    email: 'info@yantralegal.com.au',
+    whatsapp: '61402402120',
+    address: 'Sydney NSW 2000',
+    postalAddress: 'GPO Box 1230, Sydney NSW 2001',
+    phone: '+61 402 402 120',
+  });
+
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 5000);
@@ -33,6 +41,18 @@ export default function ContactClient() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'contact_page_view' }),
     }).catch(console.error);
+
+    fetch('/api/settings')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.settings) {
+          setSettings((prev) => ({
+            ...prev,
+            ...data.settings,
+          }));
+        }
+      })
+      .catch((err) => console.error('Error fetching settings in contact page:', err));
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -55,7 +75,6 @@ export default function ContactClient() {
       showToast('Please agree to the Initial Consultation Terms and Conditions, Privacy Policy and Terms of Use.', 'error');
       return;
     }
-
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -102,6 +121,7 @@ export default function ContactClient() {
     }
   };
 
+
   return (
     <div style={layoutStyle}>
       <Navbar />
@@ -114,8 +134,11 @@ export default function ContactClient() {
             <h1 style={titleStyle}>
               Start Your <span className="text-gradient-gold">Consultation</span>
             </h1>
-            <p style={subtitleStyle}>
-              If you have a migration or divorce matter you need assistance with, we are ready to help. The best first step is to book an initial consultation with Krishna Giri.
+            <p style={{ ...subtitleStyle, textAlign: 'justify', marginBottom: '16px' }}>
+              If you require assistance with an Australian immigration or family law matter, we're here to help. Most clients begin with a confidential telephone or video consultation, with in-person meetings available by appointment where appropriate.
+            </p>
+            <p style={{ ...subtitleStyle, textAlign: 'justify' }}>
+              The first step is to book a confidential initial consultation with our solicitor to discuss your circumstances, understand your legal options, and determine the most appropriate pathway forward.
             </p>
           </div>
         </section>
@@ -131,21 +154,21 @@ export default function ContactClient() {
                 <div style={infoListStyle}>
                   <div style={infoItemStyle}>
                     <span style={labelStyle}>Phone:</span>
-                    <span style={valueStyle}><RevealingPhone goldText={true} /></span>
+                    <span style={valueStyle}><RevealingPhone goldText={true} initialPhone={settings.phone} /></span>
                   </div>
                   <div style={infoItemStyle}>
                     <span style={labelStyle}>WhatsApp:</span>
-                    <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" style={valueStyle}>WhatsApp Chat Available</a>
+                    <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noopener noreferrer" style={valueStyle}>WhatsApp Chat Available</a>
                   </div>
                   <div style={infoItemStyle}>
                     <span style={labelStyle}>Email:</span>
-                    <a href="mailto:info@yantralegal.com.au" style={valueStyle}>info@yantralegal.com.au</a>
+                    <a href={`mailto:${settings.email}`} style={valueStyle}>{settings.email}</a>
                   </div>
                   <div style={infoItemStyle}>
                     <span style={labelStyle}>Office Address:</span>
                     <span style={{ ...valueStyle, lineHeight: 1.5 }}>
-                      Sydney NSW 2000<br />
-                      Postal: GPO Box 1230, Sydney NSW 2001
+                      {settings.address}<br />
+                      Postal: {settings.postalAddress}
                     </span>
                   </div>
                   <div style={infoItemStyle}>
@@ -159,25 +182,25 @@ export default function ContactClient() {
               <div className="glass" style={{ ...cardStyle, marginTop: '24px' }}>
                 <h2 style={cardHeaderStyle}>Consultation Formats</h2>
                 <p style={bodyStyle}>
-                  We offer strategic legal consultations in multiple formats for clients locally, interstate, or overseas:
+                  We offer confidential legal consultations in a range of formats to accommodate clients across Australia and overseas.
                 </p>
                 <ul style={bulletListStyle}>
                   <li>
                     <span style={bulletIconStyle}>✦</span>
-                    <span><strong>In Person:</strong> At our CBD Sydney office</span>
+                    <span><strong>☎️ Telephone Consultation:</strong> Available Australia-wide and internationally.</span>
                   </li>
                   <li>
                     <span style={bulletIconStyle}>✦</span>
-                    <span><strong>Video Call:</strong> Google Meet</span>
+                    <span><strong>💻 Video Consultation:</strong> Via Google Meet.</span>
                   </li>
                   <li>
                     <span style={bulletIconStyle}>✦</span>
-                    <span><strong>Phone Call:</strong> Direct phone call</span>
+                    <span><strong>🏢 In-Person Consultation:</strong> Available by appointment only.</span>
                   </li>
                 </ul>
                 <div style={languagesBoxStyle}>
                   <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--clr-yellow)', lineHeight: 1.5 }}>
-                    📢 <strong>Languages:</strong> We advise in English, Nepali, and Hindi. Please let us know your preference when booking.
+                    📢 <strong>Languages:</strong> We provide legal consultations in English, Nepali, and Hindi. Please let us know your preferred language when booking.
                   </p>
                 </div>
               </div>
@@ -185,7 +208,31 @@ export default function ContactClient() {
 
             {/* Right Column: Enquiry Form */}
             <div className="contact-form-container">
-              <div className="contact-form-card" style={{ padding: '36px', height: '100%' }}>
+              {/* What Happens Next Card */}
+              <div className="glass" style={{ ...cardStyle, marginBottom: '24px', padding: '30px' }}>
+                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.3rem', color: 'var(--clr-yellow)', marginBottom: '16px' }}>
+                  What Happens Next?
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.75)' }}>
+                  <div style={{ display: 'flex', gap: '12px', alignItems: 'start' }}>
+                    <span style={{ color: 'var(--clr-yellow)', fontWeight: 'bold' }}>&rarr;</span>
+                    <span>Submit your enquiry online.</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '12px', alignItems: 'start' }}>
+                    <span style={{ color: 'var(--clr-yellow)', fontWeight: 'bold' }}>&rarr;</span>
+                    <span>We will review the information provided.</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '12px', alignItems: 'start' }}>
+                    <span style={{ color: 'var(--clr-yellow)', fontWeight: 'bold' }}>&rarr;</span>
+                    <span>We will contact you to discuss your matter and confirm your consultation.</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '12px', alignItems: 'start' }}>
+                    <span style={{ color: 'var(--clr-yellow)', fontWeight: 'bold' }}>&rarr;</span>
+                    <span>You will receive confirmation of your appointment and any further instructions, if required.</span>
+                  </div>
+                </div>
+              </div>
+              <div className="contact-form-card" style={{ padding: '36px', height: 'auto' }}>
                 {submitStatus === 'success' ? (
                   <div className="form-success-state" style={{ padding: '40px 0' }}>
                     <div className="success-icon-wrapper">✓</div>
@@ -203,7 +250,7 @@ export default function ContactClient() {
                       Enquiry Form
                     </h3>
                     <p style={{ fontSize: '0.85rem', color: 'rgba(6, 25, 18, 0.7)', marginBottom: '24px' }}>
-                      Provide details about your matter to schedule a confidential legal session.
+                      Complete the form below and a member of our team will contact you to discuss your enquiry and arrange an initial consultation.
                     </p>
 
                     {submitStatus === 'error' && (
@@ -325,7 +372,7 @@ export default function ContactClient() {
                         className="form-checkbox"
                       />
                       <label htmlFor="form-confirm" className="checkbox-label" style={{ color: 'rgba(6, 25, 18, 0.7)', fontSize: '0.82rem' }}>
-                        I confirm the information provided is accurate and I request a consultation.
+                        I confirm that the information I have provided is true and accurate to the best of my knowledge and I request an initial consultation.
                       </label>
                     </div>
 
@@ -341,7 +388,7 @@ export default function ContactClient() {
                         style={{ marginTop: '3px' }}
                       />
                       <label htmlFor="form-agree-terms" className="checkbox-label" style={{ color: 'rgba(6, 25, 18, 0.7)', fontSize: '0.82rem', lineHeight: '1.4' }}>
-                        I confirm that I have read, understood and agree to the <Link href="/consultation-terms" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Initial Consultation Terms and Conditions</Link>, <Link href="/privacy-policy" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Privacy Policy</Link> and <Link href="/terms-of-use" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Terms of Use</Link>.
+                        I confirm that I have read, understood, and agree to the <Link href="/consultation-terms" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Initial Consultation Terms and Conditions</Link>, <Link href="/privacy-policy" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Privacy Policy</Link>, and <Link href="/terms-of-use" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Terms of Use</Link>.
                       </label>
                     </div>
 
@@ -366,14 +413,37 @@ export default function ContactClient() {
         <section style={disclaimerSectionStyle}>
           <div className="container" style={{ maxWidth: '960px' }}>
             <div style={disclaimerBoxStyle}>
-              <h4 style={{ color: '#ffffff', fontSize: '0.9rem', marginBottom: '8px', fontFamily: 'var(--font-serif)', letterSpacing: '0.5px' }}>
+              <h4 style={{ color: '#ffffff', fontSize: '0.95rem', marginBottom: '12px', fontFamily: 'var(--font-serif)', letterSpacing: '0.5px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: '8px' }}>
                 Legal Disclaimer & Scope
               </h4>
-              <p style={disclaimerTextStyle}>
-                The information on this website is general in nature and does not constitute legal advice. Every migration and family law matter is different. You should seek specific legal advice from a qualified solicitor or registered migration agent for your particular circumstances.
+              <p style={{ ...disclaimerTextStyle, marginBottom: '12px' }}>
+                The information published on this website is provided for general informational purposes only and does not constitute legal advice.
+              </p>
+              <p style={{ ...disclaimerTextStyle, marginBottom: '12px' }}>
+                Every immigration and family law matter depends on its own facts and legal circumstances. You should obtain legal advice tailored to your individual situation before acting or relying on any information contained on this website.
+              </p>
+              <p style={{ ...disclaimerTextStyle, marginBottom: '12px' }}>
+                Contacting Yantra Legal or submitting an enquiry through this website does not create a solicitor–client relationship. A solicitor–client relationship is established only after we have completed any necessary conflict checks and both parties have entered into a formal Costs Agreement and Retainer.
               </p>
               <p style={{ ...disclaimerTextStyle, marginBottom: 0 }}>
-                Yantra Legal is an Incorporated Legal Practice in New South Wales specialising in Family Law and Australian Immigration Services.
+                Yantra Legal is an Incorporated Legal Practice in New South Wales providing legal services in Australian Immigration Law and Family Law.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* A Boutique Law Firm Focused on Complex Matters Section */}
+        <section style={{ padding: '40px 0 80px 0' }}>
+          <div className="container" style={{ maxWidth: '960px' }}>
+            <div className="glass" style={{ ...cardStyle, padding: '40px', borderRadius: '16px', border: '1px solid rgba(223, 173, 62, 0.25)', background: 'rgba(11, 43, 32, 0.25)' }}>
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', color: 'var(--clr-yellow)', marginBottom: '16px' }}>
+                A Boutique Law Firm Focused on Complex Matters
+              </h3>
+              <p style={{ fontSize: '0.95rem', lineHeight: '1.7', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '12px' }}>
+                Yantra Legal is a Sydney-based boutique law firm practising exclusively in Australian Immigration Law and Family Law.
+              </p>
+              <p style={{ fontSize: '0.95rem', lineHeight: '1.7', color: 'rgba(255, 255, 255, 0.8)', marginBottom: 0 }}>
+                We are committed to providing clear legal advice, careful preparation, and practical representation tailored to each client's individual circumstances. Whether you are facing a complex visa matter or a significant family law issue, we work closely with you to achieve the best possible outcome.
               </p>
             </div>
           </div>

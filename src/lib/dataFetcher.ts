@@ -125,3 +125,30 @@ export async function getAboutContent(): Promise<any> {
   }
   return DEFAULT_ABOUT;
 }
+
+export async function getSiteSettings(): Promise<Record<string, string>> {
+  const DEFAULT_SETTINGS = {
+    phone: '+61 402 402 120',
+    email: 'info@yantralegal.com.au',
+    address: 'Sydney NSW 2000',
+    postalAddress: 'GPO Box 1230, Sydney NSW 2001',
+    whatsapp: '61402402120',
+    consultationFee: '$150',
+    consultationDuration: '30 mins',
+  };
+
+  try {
+    const { db } = await connectToDatabase();
+    const settingsArray = await db.collection('site_settings').find({}).toArray();
+    
+    const settingsRecord: Record<string, string> = { ...DEFAULT_SETTINGS };
+    settingsArray.forEach((item: any) => {
+      settingsRecord[item.key] = item.value;
+    });
+    return settingsRecord;
+  } catch (err) {
+    console.error('Error fetching site settings from DB:', err);
+    return DEFAULT_SETTINGS;
+  }
+}
+

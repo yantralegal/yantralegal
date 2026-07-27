@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FollowerPointerCard } from './FollowingPointer';
 
@@ -54,6 +54,32 @@ const services: ServiceItem[] = [
 
 
 export default function ServicesSection() {
+  const [servicesData, setServicesData] = useState<ServiceItem[]>(services);
+
+  useEffect(() => {
+    fetch('/api/legal-contents')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.pages) {
+          const updatedServices = services.map((service) => {
+            const dbPage = data.pages.find((p: any) => p.url === service.url);
+            if (dbPage) {
+              const firstSection = dbPage.sections?.[0];
+              const firstParagraph = firstSection?.paragraphs?.[0];
+              return {
+                ...service,
+                title: dbPage.title,
+                description: firstParagraph || service.description,
+              };
+            }
+            return service;
+          });
+          setServicesData(updatedServices);
+        }
+      })
+      .catch((err) => console.error('Error fetching services from DB:', err));
+  }, []);
+
   return (
     <section className="services-section" id="services">
       {/* Watermark portrait background */}
@@ -96,7 +122,7 @@ export default function ServicesSection() {
         {/* Three-Column Grid of Services */}
         <div className="services-grid-container">
           <div className="services-grid-3col">
-            {services.map((service, index) => (
+            {servicesData.map((service, index) => (
               <FollowerPointerCard
                 key={service.id}
                 title={service.title}

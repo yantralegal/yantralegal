@@ -1,48 +1,44 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 interface FAQItem {
-  id: number;
+  id: string;
   question: string;
   answer: string;
 }
 
-const homeFaqData: FAQItem[] = [
-  {
-    id: 1,
-    question: 'How much does an initial consultation cost?',
-    answer: 'Please contact us to confirm the current consultation fee. We offer fixed-fee initial consultations so you know the cost upfront, and we provide a clear written estimate before commencing any substantive work.'
-  },
-  {
-    id: 2,
-    question: 'Do I need a lawyer for a visa application?',
-    answer: 'Not every visa application requires legal representation. However, obtaining legal advice can help you understand eligibility requirements, avoid common mistakes, and address complex issues that may affect your application. Many clients who come to us have already lodged an application on their own and received a refusal — professional advice at the outset is nearly always more cost-effective than remedial assistance later.'
-  },
-  {
-    id: 3,
-    question: 'Can you help if my visa has been refused?',
-    answer: 'Yes. We can assess the reasons for the refusal, explain available review options, and advise whether you may be eligible to seek review before the Administrative Review Tribunal (ART) or pursue alternative pathways. Time limits apply — contact us as soon as you receive the decision.'
-  },
-  {
-    id: 4,
-    question: 'How long do I have to appeal a visa refusal?',
-    answer: 'Time limits vary depending on the type of decision and your individual circumstances. Some review applications must be lodged within as little as 21 days. It is important to seek legal advice as soon as possible after receiving a decision.'
-  },
-  {
-    id: 5,
-    question: 'Do you assist clients outside Sydney?',
-    answer: 'Yes. Yantra Legal assists clients across Australia through telephone and online consultations. Many migration clients are interstate.'
-  }
-];
-
 export default function FAQSection() {
-  const [openId, setOpenId] = useState<number | null>(1); // 1 is open by default
+  const [faqs, setFaqs] = useState<FAQItem[]>([]);
+  const [openId, setOpenId] = useState<string | null>(null);
 
-  const toggleFAQ = (id: number) => {
+  useEffect(() => {
+    fetch('/api/faqs')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.faqs) {
+          // Flatten items from all categories and take first 5
+          const allItems: FAQItem[] = data.faqs.flatMap((cat: any, catIdx: number) =>
+            cat.items.map((item: any, itemIdx: number) => ({
+              id: `${catIdx}-${itemIdx}`,
+              question: item.q,
+              answer: item.a,
+            }))
+          );
+          if (allItems.length > 0) {
+            setFaqs(allItems.slice(0, 5));
+            setOpenId(allItems[0].id); // Open first item by default
+          }
+        }
+      })
+      .catch((err) => console.error('Error fetching FAQs:', err));
+  }, []);
+
+  const toggleFAQ = (id: string) => {
     setOpenId(openId === id ? null : id);
   };
+
 
   return (
     <section className="faq-section" id="faq">
@@ -73,7 +69,7 @@ export default function FAQSection() {
           {/* Right Column */}
           <div className="faq-right-col">
             <div className="faq-list">
-              {homeFaqData.map((item, index) => {
+              {faqs.map((item, index) => {
                 const isOpen = openId === item.id;
                 return (
                   <div key={item.id} className={`reveal-on-scroll reveal-fade-up delay-${index * 100}`}>

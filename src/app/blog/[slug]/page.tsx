@@ -8,6 +8,48 @@ import BookConsultationButton from '../../../components/ui/BookConsultationButto
 
 export const dynamic = 'force-dynamic';
 
+function renderFormattedText(text: string) {
+  const tokenRegex = /(\*\*([^*]+)\*\*|\[([^\]]+)\]\(([^)]+)\))/g;
+  const parts = [];
+  let match;
+  let lastIndex = 0;
+  
+  while ((match = tokenRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+    
+    if (match[2]) {
+      // Bold text: **text**
+      parts.push(<strong key={match.index}>{match[2]}</strong>);
+    } else if (match[3] && match[4]) {
+      // Link text: [label](url)
+      const url = match[4];
+      const isExternal = url.startsWith('http') || url.startsWith('www');
+      parts.push(
+        <Link 
+          key={match.index} 
+          href={url}
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+          style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}
+        >
+          {match[3]}
+        </Link>
+      );
+    }
+    
+    lastIndex = tokenRegex.lastIndex;
+  }
+  
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+  
+  return parts.length > 0 ? parts : text;
+}
+
+
 type Params = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
@@ -69,29 +111,61 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           <div style={contentStyle}>
             {post.content.map((paragraph, idx) => {
               const trimmed = paragraph.trim();
-              if (trimmed.startsWith('•') || trimmed.startsWith('-')) {
-                const cleanText = trimmed.replace(/^[•\-\s]+/, '');
+              
+              // Handle lists
+              if (trimmed.startsWith('•') || trimmed.startsWith('-') || trimmed.startsWith('→')) {
+                const cleanText = trimmed.replace(/^[•\-\s→]+/, '');
                 return (
                   <ul key={idx} style={listStyle}>
                     <li style={listItemStyle}>
                       <span style={{ color: 'var(--clr-yellow)', marginRight: '8px' }}>✦</span>
-                      {cleanText}
+                      <span>{renderFormattedText(cleanText)}</span>
                     </li>
                   </ul>
                 );
               }
               
-              if (trimmed.startsWith('Option ') || trimmed.startsWith('Step ') || /^\d+\./.test(trimmed)) {
+              // Handle Case Law links
+              if (trimmed.toLowerCase().startsWith('case law link:') || trimmed.toLowerCase().startsWith('case law:')) {
+                const cleanText = trimmed.replace(/^(case law link|case law):\s*/i, '');
+                const isUrl = cleanText.startsWith('http') || cleanText.startsWith('https');
+                const href = isUrl ? cleanText : trimmed;
+                return (
+                  <p key={idx} style={{ ...paragraphStyle, marginTop: '24px' }}>
+                    <strong>Case Law: </strong>
+                    <a href={href} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline', fontWeight: 600 }}>
+                      {cleanText}
+                    </a>
+                  </p>
+                );
+              }
+
+              // Handle subheadings
+              const knownSubheadings = [
+                "Key Takeaways", 
+                "Background", 
+                "The Issues Before the Federal Court", 
+                "What Did the Court Decide?", 
+                "Why This Decision Matters", 
+                "Practical Lessons for Visa Holders", 
+                "Disclaimer"
+              ];
+              const isNumberedSubheading = /^\d+\./.test(trimmed);
+              const isOptionOrStep = trimmed.startsWith('Option ') || trimmed.startsWith('Step ');
+              const isKnownSub = knownSubheadings.includes(trimmed) || knownSubheadings.some(sub => trimmed.toLowerCase().startsWith(sub.toLowerCase()));
+              
+              if (isNumberedSubheading || isOptionOrStep || (isKnownSub && trimmed.length < 80)) {
                 return (
                   <h3 key={idx} style={subheadingStyle}>
-                    {paragraph}
+                    {trimmed}
                   </h3>
                 );
               }
 
+              // Default paragraph
               return (
                 <p key={idx} style={paragraphStyle}>
-                  {paragraph}
+                  {renderFormattedText(paragraph)}
                 </p>
               );
             })}

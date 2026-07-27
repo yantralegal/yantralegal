@@ -1284,27 +1284,85 @@ export default function AdminDashboard() {
 
                 <div style={{ marginBottom: '24px' }}>
                   <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 700, color: '#334155', marginBottom: '10px' }}>Thumbnail Image URL</label>
-                  <input
-                    type="text"
-                    className="input-modern"
-                    value={editingBlog?.thumbnail || ''}
-                    onChange={(e) => setEditingBlog({ ...editingBlog!, thumbnail: e.target.value })}
-                    required
-                  />
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '8px' }}>
+                    <input
+                      type="text"
+                      className="input-modern"
+                      value={editingBlog?.thumbnail || ''}
+                      onChange={(e) => setEditingBlog({ ...editingBlog!, thumbnail: e.target.value })}
+                      required
+                      placeholder="e.g. /partner_visa_refusal_thumbnail.png"
+                      style={{ flex: 1 }}
+                    />
+                  </div>
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        
+                        setIsUploading(true);
+                        try {
+                          const res = await fetch('/api/admin/upload', {
+                            method: 'POST',
+                            headers: {
+                              'Authorization': password
+                            },
+                            body: formData
+                          });
+                          const data = await res.json();
+                          if (res.ok && data.success) {
+                            setEditingBlog({
+                              ...editingBlog!,
+                              thumbnail: data.url
+                            });
+                            showToast('Thumbnail uploaded successfully!', 'success');
+                          } else {
+                            showToast(data.error || 'Upload failed', 'error');
+                          }
+                        } catch (err) {
+                          console.error(err);
+                          showToast('Upload error', 'error');
+                        } finally {
+                          setIsUploading(false);
+                        }
+                      }}
+                      style={{
+                        fontSize: '0.85rem',
+                        color: '#64748b',
+                        cursor: 'pointer',
+                        padding: '6px 12px',
+                        background: '#f8fafc',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '6px'
+                      }}
+                    />
+                    {isUploading && <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Uploading...</span>}
+                    {editingBlog?.thumbnail && (
+                      <div style={{ position: 'relative', width: '50px', height: '40px', borderRadius: '4px', overflow: 'hidden', border: '1px solid #cbd5e1' }}>
+                        <img src={editingBlog.thumbnail} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div style={{ marginBottom: '32px' }}>
                   <h4 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', marginBottom: '20px' }}>Article Content Paragraphs</h4>
 
-                  {editingBlog?.content.map((para, cIdx) => (
+                  {(editingBlog?.content || []).map((para, cIdx) => (
                     <div key={cIdx} style={{ display: 'flex', gap: '10px', marginBottom: '12px', alignItems: 'flex-start' }}>
                       <textarea
                         className="input-modern"
                         value={para}
                         onChange={(e) => {
-                          const newContent = [...editingBlog.content];
+                          const newContent = [...(editingBlog?.content || [])];
                           newContent[cIdx] = e.target.value;
-                          setEditingBlog({ ...editingBlog, content: newContent });
+                          setEditingBlog({ ...editingBlog!, content: newContent });
                         }}
                         required
                         rows={4}
@@ -1314,9 +1372,9 @@ export default function AdminDashboard() {
                       <button
                         type="button"
                         onClick={() => {
-                          const newContent = [...editingBlog.content];
+                          const newContent = [...(editingBlog?.content || [])];
                           newContent.splice(cIdx, 1);
-                          setEditingBlog({ ...editingBlog, content: newContent });
+                          setEditingBlog({ ...editingBlog!, content: newContent });
                         }}
                         className="btn-modern btn-modern-danger"
                         style={{ padding: '14px' }}
@@ -1331,7 +1389,7 @@ export default function AdminDashboard() {
                     onClick={() => {
                       setEditingBlog({
                         ...editingBlog!,
-                        content: [...editingBlog!.content, '']
+                        content: [...(editingBlog?.content || []), '']
                       });
                     }}
                     className="btn-modern btn-modern-secondary"

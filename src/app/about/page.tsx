@@ -11,10 +11,13 @@ import WhatHappensNext from '../../components/WhatHappensNext';
 import ScrollObserver from '../../components/ScrollObserver';
 import { getAboutContent } from '../../lib/dataFetcher';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'About Krishna Giri & Yantra Legal | Sydney Law Practice',
   description: 'Learn about Yantra Legal, founded by solicitor Krishna Giri. Our boutique Sydney practice provides strategic migration and divorce representation shaped by lived experience.',
 };
+
 
 export default async function AboutPage() {
   const content = await getAboutContent();
@@ -272,7 +275,7 @@ export default async function AboutPage() {
               <div className="beyond-card">
                 <h4 className="right-section-title" style={{ borderBottom: 'none', paddingBottom: 0, marginBottom: '12px' }}>Beyond the Law</h4>
                 <p style={{ ...paragraphStyle, marginBottom: 0, fontSize: '0.95rem', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.75)' }}>
-                  Outside legal practice, Krishna enjoys travelling, exploring different cultures, writing, and spending time with family. His experiences living across multiple countries continue to shape his appreciation for diverse communities and the challenges people face when building a new life in unfamiliar environments.
+                  Outside legal practice, Krishna enjoys travelling, exploring different cultures, writing, photography, and spending time with family. These experiences continue to shape his appreciation for diverse communities and the people he serves.
                 </p>
               </div>
             </div>
@@ -296,14 +299,8 @@ export default async function AboutPage() {
               <h2 style={commitmentHeaderStyle}>
                 Our <span className="text-gradient-gold">Commitment</span>
               </h2>
-              <p style={commitmentProseStyle}>
-                At Yantra Legal, we are committed to providing legal services with professionalism, integrity and genuine care.
-              </p>
-              <p style={commitmentProseStyle}>
-                We understand that legal matters can be stressful and emotionally challenging. That is why we focus on maintaining honest communication, delivering personalised advice and ensuring every client feels heard, respected and supported.
-              </p>
               <p style={{ ...commitmentProseStyle, marginBottom: 0 }}>
-                Our goal is not simply to provide legal representation. Our goal is to help people make informed decisions and move forward with confidence.
+                We understand that legal matters are often stressful and deeply personal. That's why we're committed to honest communication, practical advice, and personalised representation. Our goal is to help every client move forward with clarity and confidence.
               </p>
             </div>
           </div>

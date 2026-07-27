@@ -2,13 +2,18 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import RevealingPhone from '../../components/RevealingPhone';
+import { getSiteSettings } from '../../lib/dataFetcher';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Terms of Use | Yantra Legal',
   description: 'Website Terms of Use for Yantra Legal.',
 };
 
-export default function TermsOfUsePage() {
+export default async function TermsOfUsePage() {
+  const settings = await getSiteSettings();
+
   return (
     <div style={layoutStyle}>
       <Navbar />
@@ -190,10 +195,10 @@ export default function TermsOfUsePage() {
             <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
               <p style={{ fontWeight: 600, color: '#ffffff', margin: '0 0 8px 0' }}>Yantra Legal Pty Ltd trading as Yantra Legal</p>
               <p style={{ margin: '4px 0' }}>ABN: 33 698 723 858</p>
-              <p style={{ margin: '4px 0' }}>GPO Box 1230, Sydney NSW 2001</p>
-              <p style={{ margin: '4px 0' }}>Email: <a href="mailto:info@yantralegal.com.au" style={{ color: 'var(--clr-yellow)' }}>info@yantralegal.com.au</a></p>
-              <p style={{ margin: '4px 0' }}>Phone: <RevealingPhone /></p>
-              <p style={{ margin: '4px 0 0 0' }}>WhatsApp: <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-yellow)', fontWeight: 'bold' }}>WhatsApp Chat</a></p>
+              <p style={{ margin: '4px 0' }}>{settings.postalAddress}</p>
+              <p style={{ margin: '4px 0' }}>Email: <a href={`mailto:${settings.email}`} style={{ color: 'var(--clr-yellow)' }}>{settings.email}</a></p>
+              <p style={{ margin: '4px 0' }}>Phone: <RevealingPhone initialPhone={settings.phone} /></p>
+              <p style={{ margin: '4px 0 0 0' }}>WhatsApp: <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-yellow)', fontWeight: 'bold' }}>WhatsApp Chat</a></p>
             </div>
           </div>
         </article>

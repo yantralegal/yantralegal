@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
 import { isAuthorized } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
@@ -22,21 +20,14 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Ensure uploads directory exists
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-    await fs.mkdir(uploadsDir, { recursive: true });
-
-    // Generate unique name
-    const ext = path.extname(file.name) || '.png';
-    const filename = `${Date.now()}-${Math.random().toString(36).substring(2, 8)}${ext}`;
-    const filePath = path.join(uploadsDir, filename);
-
-    // Save to disk
-    await fs.writeFile(filePath, buffer);
+    // Convert file to Base64 Data URL
+    const base64String = buffer.toString('base64');
+    const mimeType = file.type || 'image/png';
+    const dataUrl = `data:${mimeType};base64,${base64String}`;
 
     return NextResponse.json({
       success: true,
-      url: `/uploads/${filename}`,
+      url: dataUrl,
     });
   } catch (error: any) {
     console.error('File upload error:', error);
