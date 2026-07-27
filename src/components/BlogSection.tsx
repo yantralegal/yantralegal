@@ -18,7 +18,7 @@ export default function BlogSection() {
             Latest from Our <span className="text-gradient-gold">Blog</span>
           </h2>
           <p style={subtitleStyle}>
-            Practical legal information, migration updates and insights to help you understand your rights and options.
+            Practical legal insights, migration updates and family law articles to help you understand your rights and make informed decisions.
           </p>
         </div>
 

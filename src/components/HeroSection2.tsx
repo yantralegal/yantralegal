@@ -57,17 +57,17 @@ export default function HeroSection2() {
 
             <div className="hero-btn-group reveal-on-scroll reveal-fade-up delay-200">
               <a href="#" onClick={handleConsultationClick} className="btn btn-yellow">
-                <span>Book a Legal Consultation</span>
+                <span>Request a Consultation</span>
                 <span className="btn-arrow-circle">↗</span>
               </a>
               <a href="#services" className="btn btn-outline">
-                <span>View Services</span>
+                <span>Explore Our Services</span>
               </a>
             </div>
 
             <div className="hero-rating-row reveal-on-scroll reveal-fade-up delay-300">
               <span style={ratingTextStyle}>
-                <strong>Australian Solicitor</strong> &bull; <Highlighter action="underline" color="var(--clr-yellow)" strokeWidth={2} animationDuration={1200} loop={true} isView={true}>Fixed-Fee Initial Consultations</Highlighter> &bull; English, Nepali & Hindi
+                <strong>Solicitor</strong> &bull; <Highlighter action="underline" color="var(--clr-yellow)" strokeWidth={2} animationDuration={1200} loop={true} isView={true}>Fixed-Fee Initial Consultation</Highlighter> &bull; English, Nepali & Hindi
               </span>
             </div>
           </div>
@@ -100,8 +100,8 @@ export default function HeroSection2() {
       <div className="hero-marquee-container">
         <div className="hero-marquee-track">
           {Array(3).fill([
-            "Australian Solicitor",
-            "Migration & Family Law Focus",
+            "Solicitor",
+            "Immigration & Family Law",
             "Personalised service",
             "Fixed-fee Consultations",
             "Lived Experience",

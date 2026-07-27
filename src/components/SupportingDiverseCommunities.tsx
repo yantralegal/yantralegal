@@ -5,34 +5,34 @@ import Link from 'next/link';
 
 export default function SupportingDiverseCommunities() {
   const listItems = [
-    { text: 'Facing visa refusals?', href: '/appeals-and-reviews/visa-refusals' },
-    { text: 'Dealing with visa cancellations?', href: '/appeals-and-reviews/visa-cancellations' },
-    { text: 'Reuniting with family in Australia?', href: '/migration-law/partner-visas' },
-    { text: 'Navigating separation or divorce?', href: '/family-law/divorce-in-australia' },
-    { text: 'Unsure about your visa options?', href: '/contact' },
+    { text: 'Need help with a visa application?', href: '/migration-law' },
+    { text: 'Unsure which visa is right for you?', href: '/contact' },
+    { text: 'Received a visa refusal?', href: '/appeals-and-reviews/visa-refusals' },
+    { text: 'Facing a visa cancellation?', href: '/appeals-and-reviews/visa-cancellations' },
+    { text: 'Looking to reunite with your family in Australia?', href: '/migration-law/partner-visas' },
+    { text: 'Considering separation or divorce?', href: '/family-law/divorce-in-australia' },
   ];
-
 
   const chooseReasons = [
     {
       title: 'Lived Experience',
-      desc: 'Having personally experienced migration and settlement across different countries, we understand many of the challenges our clients face.'
+      desc: 'Having personally experienced migration and settlement across different countries, we understand many of the practical and emotional challenges our clients face.'
     },
     {
       title: 'Direct Access',
-      desc: 'You work directly with your solicitor from the first consultation through to the resolution of your matter.'
+      desc: 'Work directly with your solicitor from your initial consultation through to the resolution of your matter.'
     },
     {
       title: 'Clear Advice',
-      desc: 'We explain legal issues in plain language so you can make informed decisions with confidence.'
+      desc: 'We explain complex legal issues in plain language, helping you make informed decisions with confidence.'
     },
     {
       title: 'Personalised Representation',
-      desc: 'Every matter receives individual attention and a tailored legal strategy.'
+      desc: 'Every matter is approached individually, with legal strategies tailored to your circumstances and objectives.'
     },
     {
       title: 'Fixed-Fee Transparency',
-      desc: 'We believe you should know what to expect before you proceed. We offer fixed-fee initial consultations and provide clear information about legal costs, so there are no unexpected surprises.'
+      desc: 'We offer fixed-fee initial consultations and provide clear information about legal costs before work begins.'
     }
   ];
 
@@ -68,7 +68,7 @@ export default function SupportingDiverseCommunities() {
               Why Choose Yantra Legal
             </h2>
             <p style={{ ...descStyle, marginTop: '-8px', marginBottom: '8px' }}>
-              Choosing a lawyer is about more than legal knowledge. You want someone who will listen, understand your situation, and guide you with honesty and care. {"That's how we work at Yantra Legal."}
+              Choosing a lawyer is about more than legal knowledge. You need someone who will listen, understand your circumstances, and provide clear, practical legal guidance. That's the approach we take at Yantra Legal.
             </p>
             
             <div className="why-choose-cards-grid">

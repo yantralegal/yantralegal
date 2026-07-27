@@ -20,7 +20,7 @@ export default function AffiliationsSection() {
       logoSrc: '/associatedlogos/logos/membweofthelawsocietyofnewsouthwales.png',
       title: 'Law Society of NSW',
       role: 'Member',
-      desc: 'Admitted Practitioner, Supreme Court of NSW',
+      desc: 'Admitted as a Solicitor of the Supreme Court of New South Wales',
       url: 'https://www.lawsociety.com.au/'
     },
     {
@@ -101,15 +101,15 @@ export default function AffiliationsSection() {
                   <p className="logo-card-desc">
                     {item.title === 'Law Society of NSW' ? (
                       <>
-                        Admitted Practitioner,{' '}
+                        Admitted as a Solicitor of the{' '}
                         <span
                           style={{ color: 'var(--clr-yellow)', textDecoration: 'underline', cursor: 'pointer' }}
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleCardClick('https://supremecourt.nsw.gov.au/', 'Supreme Court of NSW');
+                            handleCardClick('https://supremecourt.nsw.gov.au/', 'Supreme Court of New South Wales');
                           }}
                         >
-                          Supreme Court of NSW
+                          Supreme Court of New South Wales
                         </span>
                       </>
                     ) : (

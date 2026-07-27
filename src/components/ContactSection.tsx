@@ -109,16 +109,16 @@ export default function ContactSection() {
           <div className="contact-header-left reveal-on-scroll reveal-fade-up">
             <span className="contact-badge">CONTACT</span>
             <h2 className="contact-title" style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', color: '#061912', fontWeight: 400 }}>
-              Ready to Discuss <span className="text-gradient-gold">Your Matter?</span>
+              Ready to Discuss Your Matter?
             </h2>
           </div>
           <div className="contact-header-right reveal-on-scroll reveal-fade-up delay-100" style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start', textAlign: 'left' }}>
             <p style={{ fontSize: '0.98rem', lineHeight: '1.65', color: 'rgba(6, 25, 18, 0.75)', margin: 0 }}>
-              Whether you need assistance with a visa application, migration appeal, family law matter or simply want to understand your options, we are here to help. Book a fixed-fee consultation and receive clear, practical legal advice tailored to your circumstances.
+              Whether you're applying for a visa, responding to a visa refusal, navigating separation or divorce, or simply looking for clear legal guidance, we're here to help. Book a fixed-fee initial consultation and speak directly with a solicitor about your circumstances and the options available to you.
             </p>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '8px' }}>
               <a href="#contact-form-anchor" className="btn-dark-green" onClick={handleScrollToForm}>
-                <span>Book a Consultation</span>
+                <span>Book a Fixed-Fee Consultation</span>
               </a>
               <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" className="btn-outline-dark">
                 <span>Speak with a Solicitor</span>
@@ -135,11 +135,14 @@ export default function ContactSection() {
           {/* Details (Left) */}
           <div className="contact-info-col reveal-on-scroll reveal-fade-up">
             <h3 className="contact-info-title">Contact</h3>
+            <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', color: '#ffffff', fontWeight: 400, margin: '8px 0 16px 0' }}>
+              Let's Start the Conversation
+            </h4>
             <p className="contact-info-desc" style={{ marginBottom: '16px' }}>
-              Whether you need assistance with a migration application, visa refusal, family law dispute, or legal advice regarding your rights and options, we are here to help.
+              Whether you need help with an immigration matter, a visa refusal or cancellation, a divorce or separation, or simply want to understand your legal options, we're here to help.
             </p>
             <p className="contact-info-desc">
-              Contact Yantra Legal today to arrange a confidential consultation and discuss how we can assist you.
+              Complete the form below to request a consultation. We'll review your enquiry and contact you to confirm the next steps.
             </p>
             <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
@@ -151,7 +154,10 @@ export default function ContactSection() {
               </div>
 
               <div className="contact-whatsapp-box" style={{ marginTop: '0px' }}>
-                <span className="whatsapp-label">Chat On Whatsapp</span>
+                <span className="whatsapp-label">Chat on WhatsApp</span>
+                <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)', margin: '0 0 12px 0', lineHeight: '1.4' }}>
+                  Chat with us instantly on WhatsApp if you have a general question before requesting a consultation.
+                </p>
                 <StarBorder
                   as="a"
                   href="https://wa.me/61402402120"
@@ -260,7 +266,7 @@ export default function ContactSection() {
                         className={`form-select ${form.method ? 'has-value' : ''}`}
                       >
                         <option value="" disabled hidden></option>
-                        <option value="In Person">In Person (Sydney CBD)</option>
+                        <option value="In Person">In Person (By Appointment)</option>
                         <option value="Video">Video Call (Google Meet)</option>
                         <option value="Phone">Phone Call</option>
                       </select>

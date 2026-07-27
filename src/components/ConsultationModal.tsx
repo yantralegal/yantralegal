@@ -349,7 +349,7 @@ export default function ConsultationModal() {
                       className={`form-select ${form.method ? 'has-value' : ''}`}
                     >
                       <option value="" disabled hidden></option>
-                      <option value="In Person">In Person (Sydney CBD)</option>
+                      <option value="In Person">In Person (By Appointment)</option>
                       <option value="Video">Video Call (Google Meet)</option>
                       <option value="Phone">Phone Call</option>
                     </select>

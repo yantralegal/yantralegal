@@ -19,36 +19,36 @@ interface ServiceItem {
 const services: ServiceItem[] = [
   {
     id: 'immigration',
-    badge: 'MIGRATION LAW',
-    title: 'Migration Law',
-    description: "Australia's migration system can be complex. We provide strategic advice and representation for visa applications, citizenship matters and migration pathways.",
+    badge: 'IMMIGRATION LAW',
+    title: 'Immigration Law',
+    description: "Australia's immigration laws can be complex. We provide clear, strategic advice and trusted legal representation across a wide range of visa, citizenship and review matters.",
     image: '/family_migration.png',
     isActive: true, // Dark card with emerald and gold theme
     url: '/migration-law',
     tagLine: "Partner Visas · Skilled Visas · Employer Sponsored Visas · Parent & Family Visas · Visitor Visas",
-    buttonText: "Explore Migration Law →"
+    buttonText: "Explore Immigration Law →"
   },
   {
     id: 'appeals',
     badge: 'APPEALS & REVIEWS',
-    title: 'Appeals and Reviews',
-    description: 'When a visa refusal or cancellation threatens your future, timely legal advice is essential. We help clients understand their options and pursue review pathways where available.',
+    title: 'Appeals & Reviews',
+    description: 'When a visa refusal or cancellation puts your future at risk, timely legal advice can make a significant difference. We help clients understand their options and provide representation in review and appeal proceedings where available.',
     image: '/visa_appeals.png',
     isActive: false,
     url: '/appeals-and-reviews',
     tagLine: "Visa Refusals · Visa Cancellations · ART Appeals · Judicial Review",
-    buttonText: "View Appeals Services →"
+    buttonText: "Explore Appeals & Reviews →"
   },
   {
     id: 'family-law',
-    badge: 'FAMILY LAW',
-    title: 'Family Law — Divorce',
-    description: 'We provide practical legal guidance through separation and divorce matters, helping clients move forward with confidence and clarity.',
+    badge: 'DIVORCE & FAMILY LAW',
+    title: 'Divorce & Family Law',
+    description: 'Family law matters are often both legally and emotionally challenging. We provide clear, practical legal guidance to help clients navigate separation, divorce and related family law matters with confidence.',
     image: '/divorce_process_australia_thumbnail.png',
     isActive: false,
     url: '/family-law',
     tagLine: "Divorce in Australia · Divorce in Nepal",
-    buttonText: "Family Law Services →"
+    buttonText: "Explore Divorce & Family Law →"
   },
 ];
 
@@ -88,20 +88,20 @@ export default function ServicesSection() {
       <div className="container">
         {/* Section Header */}
         <div className="services-header-stacked reveal-on-scroll reveal-fade-up">
-          <span className="services-badge">Our Services</span>
+          <span className="services-badge">Our Practice Areas</span>
           <h2 className="services-title">
-            Legal Services <span className="text-gradient-gold">Tailored to Your Situation</span>
+            Comprehensive Legal Support <span className="text-gradient-gold">Across Immigration and Family Law</span>
           </h2>
           <p className="services-desc" style={{ marginBottom: '8px' }}>
-            We assist individuals and families, skilled workers and professionals, clients responding to visa refusals and cancellations, business owners and employers, and people navigating family law matters across Australia.
+            We assist individuals, families, skilled professionals, employers and businesses across Australia with immigration and family law matters.
           </p>
           <div className="services-tags-container">
             {[
               "Individuals & Families",
               "Skilled Workers & Professionals",
               "Visa Refusals & Appeals",
-              "Business Owners & Employers",
-              "Family Law Matters"
+              "Employers & Businesses",
+              "Divorce & Family Law"
             ].map((text, i) => (
               <span key={i} className="services-tag-badge">
                 {text}
@@ -149,9 +149,11 @@ export default function ServicesSection() {
                 </div>
 
                 {/* Card Description */}
-                <p className="card-desc" style={{ fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
-                  {service.description}
-                </p>
+                <div className="card-desc-container">
+                  <p className="card-desc" style={{ fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                    {service.description}
+                  </p>
+                </div>
 
                 {/* Card Content: TagLine, Text Link */}
                 <div className="card-footer" style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: '16px', marginTop: 'auto' }}>

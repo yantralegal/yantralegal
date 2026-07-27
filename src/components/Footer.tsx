@@ -45,7 +45,7 @@ export default function Footer() {
               <span className="text-gradient-gold">Lived Experience</span>
             </h3>
             <p className="footer-cta-desc">
-              At Yantra Legal, we are committed to providing practical legal solutions, personalised representation, and clear advice that empowers our clients to make informed decisions. We believe every client deserves to be heard, understood, and supported throughout their legal journey.
+              We provide clear, practical legal advice in immigration and family law. We're committed to understanding your circumstances, protecting your interests, and helping you move forward with confidence.
             </p>
             <Link href="/contact" className="footer-cta-link">
               <span>Let&apos;s work together</span>
@@ -168,7 +168,7 @@ export default function Footer() {
           {/* Disclaimer text */}
           <div className="footer-disclaimer">
             <p style={{ margin: 0, lineHeight: 1.6 }}>
-              <strong>Disclaimer:</strong> The content on this website is provided for general informational purposes only and does not constitute formal legal or migration advice. Accessing this site or contacting us via web forms does not establish a lawyer-client relationship. Immigration law changes rapidly; you should not act, or refrain from acting, based on any material on this website without first seeking professional legal advice tailored to your specific circumstances. View our <Link href="/terms-of-use" className="footer-disclaimer-link">Terms of Use</Link> and <Link href="/privacy-policy" className="footer-disclaimer-link">Privacy Policy</Link>.
+              Disclaimer: The information on this website is provided for general informational purposes only and does not constitute legal or migration advice. Accessing this website, contacting Yantra Legal, or submitting an enquiry does not create a lawyer–client relationship. Immigration and family law can be complex and are subject to change. You should not rely on the information on this website as a substitute for legal advice tailored to your individual circumstances. Before making any legal or migration decision, we recommend obtaining professional legal advice. Please read our <Link href="/terms-of-use" className="footer-disclaimer-link">Terms of Use</Link> and <Link href="/privacy-policy" className="footer-disclaimer-link">Privacy Policy</Link> for further information.
             </p>
           </div>
 
@@ -176,7 +176,7 @@ export default function Footer() {
           <div className="footer-bottom-bar" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', paddingTop: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'center', width: '100%', borderTop: '1px solid rgba(255, 255, 255, 0.05)', paddingTop: '16px', flexWrap: 'wrap', gap: '12px' }}>
               <div className="footer-copyright" style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.6)' }}>
-                <span>&copy; 2026 Yantra Legal Pty Ltd | ABN 33 698 723 858 | All Rights Reserved</span>
+                <span>&copy; 2026 Yantra Legal Pty Ltd (ABN 33 698 723 000). All rights reserved.</span>
               </div>
             </div>
             <div style={{ 

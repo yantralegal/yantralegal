@@ -204,6 +204,37 @@ export default function ContactClient() {
                   </p>
                 </div>
               </div>
+
+              {/* Our Office Section */}
+              <div className="glass" style={{ ...cardStyle, marginTop: '24px' }}>
+                <h2 style={cardHeaderStyle}>Our Office</h2>
+                <p style={{ ...bodyStyle, marginBottom: '24px', fontSize: '0.92rem', lineHeight: 1.6 }}>
+                  Yantra Legal is a Sydney-based legal practice assisting clients across Australia. Most consultations are conducted by telephone or video conference, allowing us to assist clients wherever they are located. In-person consultations are available by appointment.
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}>
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center', background: 'rgba(255, 255, 255, 0.02)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                    <span style={{ fontSize: '1.8rem' }}>📍</span>
+                    <div>
+                      <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 600, color: 'var(--clr-yellow)' }}>Sydney-Based</h4>
+                      <p style={{ margin: '4px 0 0 0', fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.7)' }}>Serving clients nationwide</p>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center', background: 'rgba(255, 255, 255, 0.02)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                    <span style={{ fontSize: '1.8rem' }}>📞</span>
+                    <div>
+                      <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 600, color: 'var(--clr-yellow)' }}>Australia-Wide</h4>
+                      <p style={{ margin: '4px 0 0 0', fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.7)' }}>Immigration & Family Law</p>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center', background: 'rgba(255, 255, 255, 0.02)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                    <span style={{ fontSize: '1.8rem' }}>💻</span>
+                    <div>
+                      <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 600, color: 'var(--clr-yellow)' }}>Flexible Consultations</h4>
+                      <p style={{ margin: '4px 0 0 0', fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.7)' }}>Telephone, Video & In-Person by Appointment</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Right Column: Enquiry Form */}
@@ -333,7 +364,7 @@ export default function ContactClient() {
                           className={`form-select ${form.method ? 'has-value' : ''}`}
                         >
                           <option value="" disabled hidden></option>
-                          <option value="In Person">In Person (Sydney CBD)</option>
+                          <option value="In Person">In Person (By Appointment)</option>
                           <option value="Video">Video Call (Google Meet)</option>
                           <option value="Phone">Phone Call</option>
                         </select>
