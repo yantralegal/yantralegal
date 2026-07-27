@@ -5,6 +5,8 @@ import './globals.css';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ConsultationModal from '../components/ConsultationModal';
 import ScrollToTop from '../components/ScrollToTop';
+import { headers } from 'next/headers';
+import { getSiteSettings } from '../lib/dataFetcher';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -52,11 +54,36 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Check if live on production domain
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const pathname = headersList.get('x-pathname') || '';
+  const isMainDomain = host.includes('yantralegal.com.au') && !host.includes('dev.yantralegal.com.au');
+
+  let showMaintenance = false;
+  let settings = {
+    phone: '+61 402 402 120',
+    email: 'info@yantralegal.com.au',
+    is_live_on_main: 'false'
+  };
+
+  if (isMainDomain && !pathname.startsWith('/admin') && !pathname.startsWith('/api') && !pathname.startsWith('/_next')) {
+    try {
+      const dbSettings = await getSiteSettings();
+      settings = { ...settings, ...dbSettings };
+      if (settings.is_live_on_main !== 'true') {
+        showMaintenance = true;
+      }
+    } catch (err) {
+      console.error('Error fetching settings for maintenance check:', err);
+    }
+  }
+
   // Schema Structured Data for Australia Legal Services SEO
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -88,10 +115,154 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {children}
-        <ConsultationModal />
-        <ScrollToTop />
-        <SpeedInsights />
+        {showMaintenance ? (
+          <div style={{
+            minHeight: '100vh',
+            backgroundColor: '#04120d',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontFamily: 'var(--font-jakarta), sans-serif',
+            color: '#ffffff',
+            padding: '24px',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            {/* Background elements */}
+            <div style={{
+              position: 'absolute',
+              width: '400px',
+              height: '400px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(223, 173, 62, 0.08) 0%, transparent 70%)',
+              top: '10%',
+              left: '10%',
+              pointerEvents: 'none'
+            }} />
+            <div style={{
+              position: 'absolute',
+              width: '500px',
+              height: '500px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(223, 173, 62, 0.05) 0%, transparent 70%)',
+              bottom: '5%',
+              right: '5%',
+              pointerEvents: 'none'
+            }} />
+
+            <div style={{
+              maxWidth: '640px',
+              width: '100%',
+              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: '1px solid rgba(223, 173, 62, 0.15)',
+              borderRadius: '24px',
+              padding: '48px 32px',
+              textAlign: 'center',
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)',
+              position: 'relative',
+              zIndex: 2
+            }}>
+              {/* Premium scales icon */}
+              <div style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '50%',
+                backgroundColor: 'rgba(223, 173, 62, 0.1)',
+                border: '1px solid rgba(223, 173, 62, 0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 24px auto',
+                fontSize: '2rem'
+              }}>
+                ⚖️
+              </div>
+
+              <h1 style={{
+                fontFamily: 'var(--font-cormorant), serif',
+                fontSize: 'clamp(2.2rem, 5vw, 3rem)',
+                fontWeight: 400,
+                color: '#ffffff',
+                marginBottom: '16px',
+                lineHeight: 1.2
+              }}>
+                Launching <span style={{
+                  background: 'linear-gradient(135deg, #f0c36d 0%, #c4963f 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}>Soon</span>
+              </h1>
+
+              <p style={{
+                fontSize: '0.98rem',
+                lineHeight: '1.7',
+                color: 'rgba(255, 255, 255, 0.75)',
+                marginBottom: '32px',
+                maxWidth: '480px',
+                margin: '0 auto 32px auto'
+              }}>
+                We are currently preparing our new digital space. Yantra Legal is a dedicated legal practice providing clear, practical guidance in Australian Immigration Law and Family Law.
+              </p>
+
+              <div style={{
+                borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                paddingTop: '32px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+                alignItems: 'center'
+              }}>
+                <span style={{
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  color: 'rgba(223, 173, 62, 0.7)',
+                  letterSpacing: '1px'
+                }}>
+                  Get In Touch
+                </span>
+                
+                <div style={{
+                  display: 'flex',
+                  gap: '24px',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  fontSize: '0.95rem'
+                }}>
+                  <a href={`tel:${settings.phone}`} style={{
+                    color: '#ffffff',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    transition: 'color 0.2s ease'
+                  }}>
+                    <span>📞</span> {settings.phone}
+                  </a>
+                  <a href={`mailto:${settings.email}`} style={{
+                    color: '#ffffff',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    transition: 'color 0.2s ease'
+                  }}>
+                    <span>✉️</span> {settings.email}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            {children}
+            <ConsultationModal />
+            <ScrollToTop />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   );

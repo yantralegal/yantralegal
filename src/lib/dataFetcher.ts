@@ -135,6 +135,7 @@ export async function getSiteSettings(): Promise<Record<string, string>> {
     whatsapp: '61402402120',
     consultationFee: '$150',
     consultationDuration: '30 mins',
+    is_live_on_main: 'false',
   };
 
   try {

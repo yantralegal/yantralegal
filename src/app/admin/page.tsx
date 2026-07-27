@@ -1449,6 +1449,86 @@ export default function AdminDashboard() {
                   </button>
                 </div>
 
+                {/* Production Domain Protection Switch */}
+                <div className="dashboard-card" style={{ padding: '24px', borderRadius: '16px', backgroundColor: '#ffffff', marginBottom: '28px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+                    <div style={{ flex: 1, minWidth: '280px' }}>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: '#dfad3e', letterSpacing: '0.5px' }}>Production Domain Protection</span>
+                      <h4 style={{ fontSize: '1.1rem', fontWeight: 800, margin: '4px 0 6px 0', color: '#0f172a' }}>Live Site Domain Switcher</h4>
+                      <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b', lineHeight: '1.5' }}>
+                        Toggle public visibility on the main domain (<strong>yantralegal.com.au</strong>). When disabled, the main domain displays an elegant "Launching Soon" page, while <strong>dev.yantralegal.com.au</strong> and localhost remain fully active for editing and testing.
+                      </p>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <span style={{ fontSize: '0.85rem', fontWeight: 600, color: (settings.find(s => s.key === 'is_live_on_main')?.value === 'true') ? '#10b981' : '#64748b' }}>
+                        {(settings.find(s => s.key === 'is_live_on_main')?.value === 'true') ? 'LIVE ON PRODUCTION' : 'MAINTENANCE MODE'}
+                      </span>
+                      <button
+                        onClick={async () => {
+                          const currentVal = settings.find(s => s.key === 'is_live_on_main')?.value || 'false';
+                          const newVal = currentVal === 'true' ? 'false' : 'true';
+                          
+                          try {
+                            const res = await fetch('/api/admin/settings', {
+                              method: 'POST',
+                              headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': localStorage.getItem('admin_token') || ''
+                              },
+                              body: JSON.stringify({
+                                key: 'is_live_on_main',
+                                label: 'Go Live on Production Domain',
+                                value: newVal,
+                                category: 'System'
+                              })
+                            });
+                            if (res.ok) {
+                              const getRes = await fetch('/api/admin/settings', {
+                                headers: { 'Authorization': localStorage.getItem('admin_token') || '' }
+                              });
+                              const data = await getRes.json();
+                              setSettings(data.settings || []);
+                              showToast('Production environment settings updated successfully.', 'success');
+                            } else {
+                              showToast('Failed to update environment settings.', 'error');
+                            }
+                          } catch (err) {
+                            console.error(err);
+                            showToast('Connection error occurred.', 'error');
+                          }
+                        }}
+                        style={{
+                          width: '54px',
+                          height: '28px',
+                          borderRadius: '15px',
+                          backgroundColor: (settings.find(s => s.key === 'is_live_on_main')?.value === 'true') ? '#10b981' : '#cbd5e1',
+                          position: 'relative',
+                          border: 'none',
+                          cursor: 'pointer',
+                          transition: 'background-color 0.3s ease',
+                          outline: 'none',
+                          display: 'flex',
+                          alignItems: 'center',
+                          padding: '0 3px'
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '22px',
+                            height: '22px',
+                            borderRadius: '50%',
+                            backgroundColor: '#ffffff',
+                            position: 'absolute',
+                            left: (settings.find(s => s.key === 'is_live_on_main')?.value === 'true') ? '29px' : '3px',
+                            transition: 'left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                          }}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="dashboard-card" style={{ borderRadius: '16px', overflow: 'hidden', backgroundColor: '#ffffff' }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                     <thead>

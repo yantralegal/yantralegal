@@ -23,7 +23,8 @@ export async function GET(request: NextRequest) {
         { key: 'postalAddress', label: 'Postal Address', value: 'GPO Box 1230, Sydney NSW 2001', category: 'Contact' },
         { key: 'whatsapp', label: 'WhatsApp Number', value: '61402402120', category: 'Social' },
         { key: 'consultationFee', label: 'Initial Consultation Fee', value: '$150', category: 'General' },
-        { key: 'consultationDuration', label: 'Consultation Duration', value: '30 mins', category: 'General' }
+        { key: 'consultationDuration', label: 'Consultation Duration', value: '30 mins', category: 'General' },
+        { key: 'is_live_on_main', label: 'Go Live on Production Domain', value: 'false', category: 'System' }
       ]);
     }
 
