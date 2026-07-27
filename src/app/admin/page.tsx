@@ -1473,7 +1473,7 @@ export default function AdminDashboard() {
                               method: 'POST',
                               headers: {
                                 'Content-Type': 'application/json',
-                                'Authorization': localStorage.getItem('admin_token') || ''
+                                'Authorization': password
                               },
                               body: JSON.stringify({
                                 key: 'is_live_on_main',
@@ -1484,7 +1484,7 @@ export default function AdminDashboard() {
                             });
                             if (res.ok) {
                               const getRes = await fetch('/api/admin/settings', {
-                                headers: { 'Authorization': localStorage.getItem('admin_token') || '' }
+                                headers: { 'Authorization': password }
                               });
                               const data = await getRes.json();
                               setSettings(data.settings || []);
