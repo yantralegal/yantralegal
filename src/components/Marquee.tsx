@@ -55,7 +55,7 @@ export default function Marquee() {
           display: flex;
           flex-shrink: 0;
           white-space: nowrap;
-          animation: marquee 25s linear infinite;
+          animation: marquee 40s linear infinite;
         }
         .marquee-wrapper:hover .marquee-track {
           animation-play-state: paused;

@@ -22,7 +22,7 @@ export const legalPages: LegalPage[] = [
       {
         "heading": "Migration Law Services",
         "paragraphs": [
-          "Australia's migration system is governed by complex laws, policies, and procedures under the Migration Act 1958 (Cth) and the Migration Regulations 1994 (Cth). Each visa category has specific legal requirements relating to eligibility, documentation, decision-making processes, and review rights.",
+          "Australia's immigration laws can be complex. We provide clear, strategic advice and trusted legal representation across a wide range of visa, citizenship and review matters.",
           "Understanding and navigating this system requires careful attention to detail. Errors in applications, incomplete evidence, or missed deadlines can result in visa refusal, cancellation, or limitations on future visa options.",
           "At Yantra Legal, we provide clear and practical legal guidance to help individuals, families, and employers navigate Australia's migration system with confidence.",
           "Krishna Giri is an Australian solicitor and migration professional who assists clients across a wide range of matters, from straightforward visa applications to complex refusals and appeals. His approach combines legal expertise with a practical understanding of the migration journey."
@@ -824,7 +824,7 @@ export const legalPages: LegalPage[] = [
       {
         "heading": "Divorce Services",
         "paragraphs": [
-          "Yantra Legal assists clients with divorce applications in Australia and provides guidance in matters involving cross-border considerations, including divorce proceedings connected to Nepal.",
+          "Family law matters are often both legally and emotionally challenging. We provide clear, practical legal guidance to help clients navigate separation, divorce and related family law matters with confidence.",
           "Whether you are applying for divorce for the first time or dealing with a more complex international situation, we provide clear and practical legal advice at every stage of the process."
         ]
       },
@@ -1051,7 +1051,7 @@ export const legalPages: LegalPage[] = [
       {
         "heading": "Overview",
         "paragraphs": [
-          "Visa Refusals, Cancellations & Reviews",
+          "When a visa refusal or cancellation puts your future at risk, timely legal advice can make a significant difference. We help clients understand their options and provide representation in review and appeal proceedings where available.",
           "A visa refusal or cancellation is not always the end of the migration process. Australia's migration system provides structured review pathways that may be available depending on the type of decision, visa subclass, and individual circumstances.",
           "These pathways generally include merits review, which involves reconsidering the facts and merits of the decision, and judicial review, which focuses on whether the decision was made according to law.",
           "Strict time limits apply to most review processes and usually begin from the date of the decision."

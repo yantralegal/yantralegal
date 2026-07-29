@@ -31,11 +31,11 @@ export default function AffiliationsSection() {
       url: 'https://www.mia.org.au/'
     },
     {
-      logoSrc: '/associatedlogos/logos/lawcouncilofaustralia.png',
-      title: 'Law Council of Australia',
+      logoSrc: '/associatedlogos/logos/Nepalbarassociationfinal.png',
+      title: 'Nepal Bar Association',
       role: 'Member',
-      desc: 'Peak National Body of the Legal Profession',
-      url: 'https://lawcouncil.au/'
+      desc: 'Member of the Central Bar of Nepal',
+      url: 'https://nepalbarassociation.org.np/'
     },
     {
       logoSrc: '/associatedlogos/logos/nepalbarcouncil.png',
@@ -85,7 +85,7 @@ export default function AffiliationsSection() {
                 onClick={() => handleCardClick(item.url, item.title)}
               >
                 <div className="logo-card-glow" />
-                <div className="logo-image-container">
+                <div className={`logo-image-container ${item.logoSrc.includes('Nepalbarassociationfinal') ? 'no-filter-logo' : ''}`}>
                   <Image
                     src={item.logoSrc}
                     alt={item.title}

@@ -777,6 +777,20 @@ export default function CollapsibleSections({ sections, pageTitle }: Collapsible
       {/* Reusable Component 1: Why Choose Yantra Legal */}
       <WhyChooseYantraLegal />
 
+      {/* Family Law Client Intake Form Callout */}
+      {pathname.startsWith('/family-law') && (
+        <div className="legal-cta-card" style={{ marginTop: '40px', background: 'linear-gradient(135deg, rgba(223, 173, 62, 0.06) 0%, rgba(11, 43, 32, 0.45) 100%)', borderColor: 'rgba(223, 173, 62, 0.25)' }}>
+          <h3 className="legal-cta-title" style={{ color: 'var(--clr-yellow)' }}>Online Client Intake Form</h3>
+          <p className="legal-cta-desc">
+            Save time during your consultation by completing our secure online client intake form in advance. This helps our principal solicitor review your details and prepare for your matter.
+          </p>
+          <Link href="/family-law/intake" className="btn btn-yellow" style={{ display: 'inline-flex', padding: '12px 28px', textDecoration: 'none', border: 'none', cursor: 'pointer' }}>
+            <span>Complete Intake Form</span>
+            <span className="btn-arrow-circle">→</span>
+          </Link>
+        </div>
+      )}
+
       {/* CTA banner: either the one defined in sections or the default fallback */}
       {ctaSections.length > 0 ? (
         ctaSections.map((section, idx) => renderSection(section, normalSections.length + idx))

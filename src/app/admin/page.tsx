@@ -34,7 +34,7 @@ export default function AdminDashboard() {
   const [isLoading, setIsLoading] = useState(false);
 
   // Tabs
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'services' | 'blogs' | 'settings' | 'about' | 'faqs' | 'marquee'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'services' | 'blogs' | 'settings' | 'about' | 'faqs' | 'marquee' | 'intakes'>('dashboard');
 
   // Dashboard state
   const [dashboardStats, setDashboardStats] = useState<any>(null);
@@ -73,6 +73,10 @@ export default function AdminDashboard() {
   const [editingMarqueeUpdate, setEditingMarqueeUpdate] = useState<any | null>(null);
   const [isCreatingMarqueeUpdate, setIsCreatingMarqueeUpdate] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+
+  // Intake Forms state
+  const [intakes, setIntakes] = useState<any[]>([]);
+  const [selectedIntake, setSelectedIntake] = useState<any | null>(null);
 
   // Toast state
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
@@ -247,6 +251,20 @@ export default function AdminDashboard() {
     }
   }, []);
 
+  const fetchIntakes = useCallback(async (authPass: string) => {
+    try {
+      const res = await fetch('/api/admin/intakes', {
+        headers: { 'Authorization': authPass },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setIntakes(data.intakes || []);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
   const handleSaveMarqueeUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingMarqueeUpdate?.heading || !editingMarqueeUpdate?.content) {
@@ -327,8 +345,9 @@ export default function AdminDashboard() {
     await fetchFaqs(authPass);
     await fetchDashboardStats(authPass);
     await fetchMarqueeUpdates(authPass);
+    await fetchIntakes(authPass);
     setIsLoading(false);
-  }, [fetchServices, fetchBlogs, fetchSettings, fetchAbout, fetchFaqs, fetchDashboardStats, fetchMarqueeUpdates]);
+  }, [fetchServices, fetchBlogs, fetchSettings, fetchAbout, fetchFaqs, fetchDashboardStats, fetchMarqueeUpdates, fetchIntakes]);
 
   // Check saved password on load
   useEffect(() => {
@@ -861,6 +880,29 @@ export default function AdminDashboard() {
             <Icon icon="material-symbols:campaign" width="22" style={{ color: activeTab === 'marquee' ? '#061912' : '#64748b' }} />
             <span>Marquee Updates</span>
           </button>
+
+          <button
+            onClick={() => { setActiveTab('intakes'); setEditingService(null); setEditingBlog(null); }}
+            className="sidebar-nav-item"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '12px 16px',
+              background: activeTab === 'intakes' ? 'rgba(6, 25, 18, 0.06)' : 'transparent',
+              color: activeTab === 'intakes' ? '#061912' : '#475569',
+              border: 'none',
+              borderRadius: '10px',
+              cursor: 'pointer',
+              fontWeight: activeTab === 'intakes' ? 700 : 500,
+              fontSize: '0.94rem',
+              textAlign: 'left',
+              width: '100%'
+            }}
+          >
+            <Icon icon="material-symbols:description" width="22" style={{ color: activeTab === 'intakes' ? '#061912' : '#64748b' }} />
+            <span>Intake Forms</span>
+          </button>
         </nav>
 
         {/* Sidebar Footer Site Settings & Log out */}
@@ -905,10 +947,10 @@ export default function AdminDashboard() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
           <div>
             <h2 style={{ fontSize: '2rem', fontWeight: 800, margin: 0, color: '#0f172a', letterSpacing: '-0.03em' }}>
-              {activeTab === 'dashboard' ? 'Dashboard Overview' : activeTab === 'services' ? 'Legal Page Manager' : activeTab === 'blogs' ? 'Blog Insights Manager' : activeTab === 'about' ? 'About Page Manager' : activeTab === 'faqs' ? 'FAQs Manager' : activeTab === 'marquee' ? 'Marquee Updates Manager' : 'Global Settings Manager'}
+              {activeTab === 'dashboard' ? 'Dashboard Overview' : activeTab === 'services' ? 'Legal Page Manager' : activeTab === 'blogs' ? 'Blog Insights Manager' : activeTab === 'about' ? 'About Page Manager' : activeTab === 'faqs' ? 'FAQs Manager' : activeTab === 'marquee' ? 'Marquee Updates Manager' : activeTab === 'intakes' ? 'Client Intake Forms' : 'Global Settings Manager'}
             </h2>
             <p style={{ fontSize: '0.92rem', color: '#475569', marginTop: '6px', fontWeight: 500 }}>
-              {activeTab === 'dashboard' ? 'Track real-time site activity metrics, consultation click rates and contact submissions' : activeTab === 'services' ? 'Create, update and structure dynamic service subsections' : activeTab === 'blogs' ? 'Draft, edit and publish legal articles' : activeTab === 'about' ? 'Update headlines, our story narrative, and solicitor biography' : activeTab === 'faqs' ? 'Manage frequently asked questions categorized by legal service streams' : activeTab === 'marquee' ? 'Manage information marquee updates, news, and links' : 'Manage office contact info, social links, and consultation variables'}
+              {activeTab === 'dashboard' ? 'Track real-time site activity metrics, consultation click rates and contact submissions' : activeTab === 'services' ? 'Create, update and structure dynamic service subsections' : activeTab === 'blogs' ? 'Draft, edit and publish legal articles' : activeTab === 'about' ? 'Update headlines, our story narrative, and solicitor biography' : activeTab === 'faqs' ? 'Manage frequently asked questions categorized by legal service streams' : activeTab === 'marquee' ? 'Manage information marquee updates, news, and links' : activeTab === 'intakes' ? 'Review submitted client information forms, conflict agreements and ID verifications' : 'Manage office contact info, social links, and consultation variables'}
             </p>
           </div>
         </div>
@@ -2517,6 +2559,261 @@ export default function AdminDashboard() {
                   </button>
                 </div>
               </form>
+            )}
+          </div>
+        )}
+
+        {/* ==================== SECTION: CLIENT INTAKE FORMS ==================== */}
+        {!isLoading && activeTab === 'intakes' && (
+          <div>
+            <div style={{ marginBottom: '28px' }}>
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', color: '#64748b', letterSpacing: '0.5px' }}>Client Intake Data</span>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: '2px 0 0 0', color: '#0f172a' }}>Submitted Intake Forms</h3>
+            </div>
+
+            <div className="dashboard-card" style={{ borderRadius: '16px', overflow: 'hidden', backgroundColor: '#ffffff', border: '1px solid #e2e8f0' }}>
+              {intakes && intakes.length > 0 ? (
+                <div style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+                    <thead>
+                      <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#475569', fontWeight: 700 }}>
+                        <th style={{ padding: '16px 24px' }}>Client Name</th>
+                        <th style={{ padding: '16px 24px' }}>Contact Details</th>
+                        <th style={{ padding: '16px 24px' }}>Other Party</th>
+                        <th style={{ padding: '16px 24px' }}>Separated?</th>
+                        <th style={{ padding: '16px 24px' }}>Advice Sought</th>
+                        <th style={{ padding: '16px 24px' }}>Submitted Date</th>
+                        <th style={{ padding: '16px 24px', textAlign: 'right' }}>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {intakes.map((item: any, idx: number) => (
+                        <tr key={idx} style={{ borderBottom: '1px solid #f1f5f9', verticalAlign: 'middle' }}>
+                          <td style={{ padding: '16px 24px' }}>
+                            <div style={{ fontWeight: 700, color: '#0f172a' }}>
+                              {item.clientName?.first} {item.clientName?.middle ? item.clientName.middle + ' ' : ''}{item.clientName?.last}
+                            </div>
+                            {item.clientName?.other && (
+                              <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px' }}>Alias: {item.clientName.other}</div>
+                            )}
+                          </td>
+                          <td style={{ padding: '16px 24px' }}>
+                            <div style={{ fontWeight: 500, color: '#334155' }}>{item.clientPhone}</div>
+                            <div style={{ fontSize: '0.82rem', color: '#64748b' }}>{item.clientEmail}</div>
+                          </td>
+                          <td style={{ padding: '16px 24px', color: '#475569' }}>
+                            <div style={{ fontWeight: 600 }}>
+                              {item.otherPartyName?.first} {item.otherPartyName?.last}
+                            </div>
+                            {item.otherPartyPhone && <div style={{ fontSize: '0.8rem', color: '#64748b' }}>{item.otherPartyPhone}</div>}
+                          </td>
+                          <td style={{ padding: '16px 24px' }}>
+                            <span style={{
+                              display: 'inline-block',
+                              padding: '4px 8px',
+                              borderRadius: '6px',
+                              fontSize: '0.75rem',
+                              fontWeight: 700,
+                              background: item.isSeparated === 'Yes' ? '#fef2f2' : '#f0fdf4',
+                              color: item.isSeparated === 'Yes' ? '#991b1b' : '#166534'
+                            }}>
+                              {item.isSeparated || 'N/A'}
+                            </span>
+                          </td>
+                          <td style={{ padding: '16px 24px', color: '#334155', fontWeight: 600 }}>
+                            {Array.isArray(item.legalAdviceSought) ? item.legalAdviceSought.join(', ') : item.legalAdviceSought || 'N/A'}
+                          </td>
+                          <td style={{ padding: '16px 24px', fontSize: '0.82rem', color: '#64748b' }}>
+                            {new Date(item.timestamp).toLocaleDateString()}
+                          </td>
+                          <td style={{ padding: '16px 24px', textAlign: 'right' }}>
+                            <button
+                              onClick={() => setSelectedIntake(item)}
+                              className="btn-modern btn-modern-primary"
+                              style={{ padding: '8px 14px', fontSize: '0.8rem', cursor: 'pointer' }}
+                            >
+                              View Details
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div style={{ padding: '60px 20px', textAlign: 'center', color: '#64748b' }}>
+                  <Icon icon="material-symbols:inbox" width="36" style={{ marginBottom: '8px', color: '#94a3b8' }} />
+                  <p style={{ margin: 0 }}>No client intake forms submitted yet.</p>
+                </div>
+              )}
+            </div>
+
+            {/* DETAIL MODAL OVERLAY */}
+            {selectedIntake && (
+              <div style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10000,
+                padding: '20px'
+              }}>
+                <div style={{
+                  backgroundColor: '#ffffff',
+                  borderRadius: '16px',
+                  width: '100%',
+                  maxWidth: '750px',
+                  maxHeight: '90vh',
+                  overflowY: 'auto',
+                  boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}>
+                  {/* Modal Header */}
+                  <div style={{ padding: '24px', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f8fafc', borderTopLeftRadius: '16px', borderTopRightRadius: '16px' }}>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: '#0f172a' }}>
+                      Intake Form: {selectedIntake.clientName?.first} {selectedIntake.clientName?.last}
+                    </h3>
+                    <button
+                      onClick={() => setSelectedIntake(null)}
+                      style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1.25rem', color: '#64748b', fontWeight: 'bold' }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  {/* Modal Content */}
+                  <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    
+                    {/* SECTION 1: Client Information */}
+                    <div>
+                      <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f172a', borderBottom: '1px solid #e2e8f0', paddingBottom: '6px', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        Client Information
+                      </h4>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '0.9rem' }}>
+                        <div><strong>Full Name:</strong> {selectedIntake.clientName?.first} {selectedIntake.clientName?.middle} {selectedIntake.clientName?.last}</div>
+                        {selectedIntake.clientName?.other && <div><strong>Other Name:</strong> {selectedIntake.clientName.other}</div>}
+                        <div><strong>DOB:</strong> {selectedIntake.clientDob?.day}/{selectedIntake.clientDob?.month}/{selectedIntake.clientDob?.year}</div>
+                        <div><strong>Gender:</strong> {selectedIntake.clientGender}</div>
+                        <div><strong>Phone:</strong> {selectedIntake.clientPhone}</div>
+                        <div><strong>Email:</strong> {selectedIntake.clientEmail}</div>
+                        <div style={{ gridColumn: 'span 2' }}>
+                          <strong>Address:</strong> {selectedIntake.clientAddress?.street}, {selectedIntake.clientAddress?.street2 ? selectedIntake.clientAddress.street2 + ', ' : ''} {selectedIntake.clientAddress?.suburb}, {selectedIntake.clientAddress?.state} {selectedIntake.clientAddress?.postcode}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SECTION 2: Other Party Information */}
+                    <div>
+                      <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f172a', borderBottom: '1px solid #e2e8f0', paddingBottom: '6px', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        Other Party's Information
+                      </h4>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '0.9rem' }}>
+                        <div><strong>Full Name:</strong> {selectedIntake.otherPartyName?.first} {selectedIntake.otherPartyName?.middle} {selectedIntake.otherPartyName?.last}</div>
+                        {selectedIntake.otherPartyName?.other && <div><strong>Other Name:</strong> {selectedIntake.otherPartyName.other}</div>}
+                        <div><strong>DOB:</strong> {selectedIntake.otherPartyDob?.day}/{selectedIntake.otherPartyDob?.month}/{selectedIntake.otherPartyDob?.year}</div>
+                        <div><strong>Gender:</strong> {selectedIntake.otherPartyGender}</div>
+                        <div><strong>Phone:</strong> {selectedIntake.otherPartyPhone || 'N/A'}</div>
+                        <div><strong>Email:</strong> {selectedIntake.otherPartyEmail || 'N/A'}</div>
+                        <div style={{ gridColumn: 'span 2' }}>
+                          <strong>Address:</strong> {selectedIntake.otherPartyAddress?.street}, {selectedIntake.otherPartyAddress?.street2 ? selectedIntake.otherPartyAddress.street2 + ', ' : ''} {selectedIntake.otherPartyAddress?.suburb}, {selectedIntake.otherPartyAddress?.state} {selectedIntake.otherPartyAddress?.postcode}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SECTION 3: Relationship Information */}
+                    <div>
+                      <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f172a', borderBottom: '1px solid #e2e8f0', paddingBottom: '6px', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        Relationship Information
+                      </h4>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '0.9rem' }}>
+                        <div><strong>Commencement Date:</strong> {selectedIntake.relationshipCommencement ? new Date(selectedIntake.relationshipCommencement).toLocaleDateString() : 'N/A'}</div>
+                        <div><strong>Date of Marriage:</strong> {selectedIntake.dateOfMarriage ? new Date(selectedIntake.dateOfMarriage).toLocaleDateString() : 'N/A'}</div>
+                        <div><strong>Separated?</strong> {selectedIntake.isSeparated}</div>
+                        {selectedIntake.isSeparated === 'Yes' && (
+                          <div><strong>Date of Separation:</strong> {selectedIntake.dateOfSeparation ? new Date(selectedIntake.dateOfSeparation).toLocaleDateString() : 'N/A'}</div>
+                        )}
+                        <div><strong>Date of Divorce:</strong> {selectedIntake.dateOfDivorce ? new Date(selectedIntake.dateOfDivorce).toLocaleDateString() : 'N/A'}</div>
+                      </div>
+                    </div>
+
+                    {/* SECTION 4: Children's Information */}
+                    <div>
+                      <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f172a', borderBottom: '1px solid #e2e8f0', paddingBottom: '6px', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        Children Details
+                      </h4>
+                      {selectedIntake.children && selectedIntake.children.length > 0 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.9rem' }}>
+                          {selectedIntake.children.map((child: any, cIdx: number) => (
+                            <div key={cIdx} style={{ padding: '8px 12px', background: '#f8fafc', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
+                              <strong>Child {cIdx + 1}:</strong> {child.name} {child.dob ? `(DOB: ${new Date(child.dob).toLocaleDateString()})` : ''}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p style={{ margin: 0, fontSize: '0.9rem', color: '#64748b' }}>No children recorded.</p>
+                      )}
+                    </div>
+
+                    {/* SECTION 5: Seeked Advice & Referral */}
+                    <div>
+                      <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f172a', borderBottom: '1px solid #e2e8f0', paddingBottom: '6px', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        Advice & Marketing Source
+                      </h4>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '0.9rem', marginBottom: '12px' }}>
+                        <div><strong>Legal Advice Sought:</strong> {Array.isArray(selectedIntake.legalAdviceSought) ? selectedIntake.legalAdviceSought.join(', ') : selectedIntake.legalAdviceSought}</div>
+                        <div><strong>Referral Source:</strong> {selectedIntake.referralSource || 'N/A'}</div>
+                      </div>
+                      {selectedIntake.additionalInfo && (
+                        <div style={{ fontSize: '0.9rem' }}>
+                          <strong>Additional Information:</strong>
+                          <p style={{ margin: '4px 0 0 0', padding: '12px', background: '#f8fafc', borderRadius: '6px', border: '1px solid #e2e8f0', lineHeight: 1.5 }}>
+                            {selectedIntake.additionalInfo}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* SECTION 6: Identity Verification File Link */}
+                    <div>
+                      <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f172a', borderBottom: '1px solid #e2e8f0', paddingBottom: '6px', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        Identity Verification Document
+                      </h4>
+                      {selectedIntake.identityUrl ? (
+                        <a
+                          href={selectedIntake.identityUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-modern btn-modern-primary"
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 16px', textDecoration: 'none', fontSize: '0.85rem' }}
+                        >
+                          <Icon icon="material-symbols:open-in-new" width="18" />
+                          <span>Open Verification Document</span>
+                        </a>
+                      ) : (
+                        <p style={{ margin: 0, fontSize: '0.9rem', color: '#ef4444', fontWeight: 600 }}>No verification document uploaded.</p>
+                      )}
+                    </div>
+
+                  </div>
+
+                  {/* Modal Footer */}
+                  <div style={{ padding: '16px 24px', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'flex-end', backgroundColor: '#f8fafc', borderBottomLeftRadius: '16px', borderBottomRightRadius: '16px' }}>
+                    <button
+                      onClick={() => setSelectedIntake(null)}
+                      className="btn-modern btn-modern-secondary"
+                      style={{ padding: '10px 20px', fontSize: '0.9rem', cursor: 'pointer' }}
+                    >
+                      Close Details
+                    </button>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         )}

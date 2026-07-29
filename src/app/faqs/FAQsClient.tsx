@@ -22,7 +22,7 @@ const mainContentStyle: React.CSSProperties = {
 
 const headerSectionStyle: React.CSSProperties = {
   padding: '160px 0 40px 0',
-  textAlign: 'center',
+  textAlign: 'left',
   position: 'relative',
 };
 
@@ -39,7 +39,7 @@ const subtitleStyle: React.CSSProperties = {
   fontSize: '1.15rem',
   color: 'var(--clr-text-muted)',
   maxWidth: '720px',
-  margin: '0 auto',
+  margin: '0',
   lineHeight: 1.6,
 };
 

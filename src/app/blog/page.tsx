@@ -157,7 +157,7 @@ const mainContentStyle: React.CSSProperties = {
 
 const headerSectionStyle: React.CSSProperties = {
   padding: '160px 0 60px 0',
-  textAlign: 'center',
+  textAlign: 'left',
   background: 'linear-gradient(180deg, #04120d 0%, #061912 100%)',
 };
 
@@ -174,7 +174,7 @@ const subtitleStyle: React.CSSProperties = {
   fontSize: '1.15rem',
   color: 'var(--clr-text-muted)',
   maxWidth: '720px',
-  margin: '0 auto',
+  margin: '0',
   lineHeight: 1.6,
 };
 

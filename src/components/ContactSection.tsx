@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import StarBorder from './ui/StarBorder';
 import RevealingPhone from './RevealingPhone';
+import { Icon } from '@iconify/react';
 
 export default function ContactSection() {
   const [form, setForm] = useState({
@@ -106,15 +107,13 @@ export default function ContactSection() {
       <div className="container">
         {/* Top Header Row (2 Columns) */}
         <div className="contact-header-grid" style={{ alignItems: 'flex-start' }}>
-          <div className="contact-header-left reveal-on-scroll reveal-fade-up">
+          <div className="contact-header-left reveal-on-scroll reveal-fade-up" style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start' }}>
             <span className="contact-badge">CONTACT</span>
-            <h2 className="contact-title" style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', color: '#061912', fontWeight: 400 }}>
+            <h2 className="contact-title" style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', color: '#061912', fontWeight: 400, margin: 0 }}>
               Ready to Discuss Your Matter?
             </h2>
-          </div>
-          <div className="contact-header-right reveal-on-scroll reveal-fade-up delay-100" style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start', textAlign: 'left' }}>
-            <p style={{ fontSize: '0.98rem', lineHeight: '1.65', color: 'rgba(6, 25, 18, 0.75)', margin: 0 }}>
-              Whether you're applying for a visa, responding to a visa refusal, navigating separation or divorce, or simply looking for clear legal guidance, we're here to help. Book a fixed-fee initial consultation and speak directly with a solicitor about your circumstances and the options available to you.
+            <p style={{ fontSize: '0.98rem', lineHeight: '1.65', color: 'rgba(6, 25, 18, 0.75)', margin: 0, maxWidth: '580px' }}>
+              Book a fixed-fee initial consultation to speak directly with a solicitor about your circumstances and understand the options available to you. We assist clients across Australia and internationally.
             </p>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '8px' }}>
               <a href="#contact-form-anchor" className="btn-dark-green" onClick={handleScrollToForm}>
@@ -123,6 +122,37 @@ export default function ContactSection() {
               <a href="https://wa.me/61402402120" target="_blank" rel="noopener noreferrer" className="btn-outline-dark">
                 <span>Speak with a Solicitor</span>
               </a>
+            </div>
+          </div>
+          <div className="contact-header-right reveal-on-scroll reveal-fade-up delay-100" style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', maxWidth: '380px', padding: '24px', background: 'rgba(223, 173, 62, 0.04)', borderRadius: '16px', border: '1px solid rgba(223, 173, 62, 0.15)', marginTop: '8px' }}>
+            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', color: '#061912', fontWeight: 600, margin: 0, letterSpacing: '0.5px' }}>
+              Our Office
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              <div>
+                <h4 style={{ margin: 0, fontSize: '0.9rem', fontWeight: 700, color: '#061912', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Icon icon="lucide:map-pin" style={{ color: '#dfad3e', fontSize: '1.05rem' }} /> Sydney-Based
+                </h4>
+                <p style={{ margin: '4px 0 0 26px', fontSize: '0.84rem', color: 'rgba(6, 25, 18, 0.7)', lineHeight: '1.45' }}>
+                  Serving clients nationwide with custom legal representation.
+                </p>
+              </div>
+              <div>
+                <h4 style={{ margin: 0, fontSize: '0.9rem', fontWeight: 700, color: '#061912', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Icon icon="lucide:phone" style={{ color: '#dfad3e', fontSize: '1.05rem' }} /> Australia-Wide
+                </h4>
+                <p style={{ margin: '4px 0 0 26px', fontSize: '0.84rem', color: 'rgba(6, 25, 18, 0.7)', lineHeight: '1.45' }}>
+                  Specialising in Immigration Law & Family Law cases.
+                </p>
+              </div>
+              <div>
+                <h4 style={{ margin: 0, fontSize: '0.9rem', fontWeight: 700, color: '#061912', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Icon icon="lucide:laptop" style={{ color: '#dfad3e', fontSize: '1.05rem' }} /> Flexible Consultations
+                </h4>
+                <p style={{ margin: '4px 0 0 26px', fontSize: '0.84rem', color: 'rgba(6, 25, 18, 0.7)', lineHeight: '1.45' }}>
+                  Available via Telephone, Video Conference, or In-Person.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -135,7 +165,7 @@ export default function ContactSection() {
           {/* Details (Left) */}
           <div className="contact-info-col reveal-on-scroll reveal-fade-up">
             <h3 className="contact-info-title">Contact</h3>
-            <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', color: '#ffffff', fontWeight: 400, margin: '8px 0 16px 0' }}>
+            <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', color: '#061912', fontWeight: 400, margin: '8px 0 16px 0' }}>
               Let's Start the Conversation
             </h4>
             <p className="contact-info-desc" style={{ marginBottom: '16px' }}>
@@ -147,7 +177,7 @@ export default function ContactSection() {
             <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
                 <span className="whatsapp-label" style={{ display: 'block', marginBottom: '8px' }}>Phone Consultation</span>
-                <div style={{ display: 'inline-flex', alignItems: 'center', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', padding: '12px 20px', borderRadius: '6px', fontSize: '1.05rem' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', background: 'rgba(6, 25, 18, 0.03)', border: '1px solid rgba(6, 25, 18, 0.1)', padding: '12px 20px', borderRadius: '6px', fontSize: '1.05rem' }}>
                   <span style={{ marginRight: '8px' }}>📞</span>
                   <RevealingPhone goldText={true} />
                 </div>
@@ -155,7 +185,7 @@ export default function ContactSection() {
 
               <div className="contact-whatsapp-box" style={{ marginTop: '0px' }}>
                 <span className="whatsapp-label">Chat on WhatsApp</span>
-                <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)', margin: '0 0 12px 0', lineHeight: '1.4' }}>
+                <p style={{ fontSize: '0.85rem', color: 'rgba(6, 25, 18, 0.7)', margin: '0 0 12px 0', lineHeight: '1.4' }}>
                   Chat with us instantly on WhatsApp if you have a general question before requesting a consultation.
                 </p>
                 <StarBorder
@@ -303,7 +333,7 @@ export default function ContactSection() {
                       className="form-checkbox"
                     />
                     <label htmlFor="form-confirm" className="checkbox-label">
-                      I confirm the information provided is accurate.
+                      I confirm that the information I have provided is true and accurate to the best of my knowledge and I request an initial consultation.
                     </label>
                   </div>
 
@@ -318,7 +348,7 @@ export default function ContactSection() {
                       style={{ marginTop: '3px' }}
                     />
                     <label htmlFor="form-agree-terms" className="checkbox-label" style={{ lineHeight: '1.4' }}>
-                      I confirm that I have read, understood and agree to the <Link href="/consultation-terms" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Initial Consultation Terms and Conditions</Link>, <Link href="/privacy-policy" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Privacy Policy</Link> and <Link href="/terms-of-use" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Terms of Use</Link>.
+                      I confirm that I have read, understood, and agree to the <Link href="/consultation-terms" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Initial Consultation Terms and Conditions</Link>, <Link href="/privacy-policy" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Privacy Policy</Link>, and <Link href="/terms-of-use" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>Terms of Use</Link>.
                     </label>
                   </div>
 

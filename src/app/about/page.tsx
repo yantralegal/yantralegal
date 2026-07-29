@@ -76,7 +76,7 @@ export default async function AboutPage() {
 
         {/* 3. Our Story Section & Timeline Layout */}
         <section style={storySectionStyle}>
-          <div className="container" style={{ maxWidth: '800px', textAlign: 'center', marginBottom: '40px' }}>
+          <div className="container" style={{ maxWidth: '800px', textAlign: 'left', marginBottom: '40px' }}>
             <span className="sec-pill" style={{ marginBottom: '16px', display: 'inline-block' }}>{storyPill}</span>
             <h2 style={storyTitleStyle}>{storyTitle}</h2>
             {storyParagraphs.map((para: string, idx: number) => (
@@ -87,7 +87,7 @@ export default async function AboutPage() {
           </div>
 
           <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <div style={{ textAlign: 'left', marginBottom: '24px' }}>
               <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', color: 'var(--clr-yellow)', fontWeight: 400 }}>
                 {storyTitle}
               </h3>
@@ -349,7 +349,7 @@ const breadcrumbsContainerStyle: React.CSSProperties = {
 
 const headerSectionStyle: React.CSSProperties = {
   padding: '30px 0 50px 0',
-  textAlign: 'center',
+  textAlign: 'left',
 };
 
 const titleStyle: React.CSSProperties = {
@@ -365,7 +365,7 @@ const subtitleStyle: React.CSSProperties = {
   fontSize: '1.15rem',
   color: 'var(--clr-text-muted)',
   maxWidth: '720px',
-  margin: '0 auto',
+  margin: '0',
   lineHeight: 1.6,
 };
 

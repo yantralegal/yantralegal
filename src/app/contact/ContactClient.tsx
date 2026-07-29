@@ -129,15 +129,15 @@ export default function ContactClient() {
       <main style={mainContentStyle}>
         {/* Header Section */}
         <section style={headerSectionStyle}>
-          <div className="container">
-            <span className="sec-pill">Get in Touch</span>
+          <div className="container" style={{ textAlign: 'left' }}>
+            <span className="sec-pill" style={{ display: 'inline-block', marginBottom: '16px' }}>Get in Touch</span>
             <h1 style={titleStyle}>
               Start Your <span className="text-gradient-gold">Consultation</span>
             </h1>
-            <p style={{ ...subtitleStyle, textAlign: 'justify', marginBottom: '16px' }}>
+            <p style={{ ...subtitleStyle, marginBottom: '16px' }}>
               If you require assistance with an Australian immigration or family law matter, we're here to help. Most clients begin with a confidential telephone or video consultation, with in-person meetings available by appointment where appropriate.
             </p>
-            <p style={{ ...subtitleStyle, textAlign: 'justify' }}>
+            <p style={subtitleStyle}>
               The first step is to book a confidential initial consultation with our solicitor to discuss your circumstances, understand your legal options, and determine the most appropriate pathway forward.
             </p>
           </div>
@@ -463,7 +463,7 @@ export default function ContactClient() {
           </div>
         </section>
 
-        {/* A Boutique Law Firm Focused on Complex Matters Section */}
+        {/* A Boutique Law Firm Focused on Complex Matters Section
         <section style={{ padding: '40px 0 80px 0' }}>
           <div className="container" style={{ maxWidth: '960px' }}>
             <div className="glass" style={{ ...cardStyle, padding: '40px', borderRadius: '16px', border: '1px solid rgba(223, 173, 62, 0.25)', background: 'rgba(11, 43, 32, 0.25)' }}>
@@ -479,6 +479,7 @@ export default function ContactClient() {
             </div>
           </div>
         </section>
+        */}
       </main>
 
       <Footer />
@@ -525,7 +526,7 @@ const mainContentStyle: React.CSSProperties = {
 
 const headerSectionStyle: React.CSSProperties = {
   padding: '160px 0 60px 0',
-  textAlign: 'center',
+  textAlign: 'left',
   background: 'linear-gradient(180deg, #04120d 0%, #061912 100%)',
 };
 
@@ -542,7 +543,7 @@ const subtitleStyle: React.CSSProperties = {
   fontSize: '1.15rem',
   color: 'var(--clr-text-muted)',
   maxWidth: '720px',
-  margin: '0 auto',
+  margin: '0',
   lineHeight: 1.6,
 };
 
