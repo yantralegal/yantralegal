@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { connectToDatabase } from '@/lib/db';
-
+import { CACHE_TAGS } from '@/lib/dataFetcher';
 import { isAuthorized } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
@@ -51,9 +52,11 @@ export async function POST(request: NextRequest) {
 
     if (existing) {
       await db.collection('blog_posts').updateOne({ slug }, { $set: postData });
+      revalidateTag(CACHE_TAGS.blogPosts, 'max');
       return Response.json({ success: true, message: 'Blog post updated successfully' });
     } else {
       await db.collection('blog_posts').insertOne(postData);
+      revalidateTag(CACHE_TAGS.blogPosts, 'max');
       return Response.json({ success: true, message: 'Blog post created successfully' });
     }
   } catch (error: any) {
@@ -82,6 +85,7 @@ export async function DELETE(request: NextRequest) {
       return Response.json({ error: 'Blog post not found' }, { status: 404 });
     }
 
+    revalidateTag(CACHE_TAGS.blogPosts, 'max');
     return Response.json({ success: true, message: 'Blog post deleted successfully' });
   } catch (error: any) {
     console.error('Admin blogs DELETE error:', error);

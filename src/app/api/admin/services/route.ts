@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { connectToDatabase } from '@/lib/db';
-
+import { CACHE_TAGS } from '@/lib/dataFetcher';
 import { isAuthorized } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
@@ -44,6 +45,7 @@ export async function POST(request: NextRequest) {
         { url },
         { $set: { pageNum: Number(pageNum || existing.pageNum || 99), title, sections } }
       );
+      revalidateTag(CACHE_TAGS.legalPages, 'max');
       return Response.json({ success: true, message: 'Page updated successfully' });
     } else {
       // Insert new
@@ -54,6 +56,7 @@ export async function POST(request: NextRequest) {
         url,
         sections
       });
+      revalidateTag(CACHE_TAGS.legalPages, 'max');
       return Response.json({ success: true, message: 'Page created successfully' });
     }
   } catch (error: any) {
@@ -82,6 +85,7 @@ export async function DELETE(request: NextRequest) {
       return Response.json({ error: 'Page not found' }, { status: 404 });
     }
 
+    revalidateTag(CACHE_TAGS.legalPages, 'max');
     return Response.json({ success: true, message: 'Page deleted successfully' });
   } catch (error: any) {
     console.error('Admin services DELETE error:', error);

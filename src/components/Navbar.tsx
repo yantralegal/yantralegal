@@ -187,7 +187,7 @@ export default function Navbar() {
           <div style={{ width: '300px', height: '60px', position: 'relative', display: 'flex', alignItems: 'center' }}>
             <Image
               src="/Yantralegalnewlogo.png"
-              alt="Yantra Legal Logo"
+              alt="Yantra Legal - Migration & Family Law Practice Sydney"
               width={300}
               height={110}
               priority

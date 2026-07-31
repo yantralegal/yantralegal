@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { connectToDatabase } from '@/lib/db';
-
+import { CACHE_TAGS } from '@/lib/dataFetcher';
 import { isAuthorized } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
@@ -58,6 +59,7 @@ export async function POST(request: NextRequest) {
         { key },
         { $set: { label, value, category: category || 'General' } }
       );
+      revalidateTag(CACHE_TAGS.settings, 'max');
       return Response.json({ success: true, message: 'Setting updated successfully' });
     } else {
       await db.collection('site_settings').insertOne({
@@ -66,6 +68,7 @@ export async function POST(request: NextRequest) {
         value,
         category: category || 'General'
       });
+      revalidateTag(CACHE_TAGS.settings, 'max');
       return Response.json({ success: true, message: 'Setting created successfully' });
     }
   } catch (error: any) {
@@ -94,6 +97,7 @@ export async function DELETE(request: NextRequest) {
       return Response.json({ error: 'Setting not found' }, { status: 404 });
     }
 
+    revalidateTag(CACHE_TAGS.settings, 'max');
     return Response.json({ success: true, message: 'Setting deleted successfully' });
   } catch (error: any) {
     console.error('Admin settings DELETE error:', error);

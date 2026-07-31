@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { connectToDatabase } from '@/lib/db';
-
+import { CACHE_TAGS } from '@/lib/dataFetcher';
 import { isAuthorized } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
@@ -98,6 +99,7 @@ export async function POST(request: NextRequest) {
       { upsert: true }
     );
 
+    revalidateTag(CACHE_TAGS.about, 'max');
     return Response.json({ success: true, message: 'About page updated successfully' });
   } catch (error: any) {
     console.error('Admin about POST error:', error);

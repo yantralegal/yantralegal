@@ -69,9 +69,34 @@ export async function generateMetadata({ params }: { params: Params }) {
     };
   }
 
+  const canonical = `/blog/${slug}`;
+  const parsedDate = new Date(post.date);
+  const publishedTime = isNaN(parsedDate.getTime())
+    ? undefined
+    : parsedDate.toISOString();
+
   return {
     title: `${post.title} | Yantra Legal Blog`,
     description: post.excerpt,
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.excerpt,
+      url: canonical,
+      siteName: 'Yantra Legal',
+      locale: 'en_AU',
+      publishedTime,
+      images: post.thumbnail ? [{ url: post.thumbnail }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: post.thumbnail ? [post.thumbnail] : undefined,
+    },
   };
 }
 
@@ -83,8 +108,45 @@ export default async function BlogPostPage({ params }: { params: Params }) {
     notFound();
   }
 
+  const baseUrl = 'https://www.yantralegal.com.au';
+  const parsedDate = new Date(post.date);
+  const blogSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    image: post.thumbnail
+      ? [post.thumbnail.startsWith('http') ? post.thumbnail : `${baseUrl}${post.thumbnail}`]
+      : undefined,
+    datePublished: isNaN(parsedDate.getTime()) ? undefined : parsedDate.toISOString(),
+    articleSection: post.category,
+    inLanguage: 'en-AU',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${baseUrl}/blog/${slug}`,
+    },
+    author: {
+      '@type': 'Person',
+      name: 'Krishna Giri',
+      jobTitle: 'Principal Solicitor',
+      url: `${baseUrl}/about`,
+    },
+    publisher: {
+      '@type': 'LegalService',
+      name: 'Yantra Legal',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/Yantralegalnewlogo.png`,
+      },
+    },
+  };
+
   return (
     <div style={layoutStyle}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
       <Navbar />
 
       <main style={mainContentStyle}>

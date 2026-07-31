@@ -5,6 +5,9 @@ import ContactClient from './ContactClient';
 export const metadata: Metadata = {
   title: 'Contact | Yantra Legal',
   description: 'Book a fixed-fee consultation with Krishna Giri — migration and divorce law advice in Sydney and across Australia. In person, Zoom, or phone.',
+  alternates: {
+    canonical: '/contact',
+  },
 };
 
 export default function ContactPage() {

@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { connectToDatabase } from '@/lib/db';
-
+import { CACHE_TAGS } from '@/lib/dataFetcher';
 import { isAuthorized } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
@@ -56,6 +57,7 @@ export async function POST(request: NextRequest) {
       await db.collection('faqs').insertMany(body);
     }
 
+    revalidateTag(CACHE_TAGS.faqs, 'max');
     return Response.json({ success: true, message: 'FAQs updated successfully' });
   } catch (error: any) {
     console.error('Admin faqs POST error:', error);

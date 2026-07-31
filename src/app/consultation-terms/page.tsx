@@ -6,6 +6,9 @@ import RevealingPhone from '../../components/RevealingPhone';
 export const metadata = {
   title: 'Initial Consultation Terms and Conditions | Yantra Legal',
   description: 'Initial Consultation Terms and Conditions for Yantra Legal.',
+  alternates: {
+    canonical: '/consultation-terms',
+  },
 };
 
 export default function ConsultationTermsPage() {

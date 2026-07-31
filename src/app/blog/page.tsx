@@ -8,6 +8,9 @@ import { getBlogPosts } from '../../lib/dataFetcher';
 export const metadata: Metadata = {
   title: 'Blog & Insights | Yantra Legal',
   description: 'Stay updated with legal guides, visa application tips, and commentary on Australian migration and family law changes from Yantra Legal.',
+  alternates: {
+    canonical: '/blog',
+  },
 };
 
 export const dynamic = 'force-dynamic';

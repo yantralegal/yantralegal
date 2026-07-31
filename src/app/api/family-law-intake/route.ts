@@ -63,6 +63,8 @@ export async function POST(request: NextRequest) {
       },
       clientPhone: formData.get('clientPhone') || '',
       clientEmail: formData.get('clientEmail') || '',
+      clientLivingInAustraliaSince: formData.get('clientLivingInAustraliaSince') || '',
+      clientOccupation: formData.get('clientOccupation') || '',
 
       // Other Party Info
       otherPartyName: {
@@ -86,6 +88,8 @@ export async function POST(request: NextRequest) {
       },
       otherPartyPhone: formData.get('otherPartyPhone') || '',
       otherPartyEmail: formData.get('otherPartyEmail') || '',
+      otherPartyLivingInAustraliaSince: formData.get('otherPartyLivingInAustraliaSince') || '',
+      otherPartyOccupation: formData.get('otherPartyOccupation') || '',
 
       // Children Info
       children: [
@@ -108,6 +112,7 @@ export async function POST(request: NextRequest) {
       ].filter(child => child.name || child.dob),
 
       // Relationship Info
+      applicationType: formData.get('applicationType') || '',
       relationshipCommencement: formData.get('relationshipCommencement') || '',
       dateOfMarriage: formData.get('dateOfMarriage') || '',
       isSeparated: formData.get('isSeparated') || '',

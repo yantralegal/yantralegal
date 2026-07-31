@@ -34,6 +34,8 @@ export default function FamilyLawIntakePage() {
     clientPostcode: '',
     clientPhone: '',
     clientEmail: '',
+    clientLivingInAustraliaSince: '',
+    clientOccupation: '',
 
     // Other Party Info
     otherPartyFirst: '',
@@ -51,6 +53,8 @@ export default function FamilyLawIntakePage() {
     otherPartyPostcode: '',
     otherPartyPhone: '',
     otherPartyEmail: '',
+    otherPartyLivingInAustraliaSince: '',
+    otherPartyOccupation: '',
 
     // Children
     child1_name: '',
@@ -63,6 +67,7 @@ export default function FamilyLawIntakePage() {
     child4_dob: '',
 
     // Relationship
+    applicationType: '',
     relationshipCommencement: '',
     dateOfMarriage: '',
     isSeparated: '',
@@ -146,15 +151,18 @@ export default function FamilyLawIntakePage() {
         setValidationError('Please select whether you are separated.');
         return false;
       }
+      if (!form.applicationType) {
+        setValidationError('Please select an Application Type (Sole or Joint).');
+        return false;
+      }
     }
     return true;
   };
 
   const handleNext = () => {
-    if (validateStep()) {
-      setStep((s) => s + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    setValidationError('');
+    setStep((s) => s + 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBack = () => {
@@ -163,9 +171,50 @@ export default function FamilyLawIntakePage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const validateAllSteps = () => {
+    setValidationError('');
+    // Client Info
+    if (!form.clientFirst.trim() || !form.clientLast.trim()) {
+      setValidationError('Please enter Client First Name and Last Name.');
+      return false;
+    }
+    if (!form.clientPhone.trim()) {
+      setValidationError('Please enter Client Mobile Number.');
+      return false;
+    }
+    if (!form.clientEmail.trim()) {
+      setValidationError('Please enter Client Email Address.');
+      return false;
+    }
+    // Other Party Info
+    if (!form.otherPartyFirst.trim() || !form.otherPartyLast.trim()) {
+      setValidationError("Please enter Other Party's First Name and Last Name.");
+      return false;
+    }
+    // Relationship
+    if (!form.relationshipCommencement) {
+      setValidationError('Relationship Commencement Date is required.');
+      return false;
+    }
+    if (!form.isSeparated) {
+      setValidationError('Please select whether you are separated.');
+      return false;
+    }
+    if (!form.applicationType) {
+      setValidationError('Please select an Application Type (Sole or Joint).');
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError('');
+
+    if (!validateAllSteps()) {
+      return;
+    }
+
     if (!form.agreedToTerms) {
       setValidationError('You must agree to the Terms & Conditions before submitting.');
       return;
@@ -198,6 +247,8 @@ export default function FamilyLawIntakePage() {
       formData.append('clientAddress_postcode', form.clientPostcode);
       formData.append('clientPhone', form.clientPhone);
       formData.append('clientEmail', form.clientEmail);
+      formData.append('clientLivingInAustraliaSince', form.clientLivingInAustraliaSince);
+      formData.append('clientOccupation', form.clientOccupation);
 
       // Other Party Info
       formData.append('otherPartyName_first', form.otherPartyFirst);
@@ -215,6 +266,8 @@ export default function FamilyLawIntakePage() {
       formData.append('otherPartyAddress_postcode', form.otherPartyPostcode);
       formData.append('otherPartyPhone', form.otherPartyPhone);
       formData.append('otherPartyEmail', form.otherPartyEmail);
+      formData.append('otherPartyLivingInAustraliaSince', form.otherPartyLivingInAustraliaSince);
+      formData.append('otherPartyOccupation', form.otherPartyOccupation);
 
       // Children
       formData.append('child1_name', form.child1_name);
@@ -227,6 +280,7 @@ export default function FamilyLawIntakePage() {
       formData.append('child4_dob', form.child4_dob);
 
       // Relationship
+      formData.append('applicationType', form.applicationType);
       formData.append('relationshipCommencement', form.relationshipCommencement);
       formData.append('dateOfMarriage', form.dateOfMarriage);
       formData.append('isSeparated', form.isSeparated);
@@ -314,7 +368,15 @@ export default function FamilyLawIntakePage() {
                   { num: 4, label: 'Relationship' },
                   { num: 5, label: 'Legal & ID' }
                 ].map((s) => (
-                  <div key={s.num} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, opacity: step === s.num ? 1 : 0.4 }}>
+                  <div
+                    key={s.num}
+                    onClick={() => {
+                      setValidationError('');
+                      setStep(s.num);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, opacity: step === s.num ? 1 : 0.4, cursor: 'pointer' }}
+                  >
                     <div style={{
                       width: '28px',
                       height: '28px',
@@ -441,6 +503,17 @@ export default function FamilyLawIntakePage() {
                         <input type="email" name="clientEmail" value={form.clientEmail} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} required />
                       </div>
                     </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                      <div className="form-group">
+                        <label className="form-label-static">Living in Australia Since</label>
+                        <input type="text" placeholder="DD/MM/YYYY" name="clientLivingInAustraliaSince" value={form.clientLivingInAustraliaSince} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label-static">Occupation</label>
+                        <input type="text" name="clientOccupation" value={form.clientOccupation} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                      </div>
+                    </div>
                   </div>
                 )}
 
@@ -528,6 +601,17 @@ export default function FamilyLawIntakePage() {
                         <input type="email" name="otherPartyEmail" value={form.otherPartyEmail} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
                       </div>
                     </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                      <div className="form-group">
+                        <label className="form-label-static">Living in Australia Since</label>
+                        <input type="text" placeholder="DD/MM/YYYY" name="otherPartyLivingInAustraliaSince" value={form.otherPartyLivingInAustraliaSince} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label-static">Occupation</label>
+                        <input type="text" name="otherPartyOccupation" value={form.otherPartyOccupation} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                      </div>
+                    </div>
                   </div>
                 )}
 
@@ -610,6 +694,21 @@ export default function FamilyLawIntakePage() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
                       <div className="form-group">
+                        <label className="form-label-static">Application Type <span style={{ color: '#ef4444' }}>*</span></label>
+                        <select name="applicationType" value={form.applicationType} onChange={handleInputChange} className="form-select" required>
+                          <option value=""></option>
+                          <option value="Sole">Sole</option>
+                          <option value="Joint">Joint</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label-static">Date of Separation</label>
+                        <input type="date" name="dateOfSeparation" value={form.dateOfSeparation} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                      <div className="form-group">
                         <label className="form-label-static">Commencement of Relationship <span style={{ color: '#ef4444' }}>*</span></label>
                         <input type="date" name="relationshipCommencement" value={form.relationshipCommencement} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} required />
                       </div>
@@ -629,17 +728,6 @@ export default function FamilyLawIntakePage() {
                           <option value="N/A">N/A</option>
                         </select>
                       </div>
-                      {form.isSeparated === 'Yes' && (
-                        <div className="form-group">
-                          <label className="form-label-static">Date of Separation</label>
-                          <input type="date" name="dateOfSeparation" value={form.dateOfSeparation} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="form-group" style={{ marginBottom: '24px', maxWidth: '380px' }}>
-                      <label className="form-label-static">Date of Divorce</label>
-                      <input type="date" name="dateOfDivorce" value={form.dateOfDivorce} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
                     </div>
 
                     {/* Warning callout */}

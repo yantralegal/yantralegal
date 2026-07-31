@@ -7,6 +7,7 @@ import ConsultationModal from '../components/ConsultationModal';
 import ScrollToTop from '../components/ScrollToTop';
 import { headers } from 'next/headers';
 import { getSiteSettings } from '../lib/dataFetcher';
+import { testimonialsData } from '../data/testimonials';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -88,9 +89,12 @@ export default async function RootLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
+    '@id': 'https://www.yantralegal.com.au/#legalservice',
     'name': 'Yantra Legal',
-    'image': 'https://www.yantralegal.com.au/assets/logo.png',
-    'description': 'Yantra Legal is a premier immigration law firm in Sydney, Australia providing strategic visa approvals, citizenship advice, and migration appeal representation.',
+    'legalName': 'Yantra Legal Pty Ltd',
+    'image': 'https://www.yantralegal.com.au/Yantralegalnewlogo.png',
+    'logo': 'https://www.yantralegal.com.au/Yantralegalnewlogo.png',
+    'description': 'Boutique Sydney law practice providing clear, practical advice on Australian migration and family law — including visas, visa refusals and appeals, and divorce.',
     'address': {
       '@type': 'PostalAddress',
       'streetAddress': 'Level 35, 1 Martin Place',
@@ -99,11 +103,56 @@ export default async function RootLayout({
       'postalCode': '2000',
       'addressCountry': 'AU',
     },
-    'telephone': '+61 2 0000 0000',
-    'email': 'info@yantralegal.com.au',
+    'geo': {
+      '@type': 'GeoCoordinates',
+      'latitude': -33.8675,
+      'longitude': 151.2094,
+    },
+    'telephone': settings.phone,
+    'email': settings.email,
     'url': 'https://www.yantralegal.com.au',
-    'priceRange': '$$$',
-    'areaServed': 'AU',
+    'priceRange': '$$',
+    'areaServed': [
+      { '@type': 'City', 'name': 'Sydney' },
+      { '@type': 'State', 'name': 'New South Wales' },
+      { '@type': 'Country', 'name': 'Australia' },
+    ],
+    'knowsLanguage': ['en', 'ne'],
+    'founder': {
+      '@type': 'Person',
+      'name': 'Krishna Giri',
+      'jobTitle': 'Principal Solicitor',
+    },
+    // NOTE: confirm these are your actual consulting hours before go-live.
+    'openingHoursSpecification': [
+      {
+        '@type': 'OpeningHoursSpecification',
+        'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        'opens': '09:00',
+        'closes': '17:00',
+      },
+    ],
+    // Aggregate rating mirrors the Google review score shown on the site.
+    'aggregateRating': {
+      '@type': 'AggregateRating',
+      'ratingValue': '5.0',
+      'reviewCount': 48,
+      'bestRating': '5',
+      'worstRating': '1',
+    },
+    'review': testimonialsData.map((t) => ({
+      '@type': 'Review',
+      'reviewRating': {
+        '@type': 'Rating',
+        'ratingValue': String(t.rating),
+        'bestRating': '5',
+      },
+      'author': {
+        '@type': 'Person',
+        'name': t.name,
+      },
+      'reviewBody': t.text,
+    })),
   };
 
   return (

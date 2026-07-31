@@ -9,6 +9,9 @@ export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'Terms of Use | Yantra Legal',
   description: 'Website Terms of Use for Yantra Legal.',
+  alternates: {
+    canonical: '/terms-of-use',
+  },
 };
 
 export default async function TermsOfUsePage() {

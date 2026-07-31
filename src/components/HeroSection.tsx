@@ -54,7 +54,7 @@ export default function HeroSection() {
             <div className="hero-portrait-frame mobile-only-portrait">
               <Image
                 src="/sydney_law_office_clean.png"
-                alt="Yantra Legal Sydney Office"
+                alt="Yantra Legal Sydney Law Office in Martin Place"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 440px"
@@ -88,7 +88,7 @@ export default function HeroSection() {
             <div className="hero-portrait-frame">
               <Image
                 src="/sydney_law_office_clean.png"
-                alt="Yantra Legal Sydney Office"
+                alt="Yantra Legal Sydney Law Office in Martin Place"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 440px"

@@ -2702,6 +2702,8 @@ export default function AdminDashboard() {
                         <div><strong>Gender:</strong> {selectedIntake.clientGender}</div>
                         <div><strong>Phone:</strong> {selectedIntake.clientPhone}</div>
                         <div><strong>Email:</strong> {selectedIntake.clientEmail}</div>
+                        <div><strong>Living in Australia Since:</strong> {selectedIntake.clientLivingInAustraliaSince || 'N/A'}</div>
+                        <div><strong>Occupation:</strong> {selectedIntake.clientOccupation || 'N/A'}</div>
                         <div style={{ gridColumn: 'span 2' }}>
                           <strong>Address:</strong> {selectedIntake.clientAddress?.street}, {selectedIntake.clientAddress?.street2 ? selectedIntake.clientAddress.street2 + ', ' : ''} {selectedIntake.clientAddress?.suburb}, {selectedIntake.clientAddress?.state} {selectedIntake.clientAddress?.postcode}
                         </div>
@@ -2720,6 +2722,8 @@ export default function AdminDashboard() {
                         <div><strong>Gender:</strong> {selectedIntake.otherPartyGender}</div>
                         <div><strong>Phone:</strong> {selectedIntake.otherPartyPhone || 'N/A'}</div>
                         <div><strong>Email:</strong> {selectedIntake.otherPartyEmail || 'N/A'}</div>
+                        <div><strong>Living in Australia Since:</strong> {selectedIntake.otherPartyLivingInAustraliaSince || 'N/A'}</div>
+                        <div><strong>Occupation:</strong> {selectedIntake.otherPartyOccupation || 'N/A'}</div>
                         <div style={{ gridColumn: 'span 2' }}>
                           <strong>Address:</strong> {selectedIntake.otherPartyAddress?.street}, {selectedIntake.otherPartyAddress?.street2 ? selectedIntake.otherPartyAddress.street2 + ', ' : ''} {selectedIntake.otherPartyAddress?.suburb}, {selectedIntake.otherPartyAddress?.state} {selectedIntake.otherPartyAddress?.postcode}
                         </div>
@@ -2732,13 +2736,14 @@ export default function AdminDashboard() {
                         Relationship Information
                       </h4>
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '0.9rem' }}>
+                        <div><strong>Application Type:</strong> {selectedIntake.applicationType || 'N/A'}</div>
                         <div><strong>Commencement Date:</strong> {selectedIntake.relationshipCommencement ? new Date(selectedIntake.relationshipCommencement).toLocaleDateString() : 'N/A'}</div>
                         <div><strong>Date of Marriage:</strong> {selectedIntake.dateOfMarriage ? new Date(selectedIntake.dateOfMarriage).toLocaleDateString() : 'N/A'}</div>
                         <div><strong>Separated?</strong> {selectedIntake.isSeparated}</div>
-                        {selectedIntake.isSeparated === 'Yes' && (
-                          <div><strong>Date of Separation:</strong> {selectedIntake.dateOfSeparation ? new Date(selectedIntake.dateOfSeparation).toLocaleDateString() : 'N/A'}</div>
+                        <div><strong>Date of Separation:</strong> {selectedIntake.dateOfSeparation ? new Date(selectedIntake.dateOfSeparation).toLocaleDateString() : 'N/A'}</div>
+                        {selectedIntake.dateOfDivorce && (
+                          <div><strong>Date of Divorce (Legacy):</strong> {new Date(selectedIntake.dateOfDivorce).toLocaleDateString()}</div>
                         )}
-                        <div><strong>Date of Divorce:</strong> {selectedIntake.dateOfDivorce ? new Date(selectedIntake.dateOfDivorce).toLocaleDateString() : 'N/A'}</div>
                       </div>
                     </div>
 

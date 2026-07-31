@@ -16,6 +16,9 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'About Krishna Giri & Yantra Legal | Sydney Law Practice',
   description: 'Learn about Yantra Legal, founded by solicitor Krishna Giri. Our boutique Sydney practice provides strategic migration and divorce representation shaped by lived experience.',
+  alternates: {
+    canonical: '/about',
+  },
 };
 
 

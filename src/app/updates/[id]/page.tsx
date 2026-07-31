@@ -32,9 +32,22 @@ export async function generateMetadata({ params }: { params: Params }) {
     };
   }
 
+  const description = update.content.substring(0, 150);
+
   return {
     title: `${update.heading} | Yantra Legal Updates`,
-    description: update.content.substring(0, 150),
+    description,
+    alternates: {
+      canonical: `/updates/${id}`,
+    },
+    openGraph: {
+      type: 'article',
+      title: update.heading,
+      description,
+      url: `/updates/${id}`,
+      siteName: 'Yantra Legal',
+      locale: 'en_AU',
+    },
   };
 }
 

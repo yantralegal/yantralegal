@@ -9,6 +9,9 @@ export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'Privacy Policy | Yantra Legal',
   description: 'Privacy Policy for Yantra Legal.',
+  alternates: {
+    canonical: '/privacy-policy',
+  },
 };
 
 export default async function PrivacyPolicyPage() {

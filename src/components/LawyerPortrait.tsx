@@ -9,7 +9,7 @@ export default function LawyerPortrait() {
 
       <Image
         src="/solicitorkrishna.png"
-        alt="Principal Solicitor Portrait"
+        alt="Krishna Giri - Principal Solicitor & Migration Lawyer at Yantra Legal Sydney"
         fill
         priority
         sizes="(max-width: 1024px) 100vw, 440px"
