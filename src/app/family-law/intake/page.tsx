@@ -23,9 +23,7 @@ export default function FamilyLawIntakePage() {
     clientMiddle: '',
     clientLast: '',
     clientOther: '',
-    clientDobDay: '',
-    clientDobMonth: '',
-    clientDobYear: '',
+    clientDob: '',
     clientGender: '',
     clientStreet: '',
     clientStreet2: '',
@@ -42,9 +40,7 @@ export default function FamilyLawIntakePage() {
     otherPartyMiddle: '',
     otherPartyLast: '',
     otherPartyOther: '',
-    otherPartyDobDay: '',
-    otherPartyDobMonth: '',
-    otherPartyDobYear: '',
+    otherPartyDob: '',
     otherPartyGender: '',
     otherPartyStreet: '',
     otherPartyStreet2: '',
@@ -127,6 +123,14 @@ export default function FamilyLawIntakePage() {
         setValidationError('Please enter Client First Name and Last Name.');
         return false;
       }
+      if (!form.clientDob) {
+        setValidationError('Please enter Client Date of Birth.');
+        return false;
+      }
+      if (!form.clientStreet.trim() || !form.clientSuburb.trim() || !form.clientState.trim() || !form.clientPostcode.trim()) {
+        setValidationError('Please enter full Client Address (Street, Suburb, State, and Postcode).');
+        return false;
+      }
       if (!form.clientPhone.trim()) {
         setValidationError('Please enter Client Mobile Number.');
         return false;
@@ -135,10 +139,34 @@ export default function FamilyLawIntakePage() {
         setValidationError('Please enter Client Email Address.');
         return false;
       }
+      if (!form.clientLivingInAustraliaSince) {
+        setValidationError('Please enter the date you have been living in Australia since.');
+        return false;
+      }
+      if (!form.clientOccupation.trim()) {
+        setValidationError('Please enter Client Occupation.');
+        return false;
+      }
     }
     if (step === 2) {
       if (!form.otherPartyFirst.trim() || !form.otherPartyLast.trim()) {
         setValidationError("Please enter Other Party's First Name and Last Name.");
+        return false;
+      }
+      if (!form.otherPartyDob) {
+        setValidationError("Please enter Other Party's Date of Birth.");
+        return false;
+      }
+      if (!form.otherPartyStreet.trim() || !form.otherPartySuburb.trim() || !form.otherPartyState.trim() || !form.otherPartyPostcode.trim()) {
+        setValidationError("Please enter full Other Party's Address (Street, Suburb, State, and Postcode).");
+        return false;
+      }
+      if (!form.otherPartyLivingInAustraliaSince) {
+        setValidationError("Please enter the date the Other Party has been living in Australia since.");
+        return false;
+      }
+      if (!form.otherPartyOccupation.trim()) {
+        setValidationError("Please enter Other Party's Occupation.");
         return false;
       }
     }
@@ -160,6 +188,9 @@ export default function FamilyLawIntakePage() {
   };
 
   const handleNext = () => {
+    if (!validateStep()) {
+      return;
+    }
     setValidationError('');
     setStep((s) => s + 1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -178,6 +209,14 @@ export default function FamilyLawIntakePage() {
       setValidationError('Please enter Client First Name and Last Name.');
       return false;
     }
+    if (!form.clientDob) {
+      setValidationError('Please enter Client Date of Birth.');
+      return false;
+    }
+    if (!form.clientStreet.trim() || !form.clientSuburb.trim() || !form.clientState.trim() || !form.clientPostcode.trim()) {
+      setValidationError('Please enter full Client Address (Street, Suburb, State, and Postcode).');
+      return false;
+    }
     if (!form.clientPhone.trim()) {
       setValidationError('Please enter Client Mobile Number.');
       return false;
@@ -186,9 +225,33 @@ export default function FamilyLawIntakePage() {
       setValidationError('Please enter Client Email Address.');
       return false;
     }
+    if (!form.clientLivingInAustraliaSince) {
+      setValidationError('Please enter the date you have been living in Australia since.');
+      return false;
+    }
+    if (!form.clientOccupation.trim()) {
+      setValidationError('Please enter Client Occupation.');
+      return false;
+    }
     // Other Party Info
     if (!form.otherPartyFirst.trim() || !form.otherPartyLast.trim()) {
       setValidationError("Please enter Other Party's First Name and Last Name.");
+      return false;
+    }
+    if (!form.otherPartyDob) {
+      setValidationError("Please enter Other Party's Date of Birth.");
+      return false;
+    }
+    if (!form.otherPartyStreet.trim() || !form.otherPartySuburb.trim() || !form.otherPartyState.trim() || !form.otherPartyPostcode.trim()) {
+      setValidationError("Please enter full Other Party's Address (Street, Suburb, State, and Postcode).");
+      return false;
+    }
+    if (!form.otherPartyLivingInAustraliaSince) {
+      setValidationError("Please enter the date the Other Party has been living in Australia since.");
+      return false;
+    }
+    if (!form.otherPartyOccupation.trim()) {
+      setValidationError("Please enter Other Party's Occupation.");
       return false;
     }
     // Relationship
@@ -236,9 +299,21 @@ export default function FamilyLawIntakePage() {
       formData.append('clientName_middle', form.clientMiddle);
       formData.append('clientName_last', form.clientLast);
       formData.append('clientName_other', form.clientOther);
-      formData.append('clientDob_day', form.clientDobDay);
-      formData.append('clientDob_month', form.clientDobMonth);
-      formData.append('clientDob_year', form.clientDobYear);
+      if (form.clientDob) {
+        const [year, monthNum, day] = form.clientDob.split('-');
+        const monthNames = [
+          'January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        const monthIdx = parseInt(monthNum, 10) - 1;
+        formData.append('clientDob_day', parseInt(day, 10).toString());
+        formData.append('clientDob_month', monthNames[monthIdx] || '');
+        formData.append('clientDob_year', year);
+      } else {
+        formData.append('clientDob_day', '');
+        formData.append('clientDob_month', '');
+        formData.append('clientDob_year', '');
+      }
       formData.append('clientGender', form.clientGender);
       formData.append('clientAddress_street', form.clientStreet);
       formData.append('clientAddress_street2', form.clientStreet2);
@@ -255,9 +330,21 @@ export default function FamilyLawIntakePage() {
       formData.append('otherPartyName_middle', form.otherPartyMiddle);
       formData.append('otherPartyName_last', form.otherPartyLast);
       formData.append('otherPartyName_other', form.otherPartyOther);
-      formData.append('otherPartyDob_day', form.otherPartyDobDay);
-      formData.append('otherPartyDob_month', form.otherPartyDobMonth);
-      formData.append('otherPartyDob_year', form.otherPartyDobYear);
+      if (form.otherPartyDob) {
+        const [year, monthNum, day] = form.otherPartyDob.split('-');
+        const monthNames = [
+          'January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        const monthIdx = parseInt(monthNum, 10) - 1;
+        formData.append('otherPartyDob_day', parseInt(day, 10).toString());
+        formData.append('otherPartyDob_month', monthNames[monthIdx] || '');
+        formData.append('otherPartyDob_year', year);
+      } else {
+        formData.append('otherPartyDob_day', '');
+        formData.append('otherPartyDob_month', '');
+        formData.append('otherPartyDob_year', '');
+      }
       formData.append('otherPartyGender', form.otherPartyGender);
       formData.append('otherPartyAddress_street', form.otherPartyStreet);
       formData.append('otherPartyAddress_street2', form.otherPartyStreet2);
@@ -450,12 +537,8 @@ export default function FamilyLawIntakePage() {
                     {/* DOB & Gender */}
                     <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px', marginBottom: '20px' }}>
                       <div className="form-group">
-                        <label className="form-label-static">Date of Birth</label>
-                        <div style={{ display: 'flex', gap: '8px' }}>
-                          <input type="number" placeholder="Day" name="clientDobDay" value={form.clientDobDay} onChange={handleInputChange} min="1" max="31" className="form-input" style={{ flex: 1 }} />
-                          <input type="text" placeholder="Month" name="clientDobMonth" value={form.clientDobMonth} onChange={handleInputChange} className="form-input" style={{ flex: 1 }} />
-                          <input type="number" placeholder="Year" name="clientDobYear" value={form.clientDobYear} onChange={handleInputChange} min="1900" max="2026" className="form-input" style={{ flex: 1 }} />
-                        </div>
+                        <label className="form-label-static">Date of Birth <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="date" name="clientDob" value={form.clientDob} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} required />
                       </div>
                       <div className="form-group">
                         <label className="form-label-static">Gender</label>
@@ -467,11 +550,10 @@ export default function FamilyLawIntakePage() {
                       </div>
                     </div>
 
-                    {/* Address Block */}
-                    <h4 style={{ fontSize: '0.95rem', color: '#ffffff', marginBottom: '12px', marginTop: '24px' }}>Address</h4>
+                     <h4 style={{ fontSize: '0.95rem', color: '#ffffff', marginBottom: '12px', marginTop: '24px' }}>Address <span style={{ color: '#ef4444' }}>*</span></h4>
                     <div className="form-group" style={{ marginBottom: '16px' }}>
-                      <label className="form-label-static">Street Address</label>
-                      <input type="text" name="clientStreet" value={form.clientStreet} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                      <label className="form-label-static">Street Address <span style={{ color: '#ef4444' }}>*</span></label>
+                      <input type="text" name="clientStreet" value={form.clientStreet} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} required />
                     </div>
                     <div className="form-group" style={{ marginBottom: '16px' }}>
                       <label className="form-label-static">Address Line 2</label>
@@ -479,16 +561,16 @@ export default function FamilyLawIntakePage() {
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '12px', marginBottom: '24px' }}>
                       <div className="form-group">
-                        <label className="form-label-static">Suburb</label>
-                        <input type="text" name="clientSuburb" value={form.clientSuburb} onChange={handleInputChange} className="form-input" />
+                        <label className="form-label-static">Suburb <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" name="clientSuburb" value={form.clientSuburb} onChange={handleInputChange} className="form-input" required />
                       </div>
                       <div className="form-group">
-                        <label className="form-label-static">State</label>
-                        <input type="text" name="clientState" value={form.clientState} onChange={handleInputChange} className="form-input" />
+                        <label className="form-label-static">State <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" name="clientState" value={form.clientState} onChange={handleInputChange} className="form-input" required />
                       </div>
                       <div className="form-group">
-                        <label className="form-label-static">Post Code</label>
-                        <input type="text" name="clientPostcode" value={form.clientPostcode} onChange={handleInputChange} className="form-input" />
+                        <label className="form-label-static">Post Code <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" name="clientPostcode" value={form.clientPostcode} onChange={handleInputChange} className="form-input" required />
                       </div>
                     </div>
 
@@ -506,12 +588,12 @@ export default function FamilyLawIntakePage() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
                       <div className="form-group">
-                        <label className="form-label-static">Living in Australia Since</label>
-                        <input type="text" placeholder="DD/MM/YYYY" name="clientLivingInAustraliaSince" value={form.clientLivingInAustraliaSince} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                        <label className="form-label-static">Living in Australia Since <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="date" name="clientLivingInAustraliaSince" value={form.clientLivingInAustraliaSince} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} required />
                       </div>
                       <div className="form-group">
-                        <label className="form-label-static">Occupation</label>
-                        <input type="text" name="clientOccupation" value={form.clientOccupation} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                        <label className="form-label-static">Occupation <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" name="clientOccupation" value={form.clientOccupation} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} required />
                       </div>
                     </div>
                   </div>
@@ -548,12 +630,8 @@ export default function FamilyLawIntakePage() {
                     {/* DOB & Gender */}
                     <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px', marginBottom: '20px' }}>
                       <div className="form-group">
-                        <label className="form-label-static">Date of Birth</label>
-                        <div style={{ display: 'flex', gap: '8px' }}>
-                          <input type="number" placeholder="Day" name="otherPartyDobDay" value={form.otherPartyDobDay} onChange={handleInputChange} min="1" max="31" className="form-input" style={{ flex: 1 }} />
-                          <input type="text" placeholder="Month" name="otherPartyDobMonth" value={form.otherPartyDobMonth} onChange={handleInputChange} className="form-input" style={{ flex: 1 }} />
-                          <input type="number" placeholder="Year" name="otherPartyDobYear" value={form.otherPartyDobYear} onChange={handleInputChange} min="1900" max="2026" className="form-input" style={{ flex: 1 }} />
-                        </div>
+                        <label className="form-label-static">Date of Birth <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="date" name="otherPartyDob" value={form.otherPartyDob} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} required />
                       </div>
                       <div className="form-group">
                         <label className="form-label-static">Gender</label>
@@ -565,11 +643,10 @@ export default function FamilyLawIntakePage() {
                       </div>
                     </div>
 
-                    {/* Address Block */}
-                    <h4 style={{ fontSize: '0.95rem', color: '#ffffff', marginBottom: '12px', marginTop: '24px' }}>Address</h4>
+                     <h4 style={{ fontSize: '0.95rem', color: '#ffffff', marginBottom: '12px', marginTop: '24px' }}>Address <span style={{ color: '#ef4444' }}>*</span></h4>
                     <div className="form-group" style={{ marginBottom: '16px' }}>
-                      <label className="form-label-static">Street Address</label>
-                      <input type="text" name="otherPartyStreet" value={form.otherPartyStreet} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                      <label className="form-label-static">Street Address <span style={{ color: '#ef4444' }}>*</span></label>
+                      <input type="text" name="otherPartyStreet" value={form.otherPartyStreet} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} required />
                     </div>
                     <div className="form-group" style={{ marginBottom: '16px' }}>
                       <label className="form-label-static">Address Line 2</label>
@@ -577,16 +654,16 @@ export default function FamilyLawIntakePage() {
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '12px', marginBottom: '24px' }}>
                       <div className="form-group">
-                        <label className="form-label-static">Suburb</label>
-                        <input type="text" name="otherPartySuburb" value={form.otherPartySuburb} onChange={handleInputChange} className="form-input" />
+                        <label className="form-label-static">Suburb <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" name="otherPartySuburb" value={form.otherPartySuburb} onChange={handleInputChange} className="form-input" required />
                       </div>
                       <div className="form-group">
-                        <label className="form-label-static">State</label>
-                        <input type="text" name="otherPartyState" value={form.otherPartyState} onChange={handleInputChange} className="form-input" />
+                        <label className="form-label-static">State <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" name="otherPartyState" value={form.otherPartyState} onChange={handleInputChange} className="form-input" required />
                       </div>
                       <div className="form-group">
-                        <label className="form-label-static">Post Code</label>
-                        <input type="text" name="otherPartyPostcode" value={form.otherPartyPostcode} onChange={handleInputChange} className="form-input" />
+                        <label className="form-label-static">Post Code <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" name="otherPartyPostcode" value={form.otherPartyPostcode} onChange={handleInputChange} className="form-input" required />
                       </div>
                     </div>
 
@@ -604,12 +681,12 @@ export default function FamilyLawIntakePage() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
                       <div className="form-group">
-                        <label className="form-label-static">Living in Australia Since</label>
-                        <input type="text" placeholder="DD/MM/YYYY" name="otherPartyLivingInAustraliaSince" value={form.otherPartyLivingInAustraliaSince} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                        <label className="form-label-static">Living in Australia Since <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="date" name="otherPartyLivingInAustraliaSince" value={form.otherPartyLivingInAustraliaSince} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} required />
                       </div>
                       <div className="form-group">
-                        <label className="form-label-static">Occupation</label>
-                        <input type="text" name="otherPartyOccupation" value={form.otherPartyOccupation} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
+                        <label className="form-label-static">Occupation <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" name="otherPartyOccupation" value={form.otherPartyOccupation} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} required />
                       </div>
                     </div>
                   </div>
@@ -701,10 +778,6 @@ export default function FamilyLawIntakePage() {
                           <option value="Joint">Joint</option>
                         </select>
                       </div>
-                      <div className="form-group">
-                        <label className="form-label-static">Date of Separation</label>
-                        <input type="date" name="dateOfSeparation" value={form.dateOfSeparation} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
-                      </div>
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
@@ -727,6 +800,10 @@ export default function FamilyLawIntakePage() {
                           <option value="No">No</option>
                           <option value="N/A">N/A</option>
                         </select>
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label-static">Date of Separation</label>
+                        <input type="date" name="dateOfSeparation" value={form.dateOfSeparation} onChange={handleInputChange} className="form-input" style={{ width: '100%' }} />
                       </div>
                     </div>
 
@@ -839,7 +916,7 @@ export default function FamilyLawIntakePage() {
                         required
                       />
                       <label htmlFor="agreeTermsIntake" className="checkbox-label" style={{ fontSize: '0.85rem', color: '#ffffff' }}>
-                        I agree to terms & conditions. <span style={{ color: '#ef4444' }}>*</span>
+                        I agree to <Link href="/consultation-terms" target="_blank" style={{ color: 'var(--clr-yellow)', textDecoration: 'underline' }}>terms & conditions</Link>. <span style={{ color: '#ef4444' }}>*</span>
                       </label>
                     </div>
 

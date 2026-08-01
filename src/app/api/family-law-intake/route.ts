@@ -15,6 +15,67 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     
+    // Backend validation for Client Information
+    const clientFirst = formData.get('clientName_first') as string;
+    const clientLast = formData.get('clientName_last') as string;
+    const clientDobDay = formData.get('clientDob_day') as string;
+    const clientDobYear = formData.get('clientDob_year') as string;
+    const clientStreet = formData.get('clientAddress_street') as string;
+    const clientSuburb = formData.get('clientAddress_suburb') as string;
+    const clientState = formData.get('clientAddress_state') as string;
+    const clientPostcode = formData.get('clientAddress_postcode') as string;
+    const clientPhone = formData.get('clientPhone') as string;
+    const clientEmail = formData.get('clientEmail') as string;
+    const clientLivingInAustraliaSince = formData.get('clientLivingInAustraliaSince') as string;
+    const clientOccupation = formData.get('clientOccupation') as string;
+
+    if (!clientFirst?.trim() || !clientLast?.trim()) {
+      return NextResponse.json({ error: 'Client First Name and Last Name are required.' }, { status: 400 });
+    }
+    if (!clientDobDay?.trim() || !clientDobYear?.trim()) {
+      return NextResponse.json({ error: 'Client Date of Birth is required.' }, { status: 400 });
+    }
+    if (!clientStreet?.trim() || !clientSuburb?.trim() || !clientState?.trim() || !clientPostcode?.trim()) {
+      return NextResponse.json({ error: 'Client Address (Street, Suburb, State, and Postcode) is required.' }, { status: 400 });
+    }
+    if (!clientPhone?.trim() || !clientEmail?.trim()) {
+      return NextResponse.json({ error: 'Client Phone and Email are required.' }, { status: 400 });
+    }
+    if (!clientLivingInAustraliaSince?.trim()) {
+      return NextResponse.json({ error: 'Client "Living in Australia Since" date is required.' }, { status: 400 });
+    }
+    if (!clientOccupation?.trim()) {
+      return NextResponse.json({ error: 'Client Occupation is required.' }, { status: 400 });
+    }
+
+    // Backend validation for Other Party Information
+    const otherPartyFirst = formData.get('otherPartyName_first') as string;
+    const otherPartyLast = formData.get('otherPartyName_last') as string;
+    const otherPartyDobDay = formData.get('otherPartyDob_day') as string;
+    const otherPartyDobYear = formData.get('otherPartyDob_year') as string;
+    const otherPartyStreet = formData.get('otherPartyAddress_street') as string;
+    const otherPartySuburb = formData.get('otherPartyAddress_suburb') as string;
+    const otherPartyState = formData.get('otherPartyAddress_state') as string;
+    const otherPartyPostcode = formData.get('otherPartyAddress_postcode') as string;
+    const otherPartyLivingInAustraliaSince = formData.get('otherPartyLivingInAustraliaSince') as string;
+    const otherPartyOccupation = formData.get('otherPartyOccupation') as string;
+
+    if (!otherPartyFirst?.trim() || !otherPartyLast?.trim()) {
+      return NextResponse.json({ error: "Other Party's First Name and Last Name are required." }, { status: 400 });
+    }
+    if (!otherPartyDobDay?.trim() || !otherPartyDobYear?.trim()) {
+      return NextResponse.json({ error: "Other Party's Date of Birth is required." }, { status: 400 });
+    }
+    if (!otherPartyStreet?.trim() || !otherPartySuburb?.trim() || !otherPartyState?.trim() || !otherPartyPostcode?.trim()) {
+      return NextResponse.json({ error: "Other Party's Address (Street, Suburb, State, and Postcode) is required." }, { status: 400 });
+    }
+    if (!otherPartyLivingInAustraliaSince?.trim()) {
+      return NextResponse.json({ error: 'Other Party "Living in Australia Since" date is required.' }, { status: 400 });
+    }
+    if (!otherPartyOccupation?.trim()) {
+      return NextResponse.json({ error: "Other Party's Occupation is required." }, { status: 400 });
+    }
+
     // Parse files
     const file = formData.get('identityFile') as File | null;
     let identityUrl = '';
