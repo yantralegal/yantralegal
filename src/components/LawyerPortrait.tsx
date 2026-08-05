@@ -8,7 +8,7 @@ export default function LawyerPortrait() {
       <div style={glowBackdropStyle} />
 
       <Image
-        src="/solicitorkrishna.png"
+        src="/solicitorkrishnafinal.jpeg"
         alt="Krishna Giri - Principal Solicitor & Migration Lawyer at Yantra Legal Sydney"
         fill
         priority
